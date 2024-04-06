@@ -1,0 +1,91 @@
+<div class="container">
+    <h2>Editar Horario</h2>
+    <div class="form-group col-4 mb-4">
+        <h5>Evento</h5>
+        <input type="text" class="form-control" id="evento" [value]="evento.nombre" disabled>
+    </div>
+    <div class="form-group col-4 mb-4">
+        <h5>Codigo</h5>
+        <input type="text" class="form-control" id="codigo" [value]="evento.codigo" disabled>
+    </div>
+    <div class="form-group col-4 mb-3">
+        <h5>Fecha de evento</h5>
+        <input type="text" class="form-control" id="date" [value]="evento.inicio | date: 'dd/MM/yy'" disabled/>
+    </div>
+    <div class="form-group col-4 mb-3">
+        <h5 class="form-label w-100">Hora inicio</h5>
+            <div class="d-inline-flex flex-row">
+                <div>
+                    <div class="form-group">
+                        <div class="form-group">
+                            <select class="form-control" name="time_end_minute" [(ngModel)]="inicio.hour" >
+                                <option *ngFor="let minuto of listaHora| orderAbmById" [value]="minuto">{{minuto}}</option>
+                            </select>
+                        </div> 
+                    </div>       
+                </div>
+            <div>
+                <div class="p-1">:</div>
+            </div>
+                <div>
+                    <div class="form-group">
+                        <select class="form-control" name="time_end_minute" [(ngModel)]="inicio.minute" >
+                            <option *ngFor="let minuto of listaMinuto| orderAbmById" [value]="minuto">{{minuto}}</option>
+                        </select>
+                    </div> 
+                </div>
+            </div>
+    </div>
+        
+    <div class="form-group col-4 mb-3" id="time_end_div">
+        <input id="time_end" type="hidden" th:field="*{fin}">
+        <h5 class="form-label w-100">Hora final</h5>
+        <div class="d-inline-flex flex-row">
+            <div>
+                <div class="form-group">
+                    <select class="form-control" name="time_end_minute" [(ngModel)]="fin.hour" >
+                        <option *ngFor="let minuto of listaHora| orderAbmById" [value]="minuto">{{minuto}}</option>
+                    </select>
+                </div> 
+            </div>
+            <div>
+                <div class="p-1"> : </div>
+            </div>
+            <div>
+                <div class="form-group">
+                    <select class="form-control" name="time_end_minute" [(ngModel)]="fin.minute" >
+                        <option *ngFor="let minuto of listaMinuto| orderAbmById" [value]="minuto">{{minuto}}</option>
+                    </select>
+                </div> 
+            </div>
+        </div>
+    </div>
+    
+    <div class="form-check col-4">
+        <input class="form-check-input" type="checkbox" id="hastaElOtroDiaCheckbox" [(ngModel)]="hastaElOtroDiaCheckbox">
+        <label class="form-check-label" for="hastaElOtroDiaCheckbox"> Dura hasta el otro dia </label>
+    </div>
+    
+    <div class="col-md-8">
+        <div id="fechaNoDisponible" class="d-none">
+            <div class="alert alert-danger" role="alert">
+                <p><strong>Fecha no disponible,</strong> Tenga en cuenta que entre evento y evento calcula 1 hora de margen.</p>
+            </div>
+        </div>
+        <div id="fechaDisponible" class="d-none col-md-8">
+            <div class="alert alert-success" role="alert"><strong>Fecha disponible</strong></div>
+        </div>
+        <div id="listaEvento"></div>
+    </div>
+
+    <div class="container mt-3">
+        <div class="gap-2 d-flex justify-content-end">
+            <div>
+                <button (click)="volver()"class="btn btn-primary">Volver</button>
+            </div>
+            <div>
+                <button (click)="save()" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

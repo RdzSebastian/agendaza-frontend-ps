@@ -1,0 +1,5 @@
+<div class="step-box" [ngStyle]="{'background-color': (isStep(stepBox.id)) ? '#007bff' : ''}">
+    <p [ngStyle]="{'color': (isStep(stepBox.id)) ? 'white' : ''}"> 
+        <strong>{{stepBox.id}}</strong> - {{stepBox.nombre}}
+    </p>
+</div>

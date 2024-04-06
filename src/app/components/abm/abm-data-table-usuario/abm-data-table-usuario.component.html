@@ -1,0 +1,27 @@
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover table-condensed example-animate-container">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th class="d-flex justify-content-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of listaItems | filterAbm: currentRegistro:buscar | orderAbmByNombre">
+                <td>{{item.nombre}}</td>
+                <td>{{item.apellido}}</td>
+                
+                <td class="center-items-abm">
+                    <button [disabled]="(isUsuarioEditable(item))" (click)="editar(item.id)" class="mx-2">
+                        <i [ngStyle]="{'color': (isUsuarioEditable(item)) ? 'gray' : 'rgb(255,193,7)' }" class="fas fa-edit fa-lg"></i>
+                    </button>
+                    <button [disabled]="(isUsuarioEditable(item))" (click)="editarPassword(item.id)" class="mx-2">
+                        <i [ngStyle]="{'color': (isUsuarioEditable(item)) ? 'gray' : 'rgb(13,110,253)' }" class="fas fa-key fa-lg"></i>
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

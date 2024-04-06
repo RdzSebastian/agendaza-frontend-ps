@@ -1,0 +1,204 @@
+<div class="container">
+    <div class="d-flex justify-content-between">
+        <div>
+            <h2>Ver Evento</h2>
+        </div>
+        <div *ngIf='eventoReenviarMail' class="col-4">
+            <div class="alert alert-success">Mail Enviado exitosamente</div>
+        </div>
+        <div *ngIf='eventoErrorReenviarMail.condicional' class="col-4">
+            <div class="alert alert-danger">{{eventoErrorReenviarMail.mensaje}}</div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">
+            <div class="form-group mb-4">
+                <div>
+                    <div class="d-flex justify-content-between col-8">
+                        <h5>Evento</h5>
+                        <button (click)="editEventoNombreModal()"><i class="fas fa-edit text-warning fa-lg"></i></button>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" name="evento" [value]="evento.nombre" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-9 mb-4">
+                <h5>Codigo</h5>
+                <input type="text" class="form-control" name="codigo" [value]="evento.codigo" disabled>
+            </div>
+
+            <div class="form-group col-9 mb-4">
+                <h5>Fecha de evento</h5>
+                <input type="text" class="form-control" name="date" [value]="evento.inicio | date: 'dd/MM/yy'" disabled>
+            </div>
+                        
+            <div class="form-group col-9 mb-4">
+                <h5>Hora inicio</h5>
+                <div class="d-inline-flex flex-row">
+                    <div class="form-group col-3">
+                        <input class="form-control" [value]="inicio.hour" disabled>
+                    </div>
+                    <div>
+                        <div class="p-1">:</div>
+                    </div>
+                    <div class="form-group col-3">
+                        <input class="form-control" [value]="inicio.minute" disabled>
+                    </div>
+                </div>
+            </div>
+                
+            <div class="form-group col-9 mb-4">
+                <h5>Hora final</h5>
+                <div class="d-inline-flex flex-row">
+                    <div class="form-group col-3">
+                        <input class="form-control" [value]="fin.hour" disabled>
+                    </div>
+                    <div>
+                        <div class="p-1"> : </div>
+                    </div>
+                    <div class="form-group col-3">
+                        <input class="form-control" [value]="fin.minute" disabled>
+                    </div> 
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-3">
+            <div class="form-group col-9 mb-4">
+                <h5>Tipo Evento</h5>
+                <input type="text" class="form-control" id="subTipoEvento" [value]="evento.tipoEventoNombre" disabled>
+            </div>
+            <div class="form-group col-9 mb-4">
+                <h5>Empresa</h5>
+                <input type="text" class="form-control" id="salon" [value]="evento.empresa" disabled/>
+            </div>
+            <div class="form-group col-9 mb-4">
+                <h5>Prespuesto</h5>
+                <input type="text" class="form-control" id="presupuesto" [value]="evento.presupuesto" disabled>
+            </div>
+            <div class="form-group mb-4">
+                <div>
+                    <div class="d-flex justify-content-between col-8">
+                        <h5>Cant. Adultos</h5>
+                        <button (click)="editCantAdultosModal()"><i class="fas fa-edit text-warning fa-lg"></i></button>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="capacidad_adultos" [value]="evento.capacidad.capacidadAdultos" disabled>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-4">
+                <div>
+                    <div class="d-flex justify-content-between col-8">
+                        <h5>Cant. Niños</h5>
+                        <button (click)="editCantNinosModal()"><i class="fas fa-edit text-warning fa-lg"></i></button>
+                    </div>
+                    <div class="col-9">
+                        <input type="text" class="form-control" id="capacidad_ninos" [value]="evento.capacidad.capacidadNinos" disabled>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div>
+                <div class="d-flex justify-content-between col-8">
+                    <h5>Cliente</h5>
+                    <a (click)="verCliente()" class="inactiveLink"><i class="fas fa-eye text-muted fa-lg"></i></a>
+                </div>
+                <div class="mb-4 col-9">
+                    <input type="text" class="form-control" id="cliente" [value]="evento.cliente.apellido + ', ' + evento.cliente.nombre" disabled>
+                </div>
+            </div>
+
+            <div>
+                <div class="d-flex justify-content-between col-8">
+                    <h5>Extras</h5>
+                    <button *ngIf="extras" (click)="setListaModal(evento.listaExtra)"><i class="fas fa-eye text-primary fa-lg"></i></button>
+                </div>
+                <div class="mb-4 col-9">
+                    <input type="text" class="form-control" name="extras" [value]="extras | siNo" disabled>
+                </div>
+            </div>
+            
+            <div>
+                <div class="d-flex justify-content-between col-8">
+                    <h5>Extras Variables</h5>
+                    <button *ngIf="extrasVariables" (click)="setListaModal(listaExtraVariableToModal(evento.listaExtraVariable))"><i class="fas fa-eye text-primary fa-lg"></i></button>
+                </div>
+                <div class="mb-4 col-9">
+                    <input type="text" class="form-control" name="extrasVariables" [value]="extrasVariables | siNo" disabled>
+                </div>
+            </div>
+            
+            <div>
+                <div class="d-flex justify-content-between col-8">
+                    <h5>Extras Catering</h5>
+                    <button *ngIf="extraCatering" (click)="setListaModal(listaExtraVariableToModal(evento.listaExtraCateringVariable))"><i class="fas fa-eye text-primary fa-lg"></i></button>
+                </div>
+                <div class="mb-4 col-9">
+                    <input type="text" class="form-control" name="extraCatering" [value]="extraCatering | siNo" disabled>
+                </div>
+            </div>
+            
+            <div>
+                <div class="d-flex justify-content-between col-8">
+                    <h5>Tipo Catering</h5>
+                    <button *ngIf="tipoCatering" (click)="setListaModal(evento.listaExtraTipoCatering)"><i class="fas fa-eye text-primary fa-lg"></i></button>
+                </div>
+                <div class="mb-4 col-9">
+                    <input type="text" class="form-control" name="tipoCatering" [value]="tipoCatering | siNo" disabled>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div>
+                <div class="d-flex justify-content-between col-8">
+                    <h5>Anotaciones</h5>
+                    <button (click)="editAnotacionesModal()"><i class="fas fa-edit text-warning fa-lg"></i></button>
+                </div>
+                <div class="mb-4 col-9">
+                    <input type="text" class="form-control" name="anotaciones" [(ngModel)]="evento.anotaciones" disabled>
+                </div>
+            </div>
+            <div class="form-group col-9 mb-4">
+                <h5>Encargado</h5>
+                <input type="text" class="form-control" id="encargado" [(ngModel)]="encargadoNombreCompleto" disabled>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <div class="gap-2 d-flex justify-content-end">
+            <div>
+                <button (click)="volver()" class="btn btn-primary">Volver</button>
+            </div>
+            <div>
+                <button (click)="descargarComprobante()" class="btn btn-secondary" disabled>Descargar Comprobante</button>
+            </div>
+            <div>
+                <button (click)="reenviarMail()" class="btn btn-success"><i class="fa fa-envelope"></i> Reenviar Mail</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-modal-editar
+    (outputAceptar)="setInputEditar($event)"
+    (outputChangeModal)="setModalEditar($event)"
+    [myCallback]="metodoAceptar"
+    [modal]="modalEditar"
+    [titulo]="tituloModalEditar"
+    [inputEditar]="inputEditar">
+</app-modal-editar>
+
+<app-modal-lista
+    (outputChangeModal)="setModalListar($event)"
+    [listaGeneric]="listaModal"
+    [modal]="modalListar"
+    [titulo]="tituloModalListar">
+</app-modal-lista>

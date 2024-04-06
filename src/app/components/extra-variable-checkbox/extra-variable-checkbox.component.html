@@ -1,0 +1,10 @@
+<div class="row">
+    <div class="col-8">
+        <input type="checkbox" class="form-check-input" value={{extra.id}} 
+        (change)="onCheckboxChange($event)" [checked]="isChecked()" name="extraVariable{{extra.nombre}}{{i}}">
+        <label class="form-check-label">{{extra.nombre}} ${{extra.precio}}</label>
+    </div>
+    <div class="col-3">
+        <input type="number" name="extraVariable{{extra.nombre}}{{i}}" min="0" oninput="this.value = Math.abs(this.value)" (change)="onChangeCantidad()" [(ngModel)]="extra.cantidad" class="form-control" [disabled]="!isChecked()">
+    </div>
+</div>

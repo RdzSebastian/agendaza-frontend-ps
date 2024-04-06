@@ -1,0 +1,8 @@
+.header_abm{
+    display: flex;
+    justify-content: space-between;
+}
+
+.barra_busqueda{
+    width: 20%;
+}

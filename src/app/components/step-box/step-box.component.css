@@ -1,0 +1,10 @@
+.step-box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+    padding: 1em;
+    border-radius: 10px;
+    background-color: whitesmoke;
+    margin-bottom: 5px;
+}

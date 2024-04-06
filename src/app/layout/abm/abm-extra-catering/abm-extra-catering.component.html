@@ -1,0 +1,23 @@
+<div class="abm">
+
+    <app-abm-data-table-header
+        (outputCurrentRegistro)="updateCurrentRegistro($event)"
+        (outputBuscar)="updatePalabraBuscar($event)"
+        [listaItems]="listaItems"
+        [cantidadRegistros]="cantidadRegistros"
+        [cantidadPaginas]="cantidadPaginas">
+    </app-abm-data-table-header>
+
+    <app-abm-data-table
+        (outputPrecio)="precio($event)"
+        (outputEditar)="editar($event)"
+        (outputEliminar)="eliminar($event)"
+        [nombreItemModal] = "nombreItemModal"
+        [tituloModal] = "tituloModal"
+        [botonModal] = "botonModal"
+        [listaItems]="listaItems"
+        [currentRegistro]="currentRegistro"
+        [buscar]="buscar">
+    </app-abm-data-table>
+
+</div>

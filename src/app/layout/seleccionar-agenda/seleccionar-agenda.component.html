@@ -1,0 +1,17 @@
+<section class="m-4">
+    <div class="container">
+        
+        <div class="row">
+               <div class="col-md-12">
+                <h2 class="text-center mb-4">Tus Agendas</h2>
+            </div>
+        </div>
+
+        <div class="row justify-content-md-center">
+            <div *ngFor="let agenda of listaAgenda | orderAbmById" class="col-lg-4 col-md-12 mb-4">
+                <app-card-agenda [agenda]="agenda"></app-card-agenda>
+            </div>
+        </div>
+
+    </div>
+</section>

@@ -1,0 +1,64 @@
+<div class="container">
+    <br>
+    <h2>Estado de Cuenta</h2>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="form-group col-8 mb-4">
+                <h5>Evento</h5>
+                <input type="text" class="form-control" id="evento" [value]="eventoPago.nombre" disabled>
+            </div>
+            <div class="form-group col-8 mb-4">
+                <h5>Codigo</h5>
+                <input type="text" class="form-control" id="codigo" [value]="eventoPago.codigo" disabled>
+            </div>
+            <div class="col-md-9">
+                <div class="form-group">
+                    <h5>Lista de pagos</h5>
+                    <div *ngFor="let pago of eventoPago.listaPagos">
+                        <p>{{pago.fecha | date: "dd/MM/yy"}} ${{pago.monto}} {{pago.medioDePago}} </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group col-8">
+                <h5>Monto total abonado</h5>
+                <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                    </div>
+                    <input type="number" class="form-control" id="monto_abonado_total" [value]="abonado" disabled>
+                </div>
+            </div>
+            <div class="form-group col-8">
+                <h5>Monto faltante</h5>
+                <div class="input-group mb-4">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                    </div>
+                    <input type="number" class="form-control" id="monto_faltante" [value]="faltante" disabled>
+                </div>					        
+            </div>
+            <div class="form-group col-8">
+                <h5>El precio total del evento</h5>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                    </div>
+                    <input type="number" class="form-control" id="presupuesto" [value]="eventoPago.precioTotal" disabled>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <div class="gap-2 d-flex justify-content-end">
+            <div>
+                <button (click)="volver()"class="btn btn-primary">Volver</button>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-success" (click)="agregarPago()"><i class="fas fa-plus-circle"></i> Agregar</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,39 @@
+<section class="main-login">
+    <div class="container">
+        <div class="row">
+            <div class="logo col-lg-7 col-md-6 container">
+                <div class="text-center">
+                    <img src="../../../assets/logoS.png" alt="logo" width="50%" height="50%">
+                </div>
+            </div>
+
+            <div class="col-lg-5 col-md-6 col-sm-12 container">
+                <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)">
+                    <div class="card border-light shadow p-4 p-md-5 ">
+                        <div class="text-center m-4 agendaza-tipografia">
+                            <h2>Agendaza</h2>
+                        </div>
+                        <div class="form-group p-2">
+                            <input class="form-control" name="usuario" type="text" placeholder="Usuario"
+                                [(ngModel)]='usuarioLogin.username' [attr.data-testid]="'loginUsuario'">
+                            </div>
+                        <div class="form-group p-2">
+                            <input class="form-control" name="contrasena" type="password" placeholder="Contraseña"
+                                [(ngModel)]='usuarioLogin.password' [attr.data-testid]="'loginContraseña'" required>
+                        </div>
+                        <div class="form-group p-2">
+                            <div class="d-grid gap-2">
+                                <button class="btn btn-primary" [attr.data-testid]="'ingresar'">Ingresar</button>
+                            </div>
+                        </div>
+                        <div *ngIf='errorLogin.condicional' class="mt-2 alert alert-danger text-center">
+                            <strong> {{errorLogin.mensaje}} </strong>
+                            <strong>Usuario o contraseña incorrecta</strong>
+                            <p>intente nuevamente.</p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>

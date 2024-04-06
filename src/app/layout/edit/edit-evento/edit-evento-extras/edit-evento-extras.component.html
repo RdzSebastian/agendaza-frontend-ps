@@ -1,0 +1,116 @@
+<div class="container">
+    <br>
+    <h2>Editar Extras</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group col-8 mb-3">
+                <h5>Evento</h5>
+                <input type="text" class="form-control" id="evento" [value]='evento.nombre' disabled>
+            </div>
+            <div class="form-group col-8 mb-3">
+                <h5>Codigo</h5>
+                <input type="text" class="form-control" id="evento" [value]='evento.codigo' disabled>
+            </div>
+            
+            <div class="form-group col-8 mb-3">
+                <h5>Extras fijos</h5> 
+                <div id="listaExtra" *ngFor="let extra of listaExtra | orderAbmByNombre; let i=index">
+                    <app-extra-checkbox 
+                        (outputExtraPresupuesto)="sumExtraPresupuesto($event)"
+                        [listaExtra]="evento.listaExtra"
+                        [i]="i"
+                        [extra]="extra"
+                    ></app-extra-checkbox>
+                </div>
+            </div>
+
+            <div class="form-group col-8">
+                <h5>Extras variables</h5> 
+                <div id="listaExtraVariable" *ngFor="let extraVariable of listaExtraVariable | orderAbmByNombre; let i=index">
+                    <app-extra-variable-checkbox
+                        (outputExtraPresupuesto)="sumExtraPresupuesto($event)"
+                        [listaExtra]="evento.listaExtraVariable"
+                        [i]="i"
+                        [extra]="extraVariable">
+                    </app-extra-variable-checkbox>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="row">
+                    <div class="col-md-6">
+                    <div class="form-group">
+                        <h5 for="rol">Extra otro</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input type="number" class="form-control" id="extraOtro" [(ngModel)]="evento.extraOtro" (change)="sumPresupuesto()">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h5 for="rol">Descuento</h5>
+                        <div class="input-group mb-2">
+                            <input type="number" class="form-control" id="descuento" [(ngModel)]="evento.descuento" (change)="sumPresupuesto()">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">%</div>
+                            </div>
+                            </div>
+                    </div>
+                </div>	
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h5 for="rol">Tipo Evento</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input type="text" class="form-control" id="nombreTipoEvento" [(ngModel)]="evento.tipoEventoExtra.nombre" disabled>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <h5 for="rol">Precio Base</h5>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">$</div>
+                            </div>
+                            <input type="number" class="form-control" id="precioTipoEvento" [(ngModel)]="evento.tipoEventoExtra.precio" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group col-6">
+                <h5 for="rol">Presupuesto</h5>
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                    </div>
+                    <input type="number" class="form-control" id="presupuesto" [(ngModel)]="presupuesto" disabled/>
+                </div>
+            </div>
+            <div class="col-12">
+                <h5 id="titulo_precio_base_sub_tipo_evento"></h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <div class="gap-2 d-flex justify-content-end">
+            <div>
+                <button (click)="volver()" class="btn btn-primary">Volver</button>
+            </div>
+            <div>
+                <button (click)="save()" type="submit" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

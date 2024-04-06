@@ -1,0 +1,22 @@
+<div *ngIf="modal">
+    
+    <div  class="modal-backgroud"></div>
+    
+    <div class="modal fade modal-display">
+        <div class="modal-dialog modal-correcion-altura" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{titulo}}</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="text" class="form-control" name="input-editar" [(ngModel)]="inputEditar">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="changeModal()">Cerrar</button>
+                    <button type="button" class="btn btn-success" (click)="aceptar()">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

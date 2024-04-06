@@ -1,0 +1,33 @@
+<div class="row col-8 mb-3">
+    
+    <div class="form-group col-md-2 mb-1">
+        <label class="form-label">Precio</label>
+        <div class="input-group">
+            <div class="input-group-prepend">
+                <div class="input-group-text">$</div>
+            </div>
+            <input type="text" class="form-control" name="precio{{i}}" [(ngModel)]="precio.precio">
+        </div>
+    </div>
+
+    <div class="form-group col-md-4 mb-1">
+        <label class="form-label">Desde</label> 
+        <select class="form-select" name="desde{{i}}" [(ngModel)]="precio.desde">
+            <option *ngFor="let mes of listaMes | orderAbmByIdDesc" [value]="mes.id">{{mes.nombre}}</option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-4">
+        <label class="form-label">Hasta</label> 
+        <select class="form-select" name="hasta{{i}}" [(ngModel)]="precio.hasta">
+            <option *ngFor="let mes of listaMes | orderAbmByIdDesc" [value]="mes.id">{{mes.nombre}}</option>
+        </select>
+    </div>
+
+    <div class="form-group col-md-2 text-center mt-4">
+        <button type="submit" (click)="quitarPrecio(precio.id)">
+            <i class="fas fa-trash text-danger fa-lg"></i>
+        </button>
+    </div>
+
+</div>

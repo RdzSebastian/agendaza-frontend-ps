@@ -1,0 +1,5 @@
+<div>
+    <input type="checkbox" class="form-check-input" value={{extra.id}} 
+    (change)="onCheckboxChange($event)" [checked]="isChecked()" name="extra{{extra.nombre}}{{i}}">
+    <label class="form-check-label">{{extra.nombre}} ${{extra.precio}}</label>
+</div>

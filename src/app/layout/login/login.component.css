@@ -1,0 +1,48 @@
+.icon {
+    width: 80px;
+    height: 80px;
+    background: #1089ff;
+    border-radius: 50%;
+    font-size: 30px;
+    margin: 0 auto;
+    margin-bottom: 10px; 
+}
+
+.icon i {
+    color: #fff; 
+}
+
+.form-control {
+    background: #fff;
+    color: #000;
+    font-size: 16px;
+    border-radius: 5px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.1); 
+}
+    
+.form-control:focus, .form-control:active {
+    outline: none !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid #1089ff; 
+}
+
+.main-login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.agendaza-tipografia{
+    font-family: 'Bree Serif', serif;
+}
+
+@media (max-width : 768px) {
+    
+    .logo{
+        display: none;
+    }
+}

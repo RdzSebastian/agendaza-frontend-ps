@@ -1,0 +1,97 @@
+<div class="container">
+    <br>
+    <h2>Editar Catering</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="form-group col-8 mb-3">
+                <h5>Evento</h5>
+                <input type="text" class="form-control" id="evento" [value]='evento.nombre' disabled>
+            </div>
+            <div class="form-group col-8 mb-3">
+                <h5>Codigo</h5>
+                <input type="text" class="form-control" id="evento" [value]='evento.codigo' disabled>
+            </div>
+            <div class="form-group mt-2">
+                <input class="form-check-input" type="checkbox" [(ngModel)]="agregarCatering" name="agregarCateringCheckbox">
+                <label class="form-check-label">Agregar servicio de catering</label>
+            </div>
+            
+            <div *ngIf="agregarCatering"  id="catering_extras">
+                <div class="form-group my-4 extraCheckbox">
+                    <h5>Tipo Catering</h5> 
+                    <div id="listaExtraTipoCatering" *ngFor="let tipoCatering of listaExtraTipoCatering | orderAbmByNombre; let i = index">
+                        <app-extra-checkbox 
+                            (outputExtraOtro)="cleanExtraOtroCheckbox()"
+                            (outputExtraPresupuesto)="sumExtraTipoCatering($event)"
+                            [listaExtra]="evento.listaExtraTipoCatering"
+                            [i]="i"
+                            [extra]="tipoCatering"
+                        ></app-extra-checkbox>
+                    </div> 
+                </div>
+
+                <div class="form-group col-8">
+                    <h5>Extras Catering</h5> 
+                    <div id="listaExtraCatering" *ngFor="let cateringVariable of listaExtraCateringVariable | orderAbmByNombre; let i = index">      
+                        <app-extra-variable-checkbox
+                            (outputExtraPresupuesto)="sumExtraCatering($event)"
+                            [listaExtra]="evento.listaExtraCateringVariable"
+                            [i]="i"
+                            [extra]="cateringVariable">
+                        </app-extra-variable-checkbox>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="agregarCatering"  class="col-md-6">
+            <div class="row">
+                <div id="catering_otro" class="col-12">
+                    <div class="form-group mt-2">
+                        <input class="form-check-input" type="checkbox" [(ngModel)]="cateringOtro" name="cateringOtroCheckbox" (change)="cleanTipoCateringForCateringOtro()">
+                        <label class="form-check-label" for="cateringOtroCheckbox"> Catering Otro </label>
+                        <small class="form-text text-muted">(Permite ingresar un precio personalizado de plato)</small>
+                    </div>
+                    <div *ngIf="cateringOtro" id="catering_otro_precio" class="form-group row">
+                        <div class="col-3">
+                            <label for="cateringOtroPrecio" class="form-label">Precio del plato</label> 
+                            <div class="input-group mb-2 col-4">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">$</div>
+                                </div>
+                                <input type="number" class="form-control" [(ngModel)]="evento.cateringOtro" min="0" oninput="this.value = Math.abs(this.value)" (change)="sumCateringPresupuesto()" name="cateringOtroPrecio"/>
+                            </div>
+                        </div>
+                        <div class="col-8">
+                            <label for="descripcionCatering" class="form-label">Descripcion</label> 
+                            <input type="text" class="form-control" [(ngModel)]='evento.cateringOtroDescripcion' name="descripcionCatering">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group my-5 col-6">
+                <h5 for="rol">Presupuesto</h5> 
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text">$</div>
+                    </div>
+                    <input type="number" class="form-control" id="presupuesto_catering" [(ngModel)]="presupuestoCatering" disabled/>
+                </div>
+            </div>
+            <div class="col-12">
+                <h5>La cantidad de adultos del evento es: {{evento.capacidad.capacidadAdultos}}</h5>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-3">
+        <div class="gap-2 d-flex justify-content-end">
+            <div>
+                <button (click)="volver()" class="btn btn-primary">Volver</button>
+            </div>
+            <div>
+                <button (click)="save()" type="submit" class="btn btn-success">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

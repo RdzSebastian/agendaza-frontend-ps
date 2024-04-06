@@ -1,0 +1,29 @@
+.nuevo-evento{
+    margin-right: 0.8rem;
+    margin-left: 0.8rem;
+    margin-top: 0.3rem;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: auto;
+}
+
+.nuevo-evento-step{
+    padding: 1em;
+    border-radius: 10px;
+    background-color: whitesmoke;
+}
+
+.botones-nuevo-evento{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+@media (max-width: 768px) {
+    .hide-on-phone{
+        display: none;
+    }
+
+}

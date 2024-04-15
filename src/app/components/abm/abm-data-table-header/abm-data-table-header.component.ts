@@ -9,6 +9,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
 
   buscar : string = ''
   currentRegistro : number = 0
+  pageNumber : number = 0
   currentPagina : number = 1
   classes : String = ""
 
@@ -25,6 +26,9 @@ export class AbmDataTableHeaderComponent implements OnInit {
   outputCurrentRegistro = new EventEmitter<number>();
 
   @Output() 
+  outputPageNumber= new EventEmitter<number>();
+
+  @Output() 
   outputBuscar = new EventEmitter<string>();
 
   constructor(){}
@@ -34,17 +38,26 @@ export class AbmDataTableHeaderComponent implements OnInit {
   }
 
   siguiente(){
-    if(this.currentRegistro >= 0 && this.currentRegistro < (this.cantidadPaginas.length -1) * 10){
-      this.currentRegistro += 10
-      this.currentPagina += 1
+    //if(this.currentRegistro >= 0 && this.currentRegistro < (this.cantidadPaginas.length -1) * 10)
+      {
+      //this.currentRegistro += 10
+      //this.currentPagina += 1
+      if(this.listaItems.length > 0){
+       this.pageNumber += 1 
+      }
       this.outputRegistro()
+      
     }
   }
 
   atras(){
-    if(this.currentRegistro > 0 && this.currentRegistro <= (this.cantidadPaginas.length -1) * 10){
-      this.currentRegistro -= 10
-      this.currentPagina -= 1
+    //if(this.currentRegistro > 0 && this.currentRegistro <= (this.cantidadPaginas.length -1) * 10)
+      {
+      //this.currentRegistro -= 10
+      //this.currentPagina -= 1
+      if(this.pageNumber > 0){
+        this.pageNumber -= 1
+      }
       this.outputRegistro()
     }
   }
@@ -69,10 +82,12 @@ export class AbmDataTableHeaderComponent implements OnInit {
 
   outputRegistro() {
     this.outputCurrentRegistro.emit(this.currentRegistro);
+    this.outputPageNumber.emit(this.pageNumber);    
   }
 
   outputPalabraBuscar() {
     this.outputBuscar.emit(this.buscar);
+    
   }
 
 }

@@ -8,12 +8,14 @@ import { EventoService } from 'src/app/services/evento.service';
 })
 export class AbmEventoComponent implements OnInit {
 
+
   buscar = ''
   listaItems : Array<any> = []
   listaHeader : Array<any> =[]
   cantidadRegistros : number[] = []
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
+  pageNumber : number = 0
 
   constructor(private eventoService : EventoService, private router : Router) { }
 
@@ -23,7 +25,7 @@ export class AbmEventoComponent implements OnInit {
 
   async inicializarListaItems(){
     if(this.eventoService.fechaFiltroForAbmEvento == ""){
-      this.listaItems = await this.eventoService.getAllEventoByEmpresaId()
+      this.listaItems = await this.eventoService.getAllEventoByEmpresaId(this.pageNumber)
     }else{
       this.listaItems = await this.eventoService.getAllEventoByEmpresaIdAndFechaFiltro()
     }
@@ -34,6 +36,11 @@ export class AbmEventoComponent implements OnInit {
   
   updateCurrentRegistro(registro: number){
     this.currentRegistro = registro
+  }
+
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.inicializarListaItems()
   }
 
   updatePalabraBuscar(palabraBuscar: string){

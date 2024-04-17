@@ -1,0 +1,8 @@
+.layout{
+  display: grid;
+  grid-template-columns: 4vw 1fr; 
+  min-height: 100vh;
+}
+.l{
+  grid-column: 1; /* Ubicar el app-navbar en la primera columna */
+}

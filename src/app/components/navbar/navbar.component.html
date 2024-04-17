@@ -1,20 +1,58 @@
-<nav *ngIf="!isLogin()" class="navbar-light bg-light p-2">
+<div class="sidebarCollapse linea" *ngIf="!isLogin()">
+  <button class="btn btn-dark" (click)="toggleSidebar()">
+    <i class="fas fa-bars"></i>
+  </button>
+  <ul class="list-unstyled components">
+    <ul class="list-unstyled components onlyIcon ">
+      <li class="center-li " *ngIf="isAgenda() || isSaveEvento()">
+        <a (click)="volverAgendas()"><i class=" onlyIcon fas fa-book fa-lg mx-2"></i></a>
+      </li>
+      <li class="center-li " *ngIf="isSaveEvento() || isPanelAdmin()">
+        <a (click)="volverCalendario()"><i class=" onlyIcon fa fa-calendar fa-lg mx-2"></i></a>
+      </li>
+      <li class="center-li " *ngIf="isAgenda()">
+        <a (click)="saveEvento()"><i class="onlyIcon fa fa-plus fa-lg mx-2"></i></a>
+      </li>
+      <li class="center-li " *ngIf="isAbm()">
+        <a (click)="nuevoAbm()"><i class="onlyIcon fas fa-plus-circle fa-lg"></i></a>
+      </li>
+      <li class="center-li " *ngIf="isInAgenda() && !isPanelAdmin()">
+        <a (click)="panelAdmin()"><i class="onlyIcon fa fa-cog fa-lg mx-2"></i></a>
+      </li>
+      <li class="center-li " *ngIf="!isLogin()">
+        <a (click)="logout()"><i class="onlyIcon fas fa-sign-out-alt fa-lg mx-2"></i></a>
+      </li>
+    </ul>
+  </ul>
+</div>
 
-    <div class="d-flex justify-content-between align-items-center">
-    
-        <a (click)="volverAgendas()"><img src="../../../assets/logoBBS.png" width="30" height="32"/></a>
+<div class="sidebar " [ngClass]="{'active': isSidebarActive}"  *ngIf="!isLogin()">
+  <div class="sidebar-header d-flex justify-content-center align-items-center">
+    <img src="../../../assets/logoBBS.png" width="30" height="32" />
+  </div>
 
-        <a *ngIf="isAgenda() || isSaveEvento()" (click)="volverAgendas()"><i class="fas fa-book fa-lg mx-2"> </i></a>
-
-        <a *ngIf="isSaveEvento() || isPanelAdmin()" (click)="volverCalendario()" ><i class="fa fa-calendar fa-lg mx-2"></i></a>
-
-        <a *ngIf="isAgenda()" (click)="saveEvento()" ><i class="fa fa-plus fa-lg mx-2"></i></a>
-
-        <a *ngIf="isAbm()" (click)="nuevoAbm()" ><i class="fas fa-plus-circle fa-lg"></i></a>
-
-        <a *ngIf="isInAgenda() && !isPanelAdmin()" (click)="panelAdmin()"><i class="fa fa-cog fa-lg mx-2"></i></a>
-
-        <a *ngIf="!isLogin()" (click)="logout()"><i class="fas fa-sign-out-alt fa-lg mx-2"></i></a>
-
-    </div>
-</nav>
+  <ul class="list-unstyled components">
+    <ul class="list-unstyled components">
+      <li class="center-li" *ngIf="isAgenda() || isSaveEvento()">
+        <a (click)="volverAgendas()"><i class="fas fa-book fa-lg mx-2"></i><span class="texto-menu"> Agendas</span></a>
+      </li>
+      <li class="center-li" *ngIf="isSaveEvento() || isPanelAdmin()">
+        <a (click)="volverCalendario()"><i class="fa fa-calendar fa-lg mx-2"></i><span class="texto-menu">
+            Calendario</span></a>
+      </li>
+      <li class="center-li" *ngIf="isAgenda()">
+        <a (click)="saveEvento()"><i class="fa fa-plus fa-lg mx-2"></i><span class="texto-menu"> Evento</span></a>
+      </li>
+      <li class="center-li" *ngIf="isAbm()">
+        <a (click)="nuevoAbm()"><i class="fas fa-plus-circle fa-lg"></i><span class="texto-menu"> Guardar</span></a>
+      </li>
+      <li class="center-li" *ngIf="isInAgenda() && !isPanelAdmin()">
+        <a (click)="panelAdmin()"><i class="fa fa-cog fa-lg mx-2"></i><span class="texto-menu"> Dashboard </span></a>
+      </li>
+      <li class="center-li" *ngIf="!isLogin()">
+        <a (click)="logout()"><i class="fas fa-sign-out-alt fa-lg mx-2"></i><span class="texto-menu"> Cerrar
+            sesión</span></a>
+      </li>
+    </ul>
+  </ul>
+</div>

@@ -7,15 +7,17 @@
         <li class="center-li">
           <a (click)="volverAgendas()"><i class=" onlyIcon fas fa-book fa-lg mx-2"></i></a>
         </li>
-        <li class="center-li">
-          <a (click)="volverCalendario()"><i class=" onlyIcon fa fa-calendar fa-lg mx-2"></i></a>
-        </li>
-        <li class="center-li">
-          <a (click)="saveEvento()"><i class="onlyIcon fa fa-plus fa-lg mx-2"></i></a>
-        </li>
-        <li class="center-li">
-          <a (click)="panelAdmin()"><i class="onlyIcon fa fa-cog fa-lg mx-2"></i></a>
-        </li>
+        <div *ngIf="isInAgenda()">
+          <li class="center-li">
+            <a (click)="volverCalendario()"><i class=" onlyIcon fa fa-calendar fa-lg mx-2"></i></a>
+          </li>
+          <li class="center-li">
+            <a (click)="saveEvento()"><i class="onlyIcon fa fa-plus fa-lg mx-2"></i></a>
+          </li>
+          <li class="center-li">
+            <a (click)="panelAdmin()"><i class="onlyIcon fa fa-cog fa-lg mx-2"></i></a>
+          </li>
+        </div>
       </ul>
     </ul>
   </div>
@@ -30,16 +32,18 @@
         <li class="center-li">
           <a (click)="volverAgendas()"><i class="fas fa-book fa-lg mx-2"></i><span class="texto-menu"> Agendas</span></a>
         </li>
-        <li class="center-li">
-          <a (click)="volverCalendario()"><i class="fa fa-calendar fa-lg mx-2"></i><span class="texto-menu">
-              Calendario</span></a>
-        </li>
-        <li class="center-li">
-          <a (click)="saveEvento()"><i class="fa fa-plus fa-lg mx-2"></i><span class="texto-menu"> Evento</span></a>
-        </li>
-        <li class="center-li">
-          <a (click)="panelAdmin()"><i class="fa fa-cog fa-lg mx-2"></i><span class="texto-menu"> Dashboard </span></a>
-        </li>
+        <div *ngIf="isInAgenda()">
+          <li class="center-li">
+            <a (click)="volverCalendario()"><i class="fa fa-calendar fa-lg mx-2"></i><span class="texto-menu">
+                Calendario</span></a>
+          </li>
+          <li class="center-li">
+            <a (click)="saveEvento()"><i class="fa fa-plus fa-lg mx-2"></i><span class="texto-menu"> Evento</span></a>
+          </li>
+          <li class="center-li">
+            <a (click)="panelAdmin()"><i class="fa fa-cog fa-lg mx-2"></i><span class="texto-menu"> Dashboard </span></a>
+          </li>
+        </div>
       </ul>
     </ul>
   </div>

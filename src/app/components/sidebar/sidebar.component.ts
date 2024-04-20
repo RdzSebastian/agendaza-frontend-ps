@@ -37,6 +37,11 @@ export class SidebarComponent implements OnInit {
     this.router.navigateByUrl('/agenda')
   }
 
+  
+  isInAgenda(): boolean {
+    return this.agendaService.getEmpresaId() != ""
+  }
+  
   panelAdmin() {
     this.router.navigateByUrl('/panelAdmin')
   }

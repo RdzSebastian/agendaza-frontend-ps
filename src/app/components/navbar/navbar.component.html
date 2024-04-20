@@ -4,22 +4,19 @@
   </button>
   <ul class="list-unstyled components">
     <ul class="list-unstyled components onlyIcon ">
-      <li class="center-li " *ngIf="isAgenda() || isSaveEvento()">
+      <li class="center-li">
         <a (click)="volverAgendas()"><i class=" onlyIcon fas fa-book fa-lg mx-2"></i></a>
       </li>
-      <li class="center-li " *ngIf="isSaveEvento() || isPanelAdmin()">
+      <li class="center-li">
         <a (click)="volverCalendario()"><i class=" onlyIcon fa fa-calendar fa-lg mx-2"></i></a>
       </li>
-      <li class="center-li " *ngIf="isAgenda()">
+      <li class="center-li">
         <a (click)="saveEvento()"><i class="onlyIcon fa fa-plus fa-lg mx-2"></i></a>
       </li>
-      <li class="center-li " *ngIf="isAbm()">
-        <a (click)="nuevoAbm()"><i class="onlyIcon fas fa-plus-circle fa-lg"></i></a>
-      </li>
-      <li class="center-li " *ngIf="isInAgenda() && !isPanelAdmin()">
+      <li class="center-li">
         <a (click)="panelAdmin()"><i class="onlyIcon fa fa-cog fa-lg mx-2"></i></a>
       </li>
-      <li class="center-li " *ngIf="!isLogin()">
+      <li class="center-li">
         <a (click)="logout()"><i class="onlyIcon fas fa-sign-out-alt fa-lg mx-2"></i></a>
       </li>
     </ul>
@@ -33,23 +30,20 @@
 
   <ul class="list-unstyled components">
     <ul class="list-unstyled components">
-      <li class="center-li" *ngIf="isAgenda() || isSaveEvento()">
+      <li class="center-li">
         <a (click)="volverAgendas()"><i class="fas fa-book fa-lg mx-2"></i><span class="texto-menu"> Agendas</span></a>
       </li>
-      <li class="center-li" *ngIf="isSaveEvento() || isPanelAdmin()">
+      <li class="center-li">
         <a (click)="volverCalendario()"><i class="fa fa-calendar fa-lg mx-2"></i><span class="texto-menu">
             Calendario</span></a>
       </li>
-      <li class="center-li" *ngIf="isAgenda()">
+      <li class="center-li">
         <a (click)="saveEvento()"><i class="fa fa-plus fa-lg mx-2"></i><span class="texto-menu"> Evento</span></a>
       </li>
-      <li class="center-li" *ngIf="isAbm()">
-        <a (click)="nuevoAbm()"><i class="fas fa-plus-circle fa-lg"></i><span class="texto-menu"> Guardar</span></a>
-      </li>
-      <li class="center-li" *ngIf="isInAgenda() && !isPanelAdmin()">
+      <li class="center-li">
         <a (click)="panelAdmin()"><i class="fa fa-cog fa-lg mx-2"></i><span class="texto-menu"> Dashboard </span></a>
       </li>
-      <li class="center-li" *ngIf="!isLogin()">
+      <li class="center-li">
         <a (click)="logout()"><i class="fas fa-sign-out-alt fa-lg mx-2"></i><span class="texto-menu"> Cerrar
             sesión</span></a>
       </li>

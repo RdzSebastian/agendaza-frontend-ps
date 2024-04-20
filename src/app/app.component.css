@@ -1,7 +1,8 @@
 .layout{
   display: grid;
   grid-template-columns: 4vw 1fr; 
-  min-height: 100vh;
+  min-height: 92vh; 
+  /* TODO revisar para que llegue al maximo de la pantalla en vista /, /panelAdmin, saveEvento. En /agenda se ve bien*/
 }
 
 .l{

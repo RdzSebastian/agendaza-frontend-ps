@@ -46,7 +46,6 @@ export class AbmDataTableHeaderComponent implements OnInit {
       //this.currentRegistro += 10
       //this.currentPagina += 1
       if(this.pageNumber < this.cantidadEventos/10 -1){
-      console.log(this.cantidadEventos)
        this.pageNumber += 1 
       }
       this.outputRegistro()

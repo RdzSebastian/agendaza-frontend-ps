@@ -16,6 +16,7 @@ export class AbmEventoComponent implements OnInit {
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
   pageNumber : number = 0
+  cantidadEventos : number = 0
 
   constructor(private eventoService : EventoService, private router : Router) { }
 
@@ -29,9 +30,10 @@ export class AbmEventoComponent implements OnInit {
     }else{
       this.listaItems = await this.eventoService.getAllEventoByEmpresaIdAndFechaFiltro()
     }
-
+    
     this.cantidadRegistros = new Array<number>(this.listaItems.length)
     this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
+    this.cantidadEventos = await this.eventoService.cantEventos()
   }
   
   updateCurrentRegistro(registro: number){

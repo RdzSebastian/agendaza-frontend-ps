@@ -22,6 +22,9 @@ export class AbmDataTableHeaderComponent implements OnInit {
   @Input()
   cantidadRegistros : number[] = []
 
+  @Input()
+  cantidadEventos : number = 0
+
   @Output() 
   outputCurrentRegistro = new EventEmitter<number>();
 
@@ -42,7 +45,8 @@ export class AbmDataTableHeaderComponent implements OnInit {
       {
       //this.currentRegistro += 10
       //this.currentPagina += 1
-      if(this.listaItems.length > 0){
+      if(this.pageNumber < this.cantidadEventos/10 -1){
+      console.log(this.cantidadEventos)
        this.pageNumber += 1 
       }
       this.outputRegistro()

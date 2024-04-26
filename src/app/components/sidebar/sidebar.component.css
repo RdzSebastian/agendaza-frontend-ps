@@ -1,0 +1,104 @@
+.sidebar,
+.sidebar.active {
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 250px;
+  background: #f8f9fa;
+  border-right: 1px solid #dee2e6;
+  transition: left 0.3s ease;
+  z-index: 10;
+}
+
+.sidebar {
+  left: -250px;
+}
+
+.sidebar.active {
+  left: 0;
+}
+
+.sidebar-header {
+  padding: 20px 0;
+  background: #343a40;
+  color: #fff;
+}
+
+.list-unstyled {
+  padding: 20px 0;
+}
+
+.list-unstyled li {
+  margin-bottom: 10px;
+  
+}
+
+.list-unstyled li a {
+  display: flex; 
+  align-items: center; 
+  padding: 2rem; 
+  color: #000;
+  transition: background-color 0.3s, color 0.3s;
+  width: 100%; 
+}
+
+
+.list-unstyled li a:hover {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.linea {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  display: flex;
+  align-items: center;
+  z-index: 999;
+}
+
+.linea button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  margin: 1vh;
+}
+
+.sidebar.active+.linea {
+  display: none;
+}
+
+.sidebarCollapse.menu-cerrado .center-li .texto-menu {
+  display: none;
+}
+
+.sidebarCollapse {
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebarCollapse.menu-cerrado .linea-horizontal {
+  display: none;
+}
+
+.center-li a {
+  text-decoration: none;
+  color: black;
+}
+.openA, .openA i{
+  display: flex;
+  align-items: center;
+}
+
+.onlyIcon {
+  color: white;
+  margin-left: 0.4rem;
+}
+i{
+  width: 2rem;
+  height: 2rem;
+}
+.openA:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Cambia el color de fondo al pasar el mouse */
+}

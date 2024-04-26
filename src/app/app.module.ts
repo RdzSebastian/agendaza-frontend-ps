@@ -64,6 +64,7 @@ import { EditEventoHoraComponent } from './layout/edit/edit-evento/edit-evento-h
 import { VerListaEventoClienteComponent } from './layout/ver/ver-lista-evento-cliente/ver-lista-evento-cliente.component';
 import { ModalListaComponent } from './components/modal/modal-lista/modal-lista.component';
 import { ModalEditarComponent } from './components/modal/modal-editar/modal-editar.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { ModalEditarComponent } from './components/modal/modal-editar/modal-edit
     VerListaEventoClienteComponent,
     ModalListaComponent,
     ModalEditarComponent,
+    SidebarComponent,
   ],
   imports: [
     BrowserModule,

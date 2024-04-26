@@ -1,0 +1,10 @@
+.layout{
+  display: grid;
+  grid-template-columns: 4vw 1fr; 
+  min-height: 100vh; 
+  /* TODO revisar para que llegue al maximo de la pantalla en vista /, /panelAdmin, saveEvento. En /agenda se ve bien*/
+}
+
+.left{
+  grid-column: 1; /* Ubicar el app-navbar en la primera columna */
+}

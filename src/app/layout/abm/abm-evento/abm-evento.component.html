@@ -2,10 +2,15 @@
 
     <app-abm-data-table-header
         (outputCurrentRegistro)="updateCurrentRegistro($event)"
+        (outputPageNumber)="updatePageNumber($event)"
         (outputBuscar)="updatePalabraBuscar($event)"
+        (outputBusqueda)="updatePrimeraBusqueda($event)"
+        [busqueda] = "primeraBusqueda"
+        [pageNumber]="pageNumber"
         [listaItems]="listaItems"
         [cantidadRegistros]="cantidadRegistros"
-        [cantidadPaginas]="cantidadPaginas">
+        [cantidadPaginas]="cantidadPaginas"
+        [cantidadEventos]="cantidadEventos">
     </app-abm-data-table-header>
 
     <app-abm-data-table-evento
@@ -18,6 +23,7 @@
         [listaItems]="listaItems"
         [listaHeader]="listaHeader"
         [currentRegistro]="currentRegistro"
+        [pageNumber]="pageNumber"
         [buscar]="buscar">
     </app-abm-data-table-evento>
 

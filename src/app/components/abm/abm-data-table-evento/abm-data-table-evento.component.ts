@@ -17,6 +17,9 @@ export class AbmDataTableEventoComponent implements OnInit {
   currentRegistro : number = 0
 
   @Input()
+  pageNumber : number = 0
+
+  @Input()
   buscar = ''
 
   modal = false

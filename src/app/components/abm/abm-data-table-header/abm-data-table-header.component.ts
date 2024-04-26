@@ -13,6 +13,9 @@ export class AbmDataTableHeaderComponent implements OnInit {
   classes : String = ""
 
   @Input()
+  pageNumber : number = 0
+
+  @Input()
   listaItems : Array<any> = []
   
   @Input()
@@ -21,11 +24,23 @@ export class AbmDataTableHeaderComponent implements OnInit {
   @Input()
   cantidadRegistros : number[] = []
 
+  @Input()
+  cantidadEventos : number = 0
+
+  @Input()
+  busqueda! : Boolean 
+
   @Output() 
   outputCurrentRegistro = new EventEmitter<number>();
 
   @Output() 
+  outputPageNumber= new EventEmitter<number>();
+
+  @Output() 
   outputBuscar = new EventEmitter<string>();
+
+  @Output() 
+  outputBusqueda = new EventEmitter<Boolean>();
 
   constructor(){}
   
@@ -34,17 +49,28 @@ export class AbmDataTableHeaderComponent implements OnInit {
   }
 
   siguiente(){
-    if(this.currentRegistro >= 0 && this.currentRegistro < (this.cantidadPaginas.length -1) * 10){
-      this.currentRegistro += 10
-      this.currentPagina += 1
+    //if(this.currentRegistro >= 0 && this.currentRegistro < (this.cantidadPaginas.length -1) * 10)
+      {
+      //this.currentRegistro += 10
+      //this.currentPagina += 1
+      if(this.pageNumber < this.cantidadEventos/10 -1){
+       this.pageNumber += 1 
+      }
       this.outputRegistro()
+
+      
+      
     }
   }
 
   atras(){
-    if(this.currentRegistro > 0 && this.currentRegistro <= (this.cantidadPaginas.length -1) * 10){
-      this.currentRegistro -= 10
-      this.currentPagina -= 1
+    //if(this.currentRegistro > 0 && this.currentRegistro <= (this.cantidadPaginas.length -1) * 10)
+      {
+      //this.currentRegistro -= 10
+      //this.currentPagina -= 1
+      if(this.pageNumber > 0){
+        this.pageNumber -= 1
+      }
       this.outputRegistro()
     }
   }
@@ -66,13 +92,21 @@ export class AbmDataTableHeaderComponent implements OnInit {
     this.outputRegistro()
     this.outputPalabraBuscar()
   }
+  actualizaBuscar(){
+    this.busqueda = true
+    this.outputBusqueda.emit(this.busqueda);
+    this.outputPalabraBuscar()
+    this.outputRegistro()
+  }
 
   outputRegistro() {
     this.outputCurrentRegistro.emit(this.currentRegistro);
+    this.outputPageNumber.emit(this.pageNumber);    
   }
 
   outputPalabraBuscar() {
     this.outputBuscar.emit(this.buscar);
+    
   }
 
 }

@@ -4,6 +4,8 @@
         (outputCurrentRegistro)="updateCurrentRegistro($event)"
         (outputPageNumber)="updatePageNumber($event)"
         (outputBuscar)="updatePalabraBuscar($event)"
+        (outputBusqueda)="updatePrimeraBusqueda($event)"
+        [busqueda] = "primeraBusqueda"
         [pageNumber]="pageNumber"
         [listaItems]="listaItems"
         [cantidadRegistros]="cantidadRegistros"

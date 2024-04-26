@@ -27,6 +27,9 @@ export class AbmDataTableHeaderComponent implements OnInit {
   @Input()
   cantidadEventos : number = 0
 
+  @Input()
+  busqueda! : Boolean 
+
   @Output() 
   outputCurrentRegistro = new EventEmitter<number>();
 
@@ -35,6 +38,9 @@ export class AbmDataTableHeaderComponent implements OnInit {
 
   @Output() 
   outputBuscar = new EventEmitter<string>();
+
+  @Output() 
+  outputBusqueda = new EventEmitter<Boolean>();
 
   constructor(){}
   
@@ -51,6 +57,8 @@ export class AbmDataTableHeaderComponent implements OnInit {
        this.pageNumber += 1 
       }
       this.outputRegistro()
+
+      
       
     }
   }
@@ -85,6 +93,8 @@ export class AbmDataTableHeaderComponent implements OnInit {
     this.outputPalabraBuscar()
   }
   actualizaBuscar(){
+    this.busqueda = true
+    this.outputBusqueda.emit(this.busqueda);
     this.outputPalabraBuscar()
     this.outputRegistro()
   }

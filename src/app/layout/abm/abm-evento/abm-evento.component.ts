@@ -10,6 +10,7 @@ export class AbmEventoComponent implements OnInit {
 
 
   buscar = ''
+  primeraBusqueda : Boolean = true
   listaItems : Array<any> = []
   listaHeader : Array<any> =[]
   cantidadRegistros : number[] = []
@@ -26,13 +27,15 @@ export class AbmEventoComponent implements OnInit {
 
   async inicializarListaItems(){
     this.updatePalabraBuscar(this.buscar)
+    this.paginaCero()
     if(this.buscar == ""){
       this.listaItems = await this.eventoService.getAllEventoByEmpresaId(this.pageNumber)
       this.cantidadEventos = await this.eventoService.cantEventos()
     }else{
-      this.pageNumber = 0
+
       this.listaItems = await this.eventoService.getAllEventoByFilterName(this.pageNumber,this.buscar)
       this.cantidadEventos = await this.eventoService.cantEventosFiltrados(this.buscar)
+      
     }
     this.cantidadRegistros = new Array<number>(this.listaItems.length)
     this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
@@ -40,6 +43,13 @@ export class AbmEventoComponent implements OnInit {
     this.updateCantidadPaginas(this.cantidadPaginas)
   }
   
+  paginaCero(){
+    if(this.primeraBusqueda){
+          this.pageNumber = 0
+    }
+    this.primeraBusqueda = false
+
+  }
   updateCurrentRegistro(registro: number){
     this.currentRegistro = registro
   }
@@ -51,6 +61,10 @@ export class AbmEventoComponent implements OnInit {
 
   updatePalabraBuscar(palabraBuscar: string){
     this.buscar = palabraBuscar
+
+  }
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
 
   }
 

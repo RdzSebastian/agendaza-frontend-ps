@@ -19,32 +19,33 @@
 }
 
 .sidebar-header {
-  padding: 20px;
+  padding: 20px 0;
   background: #343a40;
   color: #fff;
 }
 
 .list-unstyled {
-  padding: 20px;
+  padding: 20px 0;
 }
 
 .list-unstyled li {
   margin-bottom: 10px;
+  
 }
 
 .list-unstyled li a {
+  display: flex; 
+  align-items: center; 
+  padding: 2rem; 
   color: #000;
   transition: background-color 0.3s, color 0.3s;
+  width: 100%; 
 }
+
 
 .list-unstyled li a:hover {
   font-weight: 700;
   cursor: pointer;
-}
-
-.center-li {
-  display: flex;
-  align-items: center;
 }
 
 .linea {
@@ -75,7 +76,6 @@
 .sidebarCollapse {
   display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .sidebarCollapse.menu-cerrado .linea-horizontal {
@@ -83,23 +83,22 @@
 }
 
 .center-li a {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
   text-decoration: none;
   color: black;
 }
-
-.icono {
-  background-color: black;
-  padding: 5px;
-  border-radius: 5px;
-  margin-bottom: 10px;
+.openA, .openA i{
+  display: flex;
+  align-items: center;
 }
 
-.icono i,
 .onlyIcon {
   color: white;
-  margin: 1vh;
+  margin-left: 0.4rem;
+}
+i{
+  width: 2rem;
+  height: 2rem;
+}
+.openA:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Cambia el color de fondo al pasar el mouse */
 }

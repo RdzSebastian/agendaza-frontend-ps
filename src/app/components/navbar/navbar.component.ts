@@ -14,6 +14,11 @@ export class NavbarComponent implements OnInit {
   constructor(private loginService: LoginService, private router: Router, private agendaService: AgendaService, private location: Location) { }
   
   ngOnInit(): void {}
+  dropdownOpen: boolean = false;
+
+  toggleDropdown() {
+    this.dropdownOpen = !this.dropdownOpen;
+  }
 
   isLogin(): boolean {
     return "/login" == this.location.path()
@@ -27,4 +32,10 @@ export class NavbarComponent implements OnInit {
     this.loginService.logout()
     this.router.navigateByUrl('/login')
   }
+
+  perfil() {
+    // cuando este colocar aqui.
+  }
+
+ 
 }

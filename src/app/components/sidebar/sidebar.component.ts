@@ -16,35 +16,51 @@ export class SidebarComponent implements OnInit {
 
   isSidebarActive: boolean = false;
 
-  isLogin(): boolean {
-    return "/login" == this.location.path()
-  }
-
-  saveEvento() {
+  saveEvento(){
     this.router.navigateByUrl('/saveEvento')
   }
 
-  volverAgendas() {
+  volverAgendas(){
     this.agendaService.removeEmpresaId()
     this.router.navigateByUrl('/')
   }
 
-  /*nuevoAbm() {
-    this.router.navigateByUrl('/save' + this.location.path().substring(4, this.location.path().length + 1))
-  }*/
+  isLogin(): boolean{
+    return "/login" == this.location.path()
+  }
 
-  volverCalendario() {
+  isAgenda(): boolean {
+    return "/agenda" == this.location.path()
+  }
+
+  isInAgenda(): boolean{
+    return this.agendaService.getEmpresaId() != ""
+  }
+
+  isSaveEvento() : boolean{
+    return "/saveEvento" == this.location.path()
+  }
+
+  isPanelAdmin() : boolean{
+    return "/panelAdmin" == this.location.path()
+  }
+
+  isAbm() : boolean{
+    return "/abm" == this.location.path().substring(0,4)
+  }
+
+  nuevoAbm(){
+    this.router.navigateByUrl('/save' + this.location.path().substring(4, this.location.path().length + 1))
+  }
+
+  volverCalendario(){
     this.router.navigateByUrl('/agenda')
   }
 
-  
-  isInAgenda(): boolean {
-    return this.agendaService.getEmpresaId() != ""
-  }
-  
-  panelAdmin() {
+  panelAdmin(){
     this.router.navigateByUrl('/panelAdmin')
   }
+
 
 
   toggleSidebar() {

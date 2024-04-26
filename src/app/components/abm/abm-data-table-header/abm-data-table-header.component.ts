@@ -9,9 +9,11 @@ export class AbmDataTableHeaderComponent implements OnInit {
 
   buscar : string = ''
   currentRegistro : number = 0
-  pageNumber : number = 0
   currentPagina : number = 1
   classes : String = ""
+
+  @Input()
+  pageNumber : number = 0
 
   @Input()
   listaItems : Array<any> = []
@@ -81,6 +83,10 @@ export class AbmDataTableHeaderComponent implements OnInit {
     
     this.outputRegistro()
     this.outputPalabraBuscar()
+  }
+  actualizaBuscar(){
+    this.outputPalabraBuscar()
+    this.outputRegistro()
   }
 
   outputRegistro() {

@@ -1,7 +1,9 @@
 <div class="header_abm">
     <p>Cantidad de registros: {{listaItems.length}}</p>
-
-    <input [(ngModel)]="buscar" class="form-control barra_busqueda" (keyup)="actualizarCantidadPaginas()" placeholder="Buscar">
+<div class="contenedorBusqueda">
+    <input [(ngModel)]="buscar" class="form-control barra_busqueda" placeholder="Buscar Por Nombre">
+    <button class="lupita" (click)="actualizaBuscar()"><i class="fas fa-search icono"></i></button>
+</div>
 
     <nav aria-label="Page navigation example">
         <ul class="pagination">

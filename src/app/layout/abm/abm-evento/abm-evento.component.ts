@@ -25,15 +25,19 @@ export class AbmEventoComponent implements OnInit {
   }
 
   async inicializarListaItems(){
-    if(this.eventoService.fechaFiltroForAbmEvento == ""){
+    this.updatePalabraBuscar(this.buscar)
+    if(this.buscar == ""){
       this.listaItems = await this.eventoService.getAllEventoByEmpresaId(this.pageNumber)
+      this.cantidadEventos = await this.eventoService.cantEventos()
     }else{
-      this.listaItems = await this.eventoService.getAllEventoByEmpresaIdAndFechaFiltro()
+      this.pageNumber = 0
+      this.listaItems = await this.eventoService.getAllEventoByFilterName(this.pageNumber,this.buscar)
+      this.cantidadEventos = await this.eventoService.cantEventosFiltrados(this.buscar)
     }
-    
     this.cantidadRegistros = new Array<number>(this.listaItems.length)
     this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
-    this.cantidadEventos = await this.eventoService.cantEventos()
+    
+    this.updateCantidadPaginas(this.cantidadPaginas)
   }
   
   updateCurrentRegistro(registro: number){
@@ -47,6 +51,7 @@ export class AbmEventoComponent implements OnInit {
 
   updatePalabraBuscar(palabraBuscar: string){
     this.buscar = palabraBuscar
+
   }
 
   updateCantidadPaginas(cantidadPaginas: number[]){

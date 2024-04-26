@@ -28,8 +28,19 @@ export class EventoService {
 
   }
 
+  async getAllEventoByFilterName(pageNumber : number, buscar : string){
+    const listaItem$ = this.httpClient.get<EventoJSON[]>(REST_SERVER_URL + '/getAllEventoByFilterName/' + this.agendaService.getEmpresaId() + '/' + pageNumber + '/' + buscar)
+    const listaItem = await lastValueFrom(listaItem$)
+    return listaItem.map((evento) => Evento.fromJson(evento))
+
+  }
   async cantEventos(){
     const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantEventos/' + this.agendaService.getEmpresaId())
+    this.cantidadEventos = await lastValueFrom(cant$)
+    return this.cantidadEventos
+  }
+  async cantEventosFiltrados(buscar : string){
+    const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantEventosFiltrados/' + this.agendaService.getEmpresaId() + '/' + buscar)
     this.cantidadEventos = await lastValueFrom(cant$)
     return this.cantidadEventos
   }

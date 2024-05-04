@@ -49,34 +49,25 @@ export class AbmDataTableHeaderComponent implements OnInit {
   }
 
   siguiente(){
-    //if(this.currentRegistro >= 0 && this.currentRegistro < (this.cantidadPaginas.length -1) * 10)
-      {
-      //this.currentRegistro += 10
-      //this.currentPagina += 1
       if(this.pageNumber < this.cantidadEventos/10 -1){
-       this.pageNumber += 1 
+       this.pageNumber += 1       
+      this.currentPagina += 1
       }
       this.outputRegistro()
-
-      
-      
-    }
+    
   }
 
   atras(){
-    //if(this.currentRegistro > 0 && this.currentRegistro <= (this.cantidadPaginas.length -1) * 10)
-      {
-      //this.currentRegistro -= 10
-      //this.currentPagina -= 1
       if(this.pageNumber > 0){
         this.pageNumber -= 1
+        this.currentPagina -= 1
       }
       this.outputRegistro()
-    }
+    
   }
 
   irPagina(pagina : number){
-    this.currentRegistro = (pagina - 1 ) * 10
+    this.pageNumber = pagina -1
     this.currentPagina = pagina
     this.outputRegistro()
   }
@@ -93,6 +84,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
     this.outputPalabraBuscar()
   }
   actualizaBuscar(){
+    this.currentPagina = 1
     this.busqueda = true
     this.outputBusqueda.emit(this.busqueda);
     this.outputPalabraBuscar()
@@ -107,6 +99,12 @@ export class AbmDataTableHeaderComponent implements OnInit {
   outputPalabraBuscar() {
     this.outputBuscar.emit(this.buscar);
     
+  }
+
+  getLimitesSlice(paginaActual: number): [number, number] {
+    const fin = Math.max(5,paginaActual)
+    const inicio = Math.max(0,fin-5)
+    return [inicio, fin];
   }
 
 }

@@ -37,8 +37,8 @@ export class AbmEventoComponent implements OnInit {
       this.cantidadEventos = await this.eventoService.cantEventosFiltrados(this.buscar)
       
     }
-    this.cantidadRegistros = new Array<number>(this.listaItems.length)
-    this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
+    this.cantidadRegistros = new Array<number>(this.cantidadEventos)
+    this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadEventos / 10) + 1)
     
     this.updateCantidadPaginas(this.cantidadPaginas)
   }

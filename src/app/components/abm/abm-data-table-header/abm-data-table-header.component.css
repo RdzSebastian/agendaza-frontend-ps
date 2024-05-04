@@ -34,3 +34,11 @@
 .icono{
     color: white
 }
+
+.siguiente{
+    border-radius : 0 0.375rem  0.375rem 0 
+}
+
+.atras{
+    border-radius : 0.375rem  0 0 0.375rem  
+}

@@ -8,7 +8,7 @@
 .layout {
   display: grid; 
   grid-template-columns: 4vw 1.7fr 1fr; 
-  grid-template-rows: 4vw 1.7fr 1fr; 
+  grid-template-rows: 6vh 1.7fr 1fr; 
   gap: 0px 0px; 
   grid-template-areas: 
     "a b b"
@@ -24,9 +24,11 @@
 
 @media (max-width: 767px) {
   .layout{
+    gap: 0px 3vh; 
     grid-template-areas:
     "a b b"
     "c c c"
     "c c c";
   }
+  
 } 

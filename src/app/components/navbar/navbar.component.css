@@ -13,12 +13,3 @@
 .dropdown-menu.show {
   display: block;
 }
-
-
-@media (max-width: 767px) {
-  .app-logo {
-    margin-left: 3vw;
-    z-index: 9;
-  }
-  
-}

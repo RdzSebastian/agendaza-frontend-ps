@@ -1,5 +1,5 @@
 .dropdown {
-  position: relative;
+  cursor: pointer;
 }
 
 .dropdown-menu {
@@ -8,11 +8,17 @@
   right: 0;
   display: none;
   z-index: 1000;
-
-
 }
 
 .dropdown-menu.show {
   display: block;
+}
+
+
+@media (max-width: 767px) {
+  .app-logo {
+    margin-left: 3vw;
+    z-index: 9;
+  }
   
 }

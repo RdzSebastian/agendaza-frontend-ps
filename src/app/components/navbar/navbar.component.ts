@@ -12,8 +12,8 @@ import { LoginService } from 'src/app/services/login.service';
 export class NavbarComponent implements OnInit {
 
   constructor(private loginService: LoginService, private router: Router, private agendaService: AgendaService, private location: Location) { }
-  
-  ngOnInit(): void {}
+
+  ngOnInit(): void { }
   dropdownOpen: boolean = false;
 
   toggleDropdown() {
@@ -31,11 +31,21 @@ export class NavbarComponent implements OnInit {
   logout() {
     this.loginService.logout()
     this.router.navigateByUrl('/login')
+    this.dropdownOpen = false
   }
 
   perfil() {
     // cuando este colocar aqui.
+    this.dropdownOpen = false
   }
-
- 
+  //esto hace que se ponga el false el dropdown cuando clickeas fuera
+  @HostListener('document:click', ['$event'])
+  clickOutside(event: Event) {
+    if (this.dropdownOpen) {
+      const target = event.target as HTMLElement;
+      if (!target.closest('.dropdown') && !target.closest('.dropdown-toggle')) {
+        this.dropdownOpen = false;
+      }
+    }
+  }
 }

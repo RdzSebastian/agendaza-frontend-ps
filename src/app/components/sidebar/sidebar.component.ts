@@ -16,16 +16,16 @@ export class SidebarComponent implements OnInit {
 
   isSidebarActive: boolean = false;
 
-  saveEvento(){
+  saveEvento() {
     this.router.navigateByUrl('/saveEvento')
   }
 
-  volverAgendas(){
+  volverAgendas() {
     this.agendaService.removeEmpresaId()
     this.router.navigateByUrl('/')
   }
 
-  isLogin(): boolean{
+  isLogin(): boolean {
     return "/login" == this.location.path()
   }
 
@@ -33,35 +33,33 @@ export class SidebarComponent implements OnInit {
     return "/agenda" == this.location.path()
   }
 
-  isInAgenda(): boolean{
+  isInAgenda(): boolean {
     return this.agendaService.getEmpresaId() != ""
   }
 
-  isSaveEvento() : boolean{
+  isSaveEvento(): boolean {
     return "/saveEvento" == this.location.path()
   }
 
-  isPanelAdmin() : boolean{
+  isPanelAdmin(): boolean {
     return "/panelAdmin" == this.location.path()
   }
 
-  isAbm() : boolean{
-    return "/abm" == this.location.path().substring(0,4)
+  isAbm(): boolean {
+    return "/abm" == this.location.path().substring(0, 4)
   }
 
-  nuevoAbm(){
+  nuevoAbm() {
     this.router.navigateByUrl('/save' + this.location.path().substring(4, this.location.path().length + 1))
   }
 
-  volverCalendario(){
+  volverCalendario() {
     this.router.navigateByUrl('/agenda')
   }
 
-  panelAdmin(){
+  panelAdmin() {
     this.router.navigateByUrl('/panelAdmin')
   }
-
-
 
   toggleSidebar() {
     this.isSidebarActive = !this.isSidebarActive;

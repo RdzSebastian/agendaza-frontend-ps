@@ -1,16 +1,20 @@
-<nav *ngIf="!isLogin()" class="navbar-light bg-light p-2">
+<nav *ngIf="!isLogin()" class="navbar-light bg-light p-2 navbar-top">
   <div class="d-flex justify-content-between">
-    <a (click)="volverCalendario()">
-      <img src="../../../assets/logoBBS.png" width="30" height="32"/>
+    <a class="app-logo" (click)="volverCalendario()">
+      <img  src="../../../assets/logoBBS.png" width="30" height="32" (click)="volverCalendario()" />
     </a>
     <div class="dropdown">
-      <button class="dropdown-toggle" id="avatarDropdown" aria-haspopup="true" aria-expanded="false" (click)="toggleDropdown()">
-        <img src="https://img.freepik.com/foto-gratis/chico-worldface-espanol-fondo-blanco_53876-137665.jpg?size=338&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=sph" width="32" height="32" class="rounded-circle">
+      <button class="dropdown-toggle" id="avatarDropdown" aria-haspopup="true" aria-expanded="false"
+        (click)="toggleDropdown()">
+        <img
+          src="https://img.freepik.com/foto-gratis/chico-worldface-espanol-fondo-blanco_53876-137665.jpg?size=338&ext=jpg&ga=GA1.1.1687694167.1713916800&semt=sph"
+          width="32" height="32" class="rounded-circle">
       </button>
       <div class="dropdown-menu" [class.show]="dropdownOpen" aria-labelledby="avatarDropdown">
-        <a class="dropdown-item" (click)="perfil()">perfil</a>
-        <a class="dropdown-item" (click)="logout()">cerrar sesion</a>
+        <a class="dropdown-item" (click)="perfil()"> <i class="fas fa-user"></i> Perfil</a>
+        <a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
       </div>
     </div>
   </div>
+
 </nav>

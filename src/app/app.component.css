@@ -1,10 +1,34 @@
 .layout{
   display: grid;
-  grid-template-columns: 4vw 1fr; 
-  min-height: 100vh; 
+  grid-template-areas: 1vh 1fr
+                        1vh 1fr ;
+  
   /* TODO revisar para que llegue al maximo de la pantalla en vista /, /panelAdmin, saveEvento. En /agenda se ve bien*/
 }
-
-.left{
-  grid-column: 1; /* Ubicar el app-navbar en la primera columna */
+.layout {
+  display: grid; 
+  grid-template-columns: 4vw 1.7fr 1fr; 
+  grid-template-rows: 6vh 1.7fr 1fr; 
+  gap: 0px 0px; 
+  grid-template-areas: 
+    "a b b"
+    "a c c"
+    "a c c"; 
+  min-height: 100vh; 
 }
+
+.left { grid-area: a; }
+.top-right { grid-area: b; }
+.right { grid-area: c; }
+
+
+@media (max-width: 767px) {
+  .layout{
+    gap: 0px 3vh; 
+    grid-template-areas:
+    "a b b"
+    "c c c"
+    "c c c";
+  }
+  
+} 

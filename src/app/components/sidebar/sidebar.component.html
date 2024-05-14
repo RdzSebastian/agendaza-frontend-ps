@@ -3,22 +3,24 @@
     <i class="fas fa-bars"></i>
   </button>
   <ul class="list-unstyled components">
-    <ul class="list-unstyled components onlyIcon ">
-      <li  class="center-li">
+    <ul class="list-unstyled components onlyIcon">
+      <li class="center-li">
         <a (click)="volverAgendas()"><i class=" onlyIcon fas fa-book fa-lg mx-2"></i></a>
       </li>
-      <li  class="center-li">
-        <a (click)="volverCalendario()"><i class=" onlyIcon fa fa-calendar fa-lg mx-2"></i></a>
-      </li>
-      <li  class="center-li">
-        <a (click)="saveEvento()"><i class="onlyIcon fa fa-plus fa-lg mx-2"></i></a>
-      </li>
-      <li  class="center-li">
-        <a (click)="nuevoAbm()"><i class="onlyIcon fas fa-plus-circle fa-lg"></i></a>
-      </li>
-      <li  class="center-li">
-        <a (click)="panelAdmin()"><i class="onlyIcon fa fa-cog fa-lg mx-2"></i></a>
-      </li>
+      <div *ngIf="isInAgenda()">
+        <li class="center-li">
+          <a (click)="volverCalendario()"><i class=" onlyIcon fa fa-calendar fa-lg mx-2"></i></a>
+        </li>
+        <li class="center-li">
+          <a (click)="saveEvento()"><i class="onlyIcon fa fa-plus fa-lg mx-2"></i></a>
+        </li>
+        <li *ngIf="isAbm()" class="center-li">
+          <a (click)="nuevoAbm()"><i class="onlyIcon fas fa-plus-circle fa-lg"></i></a>
+        </li>
+        <li class="center-li">
+          <a (click)="panelAdmin()"><i class="onlyIcon fa fa-cog fa-lg mx-2"></i></a>
+        </li>
+      </div>
     </ul>
   </ul>
 </div>
@@ -26,29 +28,31 @@
 <div class="sidebar " [ngClass]="{'active': isSidebarActive}" *ngIf="!isLogin()">
   <div class="sidebar-header d-flex justify-content-center align-items-center">
     <img src="../../../assets/logoBBS.png" width="30" height="32" />
-  </div>
+  </div>  
   <ul class="list-unstyled components">
     <ul class="list-unstyled components">
       <li class="center-li">
         <a class="openA" (click)="volverAgendas()"><i class="fas fa-book fa-lg mx-2"></i><span class="texto-menu">
             Agendas</span></a>
       </li>
-      <li  class="center-li">
-        <a class="openA" (click)="volverCalendario()"><i class="fa fa-calendar fa-lg mx-2"></i><span class="texto-menu">
-            Calendario</span></a>
-      </li>
-      <li  class="center-li">
-        <a class="openA" (click)="saveEvento()"><i class="fa fa-plus fa-lg mx-2"></i><span class="texto-menu">
-            Evento</span></a>
-      </li>
-      <li  class="center-li">
-        <a class="openA" (click)="nuevoAbm()"><i class="fas fa-plus-circle fa-lg mx-2"></i><span class="texto-menu">nuevo
-            abm</span></a>
-      </li>
-      <li  class="center-li">
-        <a class="openA" (click)="panelAdmin()"><i class="fa fa-cog fa-lg mx-2"></i><span class="texto-menu"> Dashboard
-          </span></a>
-      </li>
+      <div *ngIf="isInAgenda()">
+        <li class="center-li">
+          <a class="openA" (click)="volverCalendario()"><i class="fa fa-calendar fa-lg mx-2"></i><span class="texto-menu">
+              Calendario</span></a>
+        </li>
+        <li class="center-li">
+          <a class="openA" (click)="saveEvento()"><i class="fa fa-plus fa-lg mx-2"></i><span class="texto-menu">
+              Evento</span></a>
+        </li>
+        <li *ngIf="isAbm()" class="center-li">
+          <a class="openA" (click)="nuevoAbm()"><i class="fas fa-plus-circle fa-lg mx-2"></i><span class="texto-menu">nuevo
+              abm</span></a>
+        </li>
+        <li class="center-li">
+          <a class="openA" (click)="panelAdmin()"><i class="fa fa-cog fa-lg mx-2"></i><span class="texto-menu"> Dashboard
+            </span></a>
+        </li>
+      </div>
     </ul>
   </ul>
 </div>

@@ -1,5 +1,5 @@
 .dropdown {
-  position: relative;
+  cursor: pointer;
 }
 
 .dropdown-menu {
@@ -8,11 +8,8 @@
   right: 0;
   display: none;
   z-index: 1000;
-
-
 }
 
 .dropdown-menu.show {
   display: block;
-  
 }

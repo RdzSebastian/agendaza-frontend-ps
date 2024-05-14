@@ -35,8 +35,8 @@
 
 .list-unstyled li a {
   display: flex; 
-  align-items: center; 
-  padding: 2rem; 
+
+  padding: 1.5rem; 
   color: #000;
   transition: background-color 0.3s, color 0.3s;
   width: 100%; 
@@ -56,6 +56,7 @@
   background-color: #000;
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   z-index: 999;
 }
 
@@ -92,7 +93,7 @@
 }
 
 .onlyIcon {
-  color: white;
+  color: black;
   margin-left: 0.4rem;
 }
 i{
@@ -102,3 +103,22 @@ i{
 .openA:hover {
   background-color: rgba(0, 0, 0, 0.1); /* Cambia el color de fondo al pasar el mouse */
 }
+
+
+@media (max-width: 767px) {
+  .onlyIcon{
+    display: none;
+  }
+  .linea button {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    margin: 1vh;
+    margin-left:3vh;
+    z-index: 10;
+  }
+  .linea button i {
+    width: 1vh;
+    height: 3vh;
+  }
+}
+

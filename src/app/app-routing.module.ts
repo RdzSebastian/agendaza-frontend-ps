@@ -34,6 +34,8 @@ import { EditEventoExtrasComponent } from './layout/edit/edit-evento/edit-evento
 import { EditEventoCateringComponent } from './layout/edit/edit-evento/edit-evento-catering/edit-evento-catering.component';
 import { EditEventoHoraComponent } from './layout/edit/edit-evento/edit-evento-hora/edit-evento-hora.component';
 import { VerEventoComponent } from './layout/ver/ver-evento/ver-evento.component';
+import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.component';
+
 
 const routes: Routes = [
   {
@@ -41,8 +43,8 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: '', 
-    // canActivate:[AuthGuard], 
+    path: '',
+    // canActivate:[AuthGuard],
     children: [
       { path : '', component: SeleccionarAgendaComponent },
       { path : 'agenda', component: AgendaComponent },
@@ -76,6 +78,7 @@ const routes: Routes = [
       { path : 'editEventoCatering', component: EditEventoCateringComponent },
       { path : 'editEventoHora', component: EditEventoHoraComponent },
       { path : 'verEvento', component: VerEventoComponent },
+      { path : 'verCliente', component: VerClienteComponent },
       { path: '**', component: NotFoundComponent }
     ]
   }

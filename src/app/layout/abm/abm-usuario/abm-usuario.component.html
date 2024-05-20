@@ -5,6 +5,9 @@
         (outputBuscar)="updatePalabraBuscar($event)"
         (outputPageNumber)="updatePageNumber($event)"
         [listaItems]="listaItems"
+        (outputBuscar)="updatePalabraBuscar($event)"
+        (outputBusqueda)="updatePrimeraBusqueda($event)"
+        [busqueda] = "primeraBusqueda"
         [pageNumber]="pageNumber"
         [cantidadRegistros]="cantidadRegistros"
         [cantidadPaginas]="cantidadPaginas">

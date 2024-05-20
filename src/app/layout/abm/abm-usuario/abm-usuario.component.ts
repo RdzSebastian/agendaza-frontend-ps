@@ -17,13 +17,28 @@ export class AbmUsuarioComponent implements OnInit {
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
   pageNumber : number = 0
+  primeraBusqueda : Boolean = true
 
   constructor(private usuarioService : UsuarioService, private loginService : LoginService, private router : Router, private location : Location) { }
   
   async ngOnInit(): Promise<void> {
+    this.inicializarListaItems()
+  }
 
-    this.listaItems = await this.usuarioService.getAllUsuariosByEmpresaId(this.pageNumber)
-    this.cantidadRegistros = await this.usuarioService.cantUsuarios()
+  async inicializarListaItems(){
+    this.updatePalabraBuscar(this.buscar)
+    this.paginaCero()
+
+    if(this.buscar == ""){
+      this.listaItems = await this.usuarioService.getAllUsuariosByEmpresaId(this.pageNumber)
+      this.cantidadRegistros = await this.usuarioService.cantUsuarios()
+  }
+    else {
+      console.log(this.cantidadRegistros)
+      this.listaItems = await this.usuarioService.getAllUsersByFilterName(this.pageNumber,this.buscar)
+      this.cantidadRegistros = await this.usuarioService.cantUsuariosFiltrados(this.buscar)
+      console.log(this.cantidadRegistros)
+    }
 
     this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadRegistros / 11) + 1)
     this.updateCantidadPaginas(this.cantidadPaginas)
@@ -34,7 +49,7 @@ export class AbmUsuarioComponent implements OnInit {
   }
   updatePageNumber(page : number){
     this.pageNumber = page
-    this.ngOnInit()
+    this.inicializarListaItems()
   }
   updatePalabraBuscar(palabraBuscar: string){
     this.buscar = palabraBuscar
@@ -53,5 +68,15 @@ export class AbmUsuarioComponent implements OnInit {
     this.usuarioService.usuarioId = id
     this.router.navigateByUrl('/editUsuarioPassword')
   }
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
 
+  }
+  paginaCero(){
+    if(this.primeraBusqueda){
+          this.pageNumber = 0
+    }
+    this.primeraBusqueda = false
+
+  }
 }

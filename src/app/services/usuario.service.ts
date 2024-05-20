@@ -63,6 +63,18 @@ export class UsuarioService {
     return await lastValueFrom(listaItem$)
   }
 
+  async getAllUsersByFilterName(pageNumber : number, buscar : string){
+    const listaItem$ = this.httpClient.get<UsuarioJSON[]>(REST_SERVER_URL + '/getAllUsersByFilterName/' + this.agendaService.getEmpresaId() + '/' + pageNumber + '/' + buscar)
+    const listaItem = await lastValueFrom(listaItem$)
+    return listaItem.map((usuario) => Usuario.fromJson(usuario))
+
+  }
+  async cantUsuariosFiltrados(buscar : string){
+    const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantUsuariosFiltrados/' + this.agendaService.getEmpresaId() + '/' + buscar)
+    this.cantidadUsuarios = await lastValueFrom(cant$)
+    return this.cantidadUsuarios
+  }
+
 
 
 }

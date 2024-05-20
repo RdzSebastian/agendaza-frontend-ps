@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Location } from '@angular/common';
@@ -13,23 +13,29 @@ export class AbmUsuarioComponent implements OnInit {
 
   buscar = ''
   listaItems : Array<any> = []
-  cantidadRegistros : number[] = []
+  cantidadRegistros : number = 0
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
+  pageNumber : number = 0
 
   constructor(private usuarioService : UsuarioService, private loginService : LoginService, private router : Router, private location : Location) { }
   
   async ngOnInit(): Promise<void> {
-    this.listaItems = await this.usuarioService.getAllUsuariosByEmpresaId()
 
-    this.cantidadRegistros = new Array<number>(this.listaItems.length)
-    this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
+    this.listaItems = await this.usuarioService.getAllUsuariosByEmpresaId(this.pageNumber)
+    this.cantidadRegistros = await this.usuarioService.cantUsuarios()
+
+    this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadRegistros / 11) + 1)
+    this.updateCantidadPaginas(this.cantidadPaginas)
   }
 
   updateCurrentRegistro(registro: number){
     this.currentRegistro = registro
   }
-
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.ngOnInit()
+  }
   updatePalabraBuscar(palabraBuscar: string){
     this.buscar = palabraBuscar
   }

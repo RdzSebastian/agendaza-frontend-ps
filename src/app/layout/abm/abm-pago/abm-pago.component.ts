@@ -9,7 +9,7 @@ export class AbmPagoComponent implements OnInit {
 
   buscar = ''
   listaItems : Array<any> = []
-  cantidadRegistros : number[] = []
+  cantidadRegistros : number=0
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
 
@@ -22,7 +22,7 @@ export class AbmPagoComponent implements OnInit {
   async inicializarListaItems(){
     this.listaItems = await this.pagoService.getAllPagoByEmpresaId()
 
-    this.cantidadRegistros = new Array<number>(this.listaItems.length)
+    this.cantidadRegistros = this.listaItems.length
     this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
   }
   

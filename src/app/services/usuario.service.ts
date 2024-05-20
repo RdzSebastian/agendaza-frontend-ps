@@ -11,7 +11,8 @@ import { AgendaService } from './agenda.service';
 export class UsuarioService {
 
   usuarioId : number = 0
-
+  cantidadUsuarios : number = 0
+  
   constructor(private httpClient: HttpClient, private agendaService : AgendaService) { }
 
   async getUsuario(usuarioId: number) {
@@ -24,12 +25,16 @@ export class UsuarioService {
     return await lastValueFrom(item$)
   }
 
-  async getAllUsuariosByEmpresaId() {
-    const listaItem$ = this.httpClient.get<UsuarioJSON[]>(REST_SERVER_URL + '/getAllUsuarioByEmpresaId/' + this.agendaService.getEmpresaId())
+  async getAllUsuariosByEmpresaId(pageNumber : number) {
+    const listaItem$ = this.httpClient.get<UsuarioJSON[]>(REST_SERVER_URL + '/getAllUsuariosByEmpresaId/' + this.agendaService.getEmpresaId() + '/' + pageNumber)
     const listaItem = await lastValueFrom(listaItem$)
     return listaItem.map((usuario) => Usuario.fromJson(usuario))
   }
-
+  async cantUsuarios(){
+    const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantUsuarios/' + this.agendaService.getEmpresaId())
+    this.cantidadUsuarios = await lastValueFrom(cant$)
+    return this.cantidadUsuarios
+  }
   async getAllClienteByEmpresaId() {
     const listaItem$ = this.httpClient.get<UsuarioJSON[]>(REST_SERVER_URL + '/getAllClienteByEmpresaId/' + this.agendaService.getEmpresaId())
     const listaItem = await lastValueFrom(listaItem$)

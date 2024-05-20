@@ -3,7 +3,9 @@
     <app-abm-data-table-header
         (outputCurrentRegistro)="updateCurrentRegistro($event)"
         (outputBuscar)="updatePalabraBuscar($event)"
+        (outputPageNumber)="updatePageNumber($event)"
         [listaItems]="listaItems"
+        [pageNumber]="pageNumber"
         [cantidadRegistros]="cantidadRegistros"
         [cantidadPaginas]="cantidadPaginas">
     </app-abm-data-table-header>
@@ -13,6 +15,7 @@
         (outputEditarPassword)="cambiarPassword($event)"
         [listaItems]="listaItems"
         [currentRegistro]="currentRegistro"
+        [pageNumber]="pageNumber"
         [buscar]="buscar">
     </app-abm-data-table-usuario>
 

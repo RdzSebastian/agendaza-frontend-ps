@@ -13,7 +13,7 @@ export class AbmEventoComponent implements OnInit {
   primeraBusqueda : Boolean = true
   listaItems : Array<any> = []
   listaHeader : Array<any> =[]
-  cantidadRegistros : number[] = []
+  cantidadRegistros : number=0
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
   pageNumber : number = 0
@@ -31,13 +31,14 @@ export class AbmEventoComponent implements OnInit {
     if(this.buscar == ""){
       this.listaItems = await this.eventoService.getAllEventoByEmpresaId(this.pageNumber)
       this.cantidadEventos = await this.eventoService.cantEventos()
+
     }else{
 
       this.listaItems = await this.eventoService.getAllEventoByFilterName(this.pageNumber,this.buscar)
       this.cantidadEventos = await this.eventoService.cantEventosFiltrados(this.buscar)
       
     }
-    this.cantidadRegistros = new Array<number>(this.cantidadEventos)
+    this.cantidadRegistros = this.cantidadEventos
     this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadEventos / 10) + 1)
     
     this.updateCantidadPaginas(this.cantidadPaginas)

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { Capacidad } from 'src/app/model/Capacidad';
+import { EventoVer } from 'src/app/model/Evento';
+import { Cliente, UsuarioAbm} from 'src/app/model/Usuario';
 import { Router } from '@angular/router';
 import { EventoService } from 'src/app/services/evento.service';
+import { EmpresaService } from 'src/app/services/empresa.service';
+
 
 @Component({
   selector: 'app-ver-cliente',
@@ -8,6 +13,8 @@ import { EventoService } from 'src/app/services/evento.service';
 })
 export class VerClienteComponent implements OnInit {
 
+  evento : EventoVer = new EventoVer(0,"", "","","", "",new Capacidad(0,0,0),0,
+  0,[],[],"",[],[], new Cliente(0,"","","","",0),0, new UsuarioAbm(0,"",""),"","", "")
 
   // buscar = ''
   // primeraBusqueda : Boolean = true
@@ -19,10 +26,20 @@ export class VerClienteComponent implements OnInit {
   // pageNumber : number = 0
   // cantidadEventos : number = 0
 
-  // constructor(private eventoService : EventoService, private router : Router) { }
+  constructor(private eventoService : EventoService, private empresaService : EmpresaService, private router : Router) { }
 
-  async ngOnInit(): Promise<void> {
-    console.log("cliente")
+
+  async ngOnInit() {
+    this.evento = await this.eventoService.getEventoVer()
+    console.log(this.evento)
+  }
+
+  volver(){
+    this.router.navigateByUrl("/abmEvento")
+  }
+
+  ver(id: number) {
+    this.router.navigateByUrl('/verEvento')
   }
 
   // async inicializarListaItems(){

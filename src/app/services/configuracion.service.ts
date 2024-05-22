@@ -12,11 +12,10 @@ import { LoginService } from './login.service';
 })
 export class ConfiguracionService {
 
-  constructor(private httpClient: HttpClient, private agendaService : AgendaService, private loginService : LoginService) { }
+  constructor(private httpClient: HttpClient, private agendaService : AgendaService) { }
 
-  async getAllCantidadesConfiguracionByUsuarioIdAndEmpresaId() : Promise<PanelAdmin> {
-    const usuarioEmpresa = new UsuarioEmpresa(await this.loginService.getUsuarioId(), this.agendaService.getEmpresaId())
-    const configuracion$ = this.httpClient.put<PanelAdmin>(REST_SERVER_URL + '/getAllCantidadesForPanelAdminByUsuarioIdAndEmpresaId', usuarioEmpresa )
+  async getAllCantidadesForPanelAdminByEmpresaId() : Promise<PanelAdmin> {
+    const configuracion$ = this.httpClient.get<PanelAdmin>(REST_SERVER_URL + '/getAllCantidadesForPanelAdminByEmpresaId/' + this.agendaService.getEmpresaId())
     return await lastValueFrom(configuracion$)
   }
 

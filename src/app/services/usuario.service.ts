@@ -58,6 +58,9 @@ export class UsuarioService {
     return await lastValueFrom(listaItem$)
   }
 
-
+  async getEventosByUsuario(usuarioId: number) {
+    const listaEvento$ = this.httpClient.get<string[]>(REST_SERVER_URL + '/getEventosByUsuario/' + usuarioId)
+    return await lastValueFrom(listaEvento$)
+  }
 
 }

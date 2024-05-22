@@ -10,10 +10,7 @@
 				<h5>Cliente</h5>
 				<div class="row">
 					<div class="col-10">
-			                    <input type="text" class="form-control" [value]="evento.cliente.nombre" readonly="">
-					</div>
-					<div class="col-2">
-						<a class="mx-2" title="Editar" href="/saveCliente/39" data-toggle="tooltip"><i class="fas fa-edit text-warning fa-lg"></i></a>
+			                    <input type="text" class="form-control" [value]="cliente" readonly="">
 					</div>
 				</div>
 			</div>
@@ -28,11 +25,11 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td>{{evento.nombre}}</td>
-								<td>{{evento.codigo}}</td>
+							<tr *ngFor="let item of eventos">
+								<td>{{item.nombre}}</td>
+								<td>{{item.codigo}}</td>
 								<td class="text-center">
-                  <button (click)="ver(evento.id)" a class="mx-2" title="Ver" class="fas fa-eye text-primary" data-toggle="tooltip"></button>
+                  <button (click)="ver(item.id)" a class="mx-2" title="Ver" class="fas fa-eye text-primary" data-toggle="tooltip"></button>
 								</td>
 							</tr>
 						</tbody>

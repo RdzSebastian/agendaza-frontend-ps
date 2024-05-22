@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Capacidad } from 'src/app/model/Capacidad';
-import { EventoVer } from 'src/app/model/Evento';
+import { Evento, EventoVer } from 'src/app/model/Evento';
 import { Cliente, UsuarioAbm} from 'src/app/model/Usuario';
 import { Router } from '@angular/router';
 import { EventoService } from 'src/app/services/evento.service';
 import { EmpresaService } from 'src/app/services/empresa.service';
-
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-ver-cliente',
@@ -16,22 +16,20 @@ export class VerClienteComponent implements OnInit {
   evento : EventoVer = new EventoVer(0,"", "","","", "",new Capacidad(0,0,0),0,
   0,[],[],"",[],[], new Cliente(0,"","","","",0),0, new UsuarioAbm(0,"",""),"","", "")
 
-  // buscar = ''
-  // primeraBusqueda : Boolean = true
-  // listaItems : Array<any> = []
-  // listaHeader : Array<any> =[]
-  // cantidadRegistros : number[] = []
-  // cantidadPaginas : number[] = []
-  // currentRegistro : number = 0
-  // pageNumber : number = 0
-  // cantidadEventos : number = 0
+  cliente = ""
 
-  constructor(private eventoService : EventoService, private empresaService : EmpresaService, private router : Router) { }
+  eventos: Array<any> = []
+
+  constructor(private eventoService : EventoService, private empresaService : EmpresaService, private usuarioService: UsuarioService , private router : Router) { }
 
 
   async ngOnInit() {
     this.evento = await this.eventoService.getEventoVer()
-    console.log(this.evento)
+    this.eventos = await this.usuarioService.getEventosByUsuario(this.evento.cliente.id)
+
+    this.cliente = this.evento.cliente.nombre + " " + this.evento.cliente.apellido
+
+    console.log(this.eventos)
   }
 
   volver(){
@@ -41,80 +39,5 @@ export class VerClienteComponent implements OnInit {
   ver(id: number) {
     this.router.navigateByUrl('/verEvento')
   }
-
-  // async inicializarListaItems(){
-  //   this.updatePalabraBuscar(this.buscar)
-  //   this.paginaCero()
-  //   if(this.buscar == ""){
-  //     this.listaItems = await this.eventoService.getAllEventoByEmpresaId(this.pageNumber)
-  //     this.cantidadEventos = await this.eventoService.cantEventos()
-  //   }else{
-
-  //     this.listaItems = await this.eventoService.getAllEventoByFilterName(this.pageNumber,this.buscar)
-  //     this.cantidadEventos = await this.eventoService.cantEventosFiltrados(this.buscar)
-
-  //   }
-  //   this.cantidadRegistros = new Array<number>(this.cantidadEventos)
-  //   this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadEventos / 10) + 1)
-
-  //   this.updateCantidadPaginas(this.cantidadPaginas)
-  // }
-
-  // paginaCero(){
-  //   if(this.primeraBusqueda){
-  //         this.pageNumber = 0
-  //   }
-  //   this.primeraBusqueda = false
-
-  // }
-  // updateCurrentRegistro(registro: number){
-  //   this.currentRegistro = registro
-  // }
-
-  // updatePageNumber(page : number){
-  //   this.pageNumber = page
-  //   this.inicializarListaItems()
-  // }
-
-  // updatePalabraBuscar(palabraBuscar: string){
-  //   this.buscar = palabraBuscar
-
-  // }
-  // updatePrimeraBusqueda(busqueda: Boolean){
-  //   this.primeraBusqueda = busqueda
-
-  // }
-
-  // updateCantidadPaginas(cantidadPaginas: number[]){
-  //   this.cantidadPaginas = cantidadPaginas
-  // }
-
-  // pagos(id : number){
-  //   this.router.navigateByUrl('/editEventoPagos')
-  // }
-
-  // extras(id : number){
-  //   this.router.navigateByUrl('/editEventoExtras')
-  // }
-
-  // catering(id : number){
-  //   this.router.navigateByUrl('/editEventoCatering')
-  // }
-
-  // hora(id : number){
-  //   this.router.navigateByUrl('/editEventoHora')
-  // }
-
-  // ver(id : number){
-  //   this.router.navigateByUrl('/verEvento')
-  // }
-
-  // async eliminar(id : number){
-  //   (await this.eventoService.delete(id)).subscribe({
-  //     complete: () => {
-  //       this.inicializarListaItems()
-  //     }
-  //   })
-  // }
 
 }

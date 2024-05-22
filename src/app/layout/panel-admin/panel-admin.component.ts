@@ -19,7 +19,7 @@ export class PanelAdminComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.empresa = await this.empresaService.getEmpresa()
 
-    this.configuracion = await this.configuracionService.getAllCantidadesConfiguracionByUsuarioIdAndEmpresaId()
+    this.configuracion = await this.configuracionService.getAllCantidadesForPanelAdminByEmpresaId()
   }
 
   abmUsuario(){

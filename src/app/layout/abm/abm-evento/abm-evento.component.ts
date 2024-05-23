@@ -26,8 +26,10 @@ export class AbmEventoComponent implements OnInit {
   }
 
   async inicializarListaItems(){
+
     this.updatePalabraBuscar(this.buscar)
     this.paginaCero()
+    
     if(this.buscar == ""){
       this.listaItems = await this.eventoService.getAllEventoByEmpresaId(this.pageNumber)
       this.cantidadEventos = await this.eventoService.cantEventos()

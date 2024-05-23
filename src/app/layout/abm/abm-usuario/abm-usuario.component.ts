@@ -34,10 +34,9 @@ export class AbmUsuarioComponent implements OnInit {
       this.cantidadRegistros = await this.usuarioService.cantUsuarios()
   }
     else {
-      console.log(this.cantidadRegistros)
+
       this.listaItems = await this.usuarioService.getAllUsersByFilterName(this.pageNumber,this.buscar)
       this.cantidadRegistros = await this.usuarioService.cantUsuariosFiltrados(this.buscar)
-      console.log(this.cantidadRegistros)
     }
 
     this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadRegistros / 11) + 1)

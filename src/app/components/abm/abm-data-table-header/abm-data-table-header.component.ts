@@ -22,7 +22,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
   cantidadPaginas : number[] = []
 
   @Input()
-  cantidadRegistros : number[] = []
+  cantidadRegistros : number = 0
 
   @Input()
   cantidadEventos : number = 0
@@ -49,7 +49,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
   }
 
   siguiente(){
-      if(this.pageNumber < this.cantidadEventos/10 -1){
+      if(this.pageNumber < this.cantidadRegistros/10 -1){
        this.pageNumber += 1       
       this.currentPagina += 1
       }

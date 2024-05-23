@@ -12,12 +12,14 @@ export class AbmExtraEventoComponent implements OnInit {
 
   buscar = ''
   listaItems : Array<Extra> = []
-  cantidadRegistros : number[] = []
+  primeraBusqueda : Boolean = true
+  cantidadRegistros : number=0
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
   nombreItemModal = ""
   tituloModal = ""
   botonModal = ""
+  pageNumber : number = 0
 
   constructor(private extraService : ExtraService, private router : Router, private location : Location) { }
 
@@ -26,11 +28,21 @@ export class AbmExtraEventoComponent implements OnInit {
   }
 
   async inicializarListaItems(){
-    this.listaItems = await this.extraService.getAllExtraTipoEventoByEmpresaId()
 
-    this.cantidadRegistros = new Array<number>(this.listaItems.length)
-    this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
+    this.updatePalabraBuscar(this.buscar)
+    this.paginaCero()
     
+    if(this.buscar == ""){
+
+    this.listaItems = await this.extraService.getAllExtraByEmpresaId(this.pageNumber)
+    this.cantidadRegistros = await this.extraService.cantExtras()
+
+  }else{
+    this.listaItems = await this.extraService.getAllExtraByFilterName(this.pageNumber,this.buscar)
+    this.cantidadRegistros = await this.extraService.cantExtrasFiltrados(this.buscar)
+  }
+    this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadRegistros / 10) + 1)
+    this.updateCantidadPaginas(this.cantidadPaginas)
     this.tituloModal = "Eliminar Extra"
     this.nombreItemModal = "extra"
     this.botonModal = "Eliminar"
@@ -43,7 +55,13 @@ export class AbmExtraEventoComponent implements OnInit {
   updatePalabraBuscar(palabraBuscar: string){
     this.buscar = palabraBuscar
   }
+  paginaCero(){
+    if(this.primeraBusqueda){
+          this.pageNumber = 0
+    }
+    this.primeraBusqueda = false
 
+  }
   updateCantidadPaginas(cantidadPaginas: number[]){
     this.cantidadPaginas = cantidadPaginas
   }
@@ -52,6 +70,14 @@ export class AbmExtraEventoComponent implements OnInit {
     this.extraService.extraId = id
     this.extraService.extraVolver = this.location.path()
     this.router.navigateByUrl('/precioExtra')
+  }
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.inicializarListaItems()
+  }
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
+
   }
 
   editar(id : number){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { Location } from '@angular/common';
@@ -13,23 +13,43 @@ export class AbmUsuarioComponent implements OnInit {
 
   buscar = ''
   listaItems : Array<any> = []
-  cantidadRegistros : number[] = []
+  cantidadRegistros : number = 0
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
+  pageNumber : number = 0
+  primeraBusqueda : Boolean = true
 
   constructor(private usuarioService : UsuarioService, private loginService : LoginService, private router : Router, private location : Location) { }
   
   async ngOnInit(): Promise<void> {
-    this.listaItems = await this.usuarioService.getAllUsuariosByEmpresaId()
+    this.inicializarListaItems()
+  }
 
-    this.cantidadRegistros = new Array<number>(this.listaItems.length)
-    this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
+  async inicializarListaItems(){
+    this.updatePalabraBuscar(this.buscar)
+    this.paginaCero()
+
+    if(this.buscar == ""){
+      this.listaItems = await this.usuarioService.getAllUsuariosByEmpresaId(this.pageNumber)
+      this.cantidadRegistros = await this.usuarioService.cantUsuarios()
+  }
+    else {
+
+      this.listaItems = await this.usuarioService.getAllUsersByFilterName(this.pageNumber,this.buscar)
+      this.cantidadRegistros = await this.usuarioService.cantUsuariosFiltrados(this.buscar)
+    }
+
+    this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadRegistros / 11) + 1)
+    this.updateCantidadPaginas(this.cantidadPaginas)
   }
 
   updateCurrentRegistro(registro: number){
     this.currentRegistro = registro
   }
-
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.inicializarListaItems()
+  }
   updatePalabraBuscar(palabraBuscar: string){
     this.buscar = palabraBuscar
   }
@@ -47,5 +67,15 @@ export class AbmUsuarioComponent implements OnInit {
     this.usuarioService.usuarioId = id
     this.router.navigateByUrl('/editUsuarioPassword')
   }
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
 
+  }
+  paginaCero(){
+    if(this.primeraBusqueda){
+          this.pageNumber = 0
+    }
+    this.primeraBusqueda = false
+
+  }
 }

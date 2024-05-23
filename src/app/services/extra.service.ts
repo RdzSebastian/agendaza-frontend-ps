@@ -16,7 +16,9 @@ export class ExtraService {
 
 
   extraId : number = 0
-  extraVolver: string = "";
+  extraVolver: string = ""
+  cantidadExtras : number = 0
+
 
   constructor(private httpClient: HttpClient, private agendaService : AgendaService) { }
 
@@ -26,10 +28,25 @@ export class ExtraService {
     return Extra.fromJson(item)
   }
 
-  async getAllExtraTipoEventoByEmpresaId() {
-    const listaItem$ = this.httpClient.get<ExtraJSON[]>(REST_SERVER_URL + '/getAllExtraTipoEventoByEmpresaId/' + this.agendaService.getEmpresaId())
+  async getAllExtraByEmpresaId(pageNumber : number) {
+    const listaItem$ = this.httpClient.get<ExtraJSON[]>(REST_SERVER_URL + '/getAllExtra/' + this.agendaService.getEmpresaId() + '/' + pageNumber)
     const listaItem = await lastValueFrom(listaItem$)
     return listaItem.map((extra) => Extra.fromJson(extra))
+  }
+  async getAllExtraByFilterName(pageNumber : number, buscar : string) {
+    const listaItem$ = this.httpClient.get<ExtraJSON[]>(REST_SERVER_URL + '/getAllExtraFilter/' + this.agendaService.getEmpresaId() + '/' + pageNumber + '/' + buscar)
+    const listaItem = await lastValueFrom(listaItem$)
+    return listaItem.map((extra) => Extra.fromJson(extra))
+  }
+  async cantExtras(){
+    const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantExtras/' + this.agendaService.getEmpresaId())
+    this.cantidadExtras = await lastValueFrom(cant$)
+    return this.cantidadExtras
+  }
+  async cantExtrasFiltrados(buscar : string){
+    const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantExtrasFiltrados/' + this.agendaService.getEmpresaId() + '/' + buscar)
+    this.cantidadExtras = await lastValueFrom(cant$)
+    return this.cantidadExtras
   }
 
   async getAllExtraCateringByEmpresaId() {

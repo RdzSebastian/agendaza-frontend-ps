@@ -10,7 +10,7 @@ export class AbmClienteComponent implements OnInit {
   buscar = ''
   listaItems : Array<any> = []
   listaHeader : Array<any> =[]
-  cantidadRegistros : number[] = []
+  cantidadRegistros : number=0
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
 
@@ -19,7 +19,7 @@ export class AbmClienteComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.listaItems = await this.usuarioService.getAllClienteByEmpresaId()
 
-    this.cantidadRegistros = new Array<number>(this.listaItems.length)
+    this.cantidadRegistros = this.listaItems.length
     this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
 
     this.listaHeader.push("Nombre")

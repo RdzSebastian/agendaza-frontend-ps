@@ -21,6 +21,9 @@ export class AbmDataTableUsuarioComponent implements OnInit {
   @Input()
   buscar = ''
 
+  @Input()
+  pageNumber : number = 0
+
   @Output() 
   outputEditar = new EventEmitter<number>();
 

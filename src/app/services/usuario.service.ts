@@ -69,12 +69,16 @@ export class UsuarioService {
     return listaItem.map((usuario) => Usuario.fromJson(usuario))
 
   }
+  
   async cantUsuariosFiltrados(buscar : string){
     const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantUsuariosFiltrados/' + this.agendaService.getEmpresaId() + '/' + buscar)
     this.cantidadUsuarios = await lastValueFrom(cant$)
     return this.cantidadUsuarios
   }
 
-
+  async getEventosByUsuario(usuarioId: number) {
+    const listaEvento$ = this.httpClient.get<string[]>(REST_SERVER_URL + '/getEventosByUsuario/' + usuarioId)
+    return await lastValueFrom(listaEvento$)
+  }
 
 }

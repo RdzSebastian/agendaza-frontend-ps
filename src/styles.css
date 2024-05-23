@@ -78,3 +78,12 @@ button:focus {
   width: 70%;
   height: 100%;
 }
+
+.contenedorVolver {
+  display: flex;
+  justify-content: right;
+
+}
+.volverCliente {
+  width: 10vw;
+}

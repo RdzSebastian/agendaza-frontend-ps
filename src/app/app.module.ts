@@ -65,6 +65,7 @@ import { VerListaEventoClienteComponent } from './layout/ver/ver-lista-evento-cl
 import { ModalListaComponent } from './components/modal/modal-lista/modal-lista.component';
 import { ModalEditarComponent } from './components/modal/modal-editar/modal-editar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
+import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.component';
 
 @NgModule({
   declarations: [
@@ -125,6 +126,7 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ModalListaComponent,
     ModalEditarComponent,
     SidebarComponent,
+    VerClienteComponent
   ],
   imports: [
     BrowserModule,

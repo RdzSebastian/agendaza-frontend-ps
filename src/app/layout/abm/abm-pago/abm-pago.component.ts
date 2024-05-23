@@ -12,6 +12,8 @@ export class AbmPagoComponent implements OnInit {
   cantidadRegistros : number=0
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
+  pageNumber : number = 0
+  primeraBusqueda : Boolean = true
 
   constructor(private pagoService : PagoService) { }
 
@@ -20,11 +22,40 @@ export class AbmPagoComponent implements OnInit {
   }
 
   async inicializarListaItems(){
-    this.listaItems = await this.pagoService.getAllPagoByEmpresaId()
 
-    this.cantidadRegistros = this.listaItems.length
-    this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
+    this.updatePalabraBuscar(this.buscar)
+    this.paginaCero()
+    
+    if(this.buscar == ""){
+
+    this.listaItems = await this.pagoService.getAllPagoByEmpresaId(this.pageNumber)
+    this.cantidadRegistros = await this.pagoService.cantPagos()
+    }else{
+      this.listaItems = await this.pagoService.getAllPagoByFilter(this.pageNumber,this.buscar)
+      this.cantidadRegistros = await this.pagoService.cantPagosFiltrados(this.buscar)
+
+    }
+
+    this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadRegistros / 10) + 1)
+    this.updateCantidadPaginas(this.cantidadPaginas)
   }
+  paginaCero(){
+    if(this.primeraBusqueda){
+          this.pageNumber = 0
+    }
+    this.primeraBusqueda = false
+
+  }
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.inicializarListaItems()
+  }
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
+
+  }
+  
+
   
   updateCurrentRegistro(registro: number){
     this.currentRegistro = registro

@@ -16,7 +16,10 @@ export class AbmDataTablePagoComponent implements OnInit {
   buscar = ''
 
   @Output() 
-  outputEliminar = new EventEmitter<number>();
+  outputEliminar = new EventEmitter<number>()
+
+  @Input()
+  pageNumber : number = 0
 
   modal = false
   idEliminar = 0

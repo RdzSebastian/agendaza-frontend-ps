@@ -41,8 +41,7 @@ export class AbmExtraEventoComponent implements OnInit {
     this.listaItems = await this.extraService.getAllExtraByFilterName(this.pageNumber,this.buscar)
     this.cantidadRegistros = await this.extraService.cantExtrasFiltrados(this.buscar)
   }
-
-    this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
+    this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadRegistros / 10) + 1)
     this.updateCantidadPaginas(this.cantidadPaginas)
     this.tituloModal = "Eliminar Extra"
     this.nombreItemModal = "extra"
@@ -63,7 +62,6 @@ export class AbmExtraEventoComponent implements OnInit {
     this.primeraBusqueda = false
 
   }
-
   updateCantidadPaginas(cantidadPaginas: number[]){
     this.cantidadPaginas = cantidadPaginas
   }

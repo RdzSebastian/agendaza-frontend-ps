@@ -17,8 +17,8 @@ export class VerClienteComponent implements OnInit {
   0,[],[],"",[],[], new Cliente(0,"","","","",0),0, new UsuarioAbm(0,"",""),"","", "")
 
   cliente = ""
-
   eventos: Array<any> = []
+  cantidadEventos = 0
 
   constructor(private eventoService : EventoService, private empresaService : EmpresaService, private usuarioService: UsuarioService , private router : Router) { }
 
@@ -29,15 +29,19 @@ export class VerClienteComponent implements OnInit {
 
     this.cliente = this.evento.cliente.nombre + " " + this.evento.cliente.apellido
 
-    console.log(this.eventos)
+    this.cantidadEventos = this.eventos.length
   }
 
-  volver(){
-    this.router.navigateByUrl("/abmEvento")
+  volver(id: number){
+    this.router.navigateByUrl("/verEvento")
   }
 
   ver(id: number) {
     this.router.navigateByUrl('/verEvento')
+  }
+
+  masDe10Eventos() {
+    this.cantidadEventos > 10
   }
 
 }

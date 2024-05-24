@@ -2,7 +2,7 @@
 	<br>
 	<h2>Ver Cliente</h2>
   <div class = "contenedorVolver">
-    <button (click)="volver()" class="btn btn-primary volverCliente">Volver</button>
+    <button (click)="volver(evento.id)" class="btn btn-primary">Volver</button>
   </div>
        	<div class="row">
     		<div class="col-md-6">
@@ -38,4 +38,5 @@
             		</div>
 		</div>
        	</div>
+         <small *ngIf="masDe10Eventos()" class="form-text text-muted">{{cantidadEventos}} eventos contratados</small>
 </div>

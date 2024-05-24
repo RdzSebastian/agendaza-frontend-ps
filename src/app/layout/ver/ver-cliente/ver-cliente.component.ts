@@ -30,6 +30,9 @@ export class VerClienteComponent implements OnInit {
     this.cliente = this.evento.cliente.nombre + " " + this.evento.cliente.apellido
 
     this.cantidadEventos = this.eventos.length
+
+    this.eventos = this.eventos.slice(0,10)
+
   }
 
   volver(id: number){
@@ -40,8 +43,8 @@ export class VerClienteComponent implements OnInit {
     this.router.navigateByUrl('/verEvento')
   }
 
-  masDe10Eventos() {
-    this.cantidadEventos > 10
+  masDe10Eventos(): Boolean {
+    return this.cantidadEventos > 10
   }
 
 }

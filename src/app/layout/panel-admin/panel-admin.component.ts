@@ -42,10 +42,6 @@ export class PanelAdminComponent implements OnInit {
     this.router.navigateByUrl('/abmServicio')
   }
 
-  abmEmpresa() {
-    this.router.navigateByUrl('/abmEmpresa')
-  }
-
   abmTipoEvento() {
     this.router.navigateByUrl('/abmTipoEvento')
   }

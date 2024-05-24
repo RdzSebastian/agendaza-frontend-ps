@@ -11,7 +11,8 @@
           width="32" height="32" class="rounded-circle">
       </button>
       <div class="dropdown-menu" [class.show]="dropdownOpen" aria-labelledby="avatarDropdown">
-        <a class="dropdown-item" (click)="perfil()"> <i class="fas fa-user"></i> Perfil</a>
+        <a class="dropdown-item" (click)="perfil()"><i class="fas fa-user"></i> Perfil</a>
+        <a class="dropdown-item" (click)="empresa()"><i class="bi bi-briefcase-fill"></i> Empresa</a>
         <a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
       </div>
     </div>

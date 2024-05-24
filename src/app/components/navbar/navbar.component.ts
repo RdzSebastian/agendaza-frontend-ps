@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { AgendaService } from 'src/app/services/agenda.service';
 import { Location } from '@angular/common';
 import { LoginService } from 'src/app/services/login.service';
+import { Empresa } from 'src/app/model/Empresa';
 
 @Component({
   selector: 'app-navbar',
@@ -36,6 +37,10 @@ export class NavbarComponent implements OnInit {
 
   perfil() {
     // cuando este colocar aqui.
+    this.dropdownOpen = false
+  }
+  empresa(){
+    this.router.navigateByUrl('/abmEmpresa')
     this.dropdownOpen = false
   }
   //esto hace que se ponga el false el dropdown cuando clickeas fuera

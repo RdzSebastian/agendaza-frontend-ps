@@ -6,7 +6,7 @@ import { ROL_ADMIN } from 'src/util/configuration';
 
 
 @Component({
-  selector: 'app-edit-usuario-password',
+  selector: 'app-edit-cargo-empleado',
   templateUrl: './edit-cargo-empleado.component.html',
 })
 export class EditEmpleadoCargoComponent implements OnInit {

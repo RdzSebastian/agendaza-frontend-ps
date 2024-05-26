@@ -66,6 +66,7 @@ import { ModalListaComponent } from './components/modal/modal-lista/modal-lista.
 import { ModalEditarComponent } from './components/modal/modal-editar/modal-editar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.component';
+import { EditEmpleadoCargoComponent } from './layout/edit/edit-cargo-empleado/edit-cargo-empleado.component';
 
 @NgModule({
   declarations: [
@@ -126,7 +127,8 @@ import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.compon
     ModalListaComponent,
     ModalEditarComponent,
     SidebarComponent,
-    VerClienteComponent
+    VerClienteComponent,
+    EditEmpleadoCargoComponent
   ],
   imports: [
     BrowserModule,

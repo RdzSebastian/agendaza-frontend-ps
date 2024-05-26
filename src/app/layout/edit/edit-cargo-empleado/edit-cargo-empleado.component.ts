@@ -24,8 +24,6 @@ export class EditEmpleadoCargoComponent implements OnInit {
     this.usuario.rol = await this.usuarioService.getUsuarioRolByEmpresaId(this.usuarioService.usuarioId)
     this.listaRol = await this.usuarioService.getAllRol()
 
-    console.log(this.usuario)
-
   }
 
   usuarioAdmin(){

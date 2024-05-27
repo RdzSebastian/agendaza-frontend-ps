@@ -61,7 +61,6 @@ import { EditEventoExtrasComponent } from './layout/edit/edit-evento/edit-evento
 import { EditEventoCateringComponent } from './layout/edit/edit-evento/edit-evento-catering/edit-evento-catering.component';
 import { VerEventoComponent } from './layout/ver/ver-evento/ver-evento.component';
 import { EditEventoHoraComponent } from './layout/edit/edit-evento/edit-evento-hora/edit-evento-hora.component';
-import { VerListaEventoClienteComponent } from './layout/ver/ver-lista-evento-cliente/ver-lista-evento-cliente.component';
 import { ModalListaComponent } from './components/modal/modal-lista/modal-lista.component';
 import { ModalEditarComponent } from './components/modal/modal-editar/modal-editar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
@@ -122,7 +121,6 @@ import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.compon
     EditEventoCateringComponent,
     VerEventoComponent,
     EditEventoHoraComponent,
-    VerListaEventoClienteComponent,
     ModalListaComponent,
     ModalEditarComponent,
     SidebarComponent,

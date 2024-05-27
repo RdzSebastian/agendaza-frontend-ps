@@ -4,6 +4,7 @@ import { lastValueFrom } from 'rxjs';
 import { REST_SERVER_URL } from 'src/util/configuration';
 import { Usuario, UsuarioEditPassword, UsuarioEmpresa, UsuarioJSON, UsuarioSave } from '../model/Usuario';
 import { AgendaService } from './agenda.service';
+import { EmpresaService } from './empresa.service';
 
 @Injectable({
   providedIn: 'root'
@@ -70,15 +71,19 @@ export class UsuarioService {
 
   }
   
-  async cantUsuariosFiltrados(buscar : string){
+  async getCantUsuariosFiltrados(buscar : string){
     const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantUsuariosFiltrados/' + this.agendaService.getEmpresaId() + '/' + buscar)
-    this.cantidadUsuarios = await lastValueFrom(cant$)
-    return this.cantidadUsuarios
+    return await lastValueFrom(cant$)
   }
 
-  async getEventosByUsuario(usuarioId: number) {
-    const listaEvento$ = this.httpClient.get<string[]>(REST_SERVER_URL + '/getEventosByUsuario/' + usuarioId)
+  async getEventosByUsuarioAndEmpresa(usuarioId: number) {
+    const listaEvento$ = this.httpClient.put<string[]>(REST_SERVER_URL + '/getEventosByUsuarioAndEmpresa', new UsuarioEmpresa(usuarioId, this.agendaService.getEmpresaId()))
     return await lastValueFrom(listaEvento$)
+  }
+
+  async getCantEventosByUsuarioAndEmpresa(usuarioId: number) {
+    const cant$ = this.httpClient.put<number>(REST_SERVER_URL + '/getCantEventosByUsuarioAndEmpresa', new UsuarioEmpresa(usuarioId, this.agendaService.getEmpresaId()))
+    return await lastValueFrom(cant$)
   }
 
 }

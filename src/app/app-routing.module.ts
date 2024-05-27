@@ -44,7 +44,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    // canActivate:[AuthGuard],
+    canActivate:[AuthGuard],
     children: [
       { path : '', component: SeleccionarAgendaComponent },
       { path : 'agenda', component: AgendaComponent },

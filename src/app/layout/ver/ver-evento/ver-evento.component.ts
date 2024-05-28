@@ -42,7 +42,6 @@ export class VerEventoComponent implements OnInit {
 
   encargadoNombreCompleto : string = ""
 
-
   constructor(private eventoService : EventoService, private empresaService : EmpresaService, private router : Router) { }
 
   async ngOnInit() {

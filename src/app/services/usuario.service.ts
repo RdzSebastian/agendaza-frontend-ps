@@ -12,6 +12,7 @@ export class UsuarioService {
 
   usuarioId : number = 0
   cantidadUsuarios : number = 0
+  perfilVolver : String = ""
   
   constructor(private httpClient: HttpClient, private agendaService : AgendaService) { }
 

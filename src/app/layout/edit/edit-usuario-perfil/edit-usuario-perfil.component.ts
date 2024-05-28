@@ -28,11 +28,12 @@ export class EditUsuarioPerfilComponent implements OnInit {
 
   async save(){
     const item = await this.usuarioService.save(this.usuario)
-    this.router.navigateByUrl('/abmUsuario')
+    this.router.navigateByUrl("/" + this.usuarioService.perfilVolver)
   }
 
+
   volver(){
-    this.router.navigateByUrl('/abmUsuario')
+    this.router.navigateByUrl("/" + this.usuarioService.perfilVolver)
   }
 
   cambiarContrasenia(){

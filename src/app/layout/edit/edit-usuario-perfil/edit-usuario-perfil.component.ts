@@ -23,11 +23,6 @@ export class EditUsuarioPerfilComponent implements OnInit {
     this.usuario = await this.usuarioService.getUsuario(this.usuarioId)
     this.usuario.rol = await this.usuarioService.getUsuarioRolByEmpresaId(this.usuarioId)
     this.listaRol = await this.usuarioService.getAllRol()
-    this.listaSexo = await this.usuarioService.getAllSexo()
-
-    console.log(this.usuario)
-    console.log(this.listaSexo)
-
 
   }
 

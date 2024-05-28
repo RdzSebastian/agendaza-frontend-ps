@@ -58,11 +58,6 @@ export class UsuarioService {
     return await lastValueFrom(listaItem$)
   }
 
-  async getAllSexo() {
-    const listaItem$ = this.httpClient.get<string[]>(REST_SERVER_URL + '/getAllSexo')
-    return await lastValueFrom(listaItem$)
-  }
-
   async getAllUsersByFilterName(pageNumber : number, buscar : string){
     const listaItem$ = this.httpClient.get<UsuarioJSON[]>(REST_SERVER_URL + '/getAllUsersByFilterName/' + this.agendaService.getEmpresaId() + '/' + pageNumber + '/' + buscar)
     const listaItem = await lastValueFrom(listaItem$)

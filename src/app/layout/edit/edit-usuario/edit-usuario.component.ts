@@ -20,7 +20,6 @@ export class EditUsuarioComponent implements OnInit {
     this.usuario.rol = await this.usuarioService.getUsuarioRolByEmpresaId(this.usuarioService.usuarioId)
     
     this.listaRol = await this.usuarioService.getAllRol()
-    this.listaSexo = await this.usuarioService.getAllSexo()
   }
 
   async save(){

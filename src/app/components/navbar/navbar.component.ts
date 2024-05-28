@@ -4,6 +4,7 @@ import { AgendaService } from 'src/app/services/agenda.service';
 import { Location } from '@angular/common';
 import { LoginService } from 'src/app/services/login.service';
 import { Empresa } from 'src/app/model/Empresa';
+import { UsuarioService } from 'src/app/services/usuario.service';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +13,7 @@ import { Empresa } from 'src/app/model/Empresa';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private router: Router, private agendaService: AgendaService, private location: Location) { }
+  constructor(private loginService: LoginService, private usuarioService : UsuarioService, private router: Router, private agendaService: AgendaService, private location: Location) { }
 
   ngOnInit(): void { }
   dropdownOpen: boolean = false;
@@ -36,7 +37,8 @@ export class NavbarComponent implements OnInit {
   }
 
   perfil() {
-    // cuando este colocar aqui.
+    this.usuarioService.perfilVolver = this.location.path()
+    this.router.navigateByUrl('/editUsuarioPerfil')
     this.dropdownOpen = false
   }
   empresa(){

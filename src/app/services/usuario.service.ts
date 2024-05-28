@@ -13,6 +13,7 @@ export class UsuarioService {
 
   usuarioId : number = 0
   cantidadUsuarios : number = 0
+  perfilVolver : String = ""
   
   constructor(private httpClient: HttpClient, private agendaService : AgendaService) { }
 
@@ -56,11 +57,6 @@ export class UsuarioService {
 
   async getAllRol() {
     const listaItem$ = this.httpClient.get<string[]>(REST_SERVER_URL + '/getAllRol')
-    return await lastValueFrom(listaItem$)
-  }
-
-  async getAllSexo() {
-    const listaItem$ = this.httpClient.get<string[]>(REST_SERVER_URL + '/getAllSexo')
     return await lastValueFrom(listaItem$)
   }
 

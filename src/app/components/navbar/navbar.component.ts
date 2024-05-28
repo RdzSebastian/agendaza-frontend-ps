@@ -36,7 +36,7 @@ export class NavbarComponent implements OnInit {
   }
 
   perfil() {
-    // cuando este colocar aqui.
+    this.router.navigateByUrl('/editUsuarioPerfil')
     this.dropdownOpen = false
   }
   empresa(){

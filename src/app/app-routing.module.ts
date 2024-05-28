@@ -36,6 +36,7 @@ import { EditEventoHoraComponent } from './layout/edit/edit-evento/edit-evento-h
 import { VerEventoComponent } from './layout/ver/ver-evento/ver-evento.component';
 import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.component';
 import { EditEmpleadoCargoComponent } from './layout/edit/edit-cargo-empleado/edit-cargo-empleado.component';
+import { EditUsuarioPerfilComponent } from './layout/edit/edit-usuario-perfil/edit-usuario-perfil.component';
 
 
 const routes: Routes = [
@@ -81,6 +82,7 @@ const routes: Routes = [
       { path : 'verEvento', component: VerEventoComponent },
       { path : 'verCliente', component: VerClienteComponent },
       { path : 'editCargoEmpleado', component: EditEmpleadoCargoComponent},
+      { path : 'editUsuarioPerfil', component: EditUsuarioPerfilComponent},
       { path: '**', component: NotFoundComponent }
     ]
   }

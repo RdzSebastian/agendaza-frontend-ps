@@ -41,7 +41,7 @@ export class EditUsuarioPerfilComponent implements OnInit {
   }
 
   cambiarContrasenia(){
-
+    this.router.navigateByUrl('/editUsuarioPassword')
   }
 
 }

@@ -126,7 +126,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
   }
 
   getFinal(){
-    return Math.max(3,this.currentPagina +1)
+    return Math.max(5,this.currentPagina +1)
   }
 
 }

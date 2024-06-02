@@ -119,7 +119,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
     }
 
     if(this.cantidadPaginas.length - 2 <= this.currentPagina){
-      inicio = fin - 3
+      inicio = this.cantidadPaginas.length - 5
     }
     
     return [inicio, fin];

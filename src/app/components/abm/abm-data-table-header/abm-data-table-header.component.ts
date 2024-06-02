@@ -104,7 +104,10 @@ export class AbmDataTableHeaderComponent implements OnInit {
   getLimitesSlice(paginaActual: number): [number, number] {
     const fin = Math.max(5,paginaActual)
     const inicio = Math.max(0,fin-5)
-    return [inicio, fin];
+    return [inicio +1, fin];
+  }
+  getUltimaPagina(){
+    return Math.trunc((this.cantidadRegistros/10) +1)
   }
 
 }

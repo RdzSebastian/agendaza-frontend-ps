@@ -17,6 +17,8 @@ export class AbmExtraCateringComponent implements OnInit {
   nombreItemModal = ""
   tituloModal = ""
   botonModal = ""
+  primeraBusqueda : Boolean = true
+  pageNumber : number = 0
 
   constructor(private extraService : ExtraService, private router : Router, private location : Location) { }
 
@@ -25,11 +27,22 @@ export class AbmExtraCateringComponent implements OnInit {
   }
 
   async inicializarListaItems(){
-    this.listaItems = await this.extraService.getAllExtraCateringByEmpresaId()
 
-    this.cantidadRegistros = this.listaItems.length
-    this.cantidadPaginas = new Array<number>(Math.trunc(this.listaItems.length / 11) + 1)
+    this.updatePalabraBuscar(this.buscar)
+    this.paginaCero()
     
+    if(this.buscar == ""){
+
+    this.listaItems = await this.extraService.getAllExtraCATByEmpresaId(this.pageNumber)
+    this.cantidadRegistros = await this.extraService.cantExtrasCAT()
+
+  }else{
+    this.listaItems = await this.extraService.getAllExtraCATByFilterName(this.pageNumber,this.buscar)
+    this.cantidadRegistros = await this.extraService.cantExtrasCATFiltrados(this.buscar)
+  }
+    this.cantidadPaginas = new Array<number>(Math.trunc(this.cantidadRegistros / 10) + 1)
+    this.updateCantidadPaginas(this.cantidadPaginas)
+
     this.tituloModal = "Eliminar Extra"
     this.nombreItemModal = "extra"
     this.botonModal = "Eliminar"
@@ -42,7 +55,21 @@ export class AbmExtraCateringComponent implements OnInit {
   updatePalabraBuscar(palabraBuscar: string){
     this.buscar = palabraBuscar
   }
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.inicializarListaItems()
+  }
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
 
+  }
+  paginaCero(){
+    if(this.primeraBusqueda){
+          this.pageNumber = 0
+    }
+    this.primeraBusqueda = false
+
+  }
   updateCantidadPaginas(cantidadPaginas: number[]){
     this.cantidadPaginas = cantidadPaginas
   }

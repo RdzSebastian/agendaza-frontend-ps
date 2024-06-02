@@ -83,6 +83,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
     this.outputRegistro()
     this.outputPalabraBuscar()
   }
+  
   actualizaBuscar(){
     this.currentPagina = 1
     this.busqueda = true
@@ -96,18 +97,32 @@ export class AbmDataTableHeaderComponent implements OnInit {
     this.outputPageNumber.emit(this.pageNumber);    
   }
 
+
   outputPalabraBuscar() {
     this.outputBuscar.emit(this.buscar);
     
   }
 
-  getLimitesSlice(paginaActual: number): [number, number] {
-    const fin = Math.max(5,paginaActual)
-    const inicio = Math.max(0,fin-5)
-    return [inicio +1, fin];
-  }
-  getUltimaPagina(){
-    return Math.trunc((this.cantidadRegistros/10) +1)
+
+  getLimitesSlice(): [number, number] {
+
+    var fin = Math.max(5,this.currentPagina)
+    var inicio = fin - 4
+
+
+    if(5 <= this.currentPagina && this.cantidadPaginas.length - 1 > this.currentPagina){
+      inicio = fin - 3
+    }
+
+    if(this.cantidadPaginas.length == this.currentPagina){
+      inicio = fin - 5
+    }
+
+    if(this.cantidadPaginas.length - 2 <= this.currentPagina){
+      fin = fin + 1
+    }
+    
+    return [inicio, fin];
   }
 
 }

@@ -1,30 +1,62 @@
 <div class="header_abm">
-    <p class="cont-pag">Cantidad de registros: {{cantidadRegistros}}</p>
-<div class="contenedorBusqueda">
-    <input [(ngModel)]="buscar" class="form-control barra_busqueda" placeholder="Buscar...">
-    <button class="lupita" (click)="actualizaBuscar()"><i class="fas fa-search icono"></i></button>
-</div>
 
-<nav *ngIf="cantidadRegistros <= 50" aria-label="Page navigation example" class="cont-pag">
-    <ul class="pagination">
-        <li class="page-item" ><button class="btn btn-primary atras" [class.disabled] ="pageNumber == 0"(click)="atras()">Atras</button></li>
-        <li class="page-item" *ngFor="let pagina of cantidadPaginas.slice(getLimitesSlice(currentPagina)[0], getLimitesSlice(currentPagina)[1]); let i = index">    
-            <button class="page-link" [ngClass]="(getLimitesSlice(currentPagina)[0] +1 + i == currentPagina) ? 'active': ''" (click)="irPagina(getLimitesSlice(currentPagina)[0] +1 + i)">{{getLimitesSlice(currentPagina)[0] +1 + i}}</button>
-        </li>   
-        <li class="page-item" ><button class="btn btn-primary siguiente" [class.disabled] ="(pageNumber+1)*10 > cantidadRegistros" (click)="siguiente()">Siguiente</button></li>
-    </ul>
-</nav>
-    <nav *ngIf="cantidadRegistros > 50" aria-label="Page navigation example" class="cont-pag">
+    <!-- Cantidad de registros -->
+    <p class="cont-pag">Cantidad de registros: {{cantidadRegistros}}</p>
+    <div class="contenedorBusqueda">
+        <input [(ngModel)]="buscar" class="form-control barra_busqueda" placeholder="Buscar...">
+        <button class="lupita" (click)="actualizaBuscar()"><i class="fas fa-search icono"></i></button>
+    </div>
+
+    <!-- Barra de busqueda -->
+    <nav *ngIf="cantidadRegistros <= 50" aria-label="Page navigation example" class="cont-pag">
         <ul class="pagination">
             <li class="page-item" ><button class="btn btn-primary atras" [class.disabled] ="pageNumber == 0"(click)="atras()">Atras</button></li>
-            <button class="page-link" [ngClass]="(currentPagina == 1) ? 'active': ''" (click)="irPagina(1)">1</button>
-            <button class="page-link" *ngIf = "currentPagina > 5">...</button>
-            <li class="page-item" *ngFor="let pagina of cantidadPaginas.slice(getLimitesSlice(currentPagina)[0], getLimitesSlice(currentPagina)[1]); let i = index">    
-                <button class="page-link" [ngClass]="(getLimitesSlice(currentPagina)[0] +1 + i == currentPagina) ? 'active': ''" (click)="irPagina(getLimitesSlice(currentPagina)[0] +1 + i)">{{getLimitesSlice(currentPagina)[0] +1 + i}}</button>
-            </li>    
-                <button class="page-link" *ngIf = "(pageNumber+1)*10 < cantidadRegistros && currentPagina != getUltimaPagina() -1">...</button>
-                <button class="page-link" *ngIf = "currentPagina != getUltimaPagina()" [ngClass]="(currentPagina == getUltimaPagina()) ? 'active': ''"(click)="irPagina(getUltimaPagina())">{{getUltimaPagina()}}</button>
+            <li class="page-item" *ngFor="let pagina of cantidadPaginas.slice(getLimitesSlice()[0], getLimitesSlice()[1]); let i = index">    
+                <button class="page-link" [ngClass]="(getLimitesSlice()[0] +1 + i == currentPagina) ? 'active': ''" (click)="irPagina(getLimitesSlice()[0] +1 + i)">{{getLimitesSlice()[0] +1 + i}}</button>
+            </li>   
             <li class="page-item" ><button class="btn btn-primary siguiente" [class.disabled] ="(pageNumber+1)*10 > cantidadRegistros" (click)="siguiente()">Siguiente</button></li>
+        </ul>
+    </nav>
+
+    <!-- Paginacion -->
+    <nav *ngIf="cantidadRegistros > 50" aria-label="Page navigation example" class="cont-pag">
+        <ul class="pagination">
+            <li class="page-item">
+                <button class="btn btn-primary atras" 
+                    [class.disabled] ="pageNumber == 0"
+                    (click)="atras()">Atras</button>
+            </li>
+            
+            <li class="page-item">
+                <button class="page-link" 
+                    [ngClass]="(1 == currentPagina) ? 'active': ''" 
+                    (click)="irPagina(1)">1</button>
+            </li>
+
+            <li class="page-item">
+                <button class="page-link" *ngIf = "currentPagina > 4">...</button>
+            </li>
+
+            <li class="page-item" *ngFor="let pagina of cantidadPaginas.slice(getLimitesSlice()[0], getLimitesSlice()[1]); let i = index">    
+                <button class="page-link" 
+                    [ngClass]="(getLimitesSlice()[0] +1 + i == currentPagina) ? 'active': ''" 
+                    (click)="irPagina(getLimitesSlice()[0] +1 + i)">
+                    {{getLimitesSlice()[0] +1 + i}}</button>
+            </li>
+            
+            <li class="page-item" >
+                <button class="page-link" *ngIf = "cantidadPaginas.length - 3 >= this.currentPagina">...</button>
+            </li>
+
+            <li class="page-item" >
+                <button class="page-link" *ngIf = "!(cantidadPaginas.length - 1 <= currentPagina)" 
+                    (click)="irPagina(cantidadPaginas.length)">
+                    {{cantidadPaginas.length}}</button>
+            </li>
+
+            <li class="page-item" ><button class="btn btn-primary siguiente" 
+                [class.disabled] ="(pageNumber+1)*10 > cantidadRegistros" 
+                (click)="siguiente()">Siguiente</button></li>
         </ul>
     </nav>
 

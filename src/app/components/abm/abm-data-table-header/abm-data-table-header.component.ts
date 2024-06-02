@@ -111,22 +111,16 @@ export class AbmDataTableHeaderComponent implements OnInit {
 
   getInicio(): number {
 
-    var fin = 5
-    var inicio = fin - 4
+    var inicio = 1
 
-
-    if(5 <= this.currentPagina && this.cantidadPaginas.length - 1 > this.currentPagina){
-      inicio = fin - 2
-    }
-
-    if(this.cantidadPaginas.length == this.currentPagina){
-      inicio = fin - 4
+    if(this.currentPagina >= 5 && this.cantidadPaginas.length - 1 > this.currentPagina){
+      inicio = 3
     }
 
     if(this.cantidadPaginas.length - 2 <= this.currentPagina){
       inicio = this.cantidadPaginas.length - 5
     }
-    
+    console.log(inicio)
     return inicio
   }
 

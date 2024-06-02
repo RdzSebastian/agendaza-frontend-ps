@@ -39,7 +39,7 @@
 
             <li class="page-item" *ngFor="let pagina of cantidadPaginas.slice(getInicio(), getFinal()); let i = index">    
                 <button class="page-link" 
-                    [ngClass]="(getInicio() +1 + i == currentPagina) ? 'active': ''" 
+                    [ngClass]="(currentPagina == getInicio() +1 + i) ? 'active': ''" 
                     (click)="irPagina(getInicio() +1 + i)">
                     {{getInicio() +1 + i}}</button>
             </li>

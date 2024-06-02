@@ -109,7 +109,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
     return [inicio, fin];
   }
 
-  getLimitesSlice(): [number, number] {
+  getInicio(): number {
 
     var fin = 5
     var inicio = fin - 4
@@ -127,7 +127,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
       inicio = this.cantidadPaginas.length - 5
     }
     
-    return [inicio, fin];
+    return inicio
   }
 
   getFinal(){

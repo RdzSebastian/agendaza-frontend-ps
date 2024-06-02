@@ -11,8 +11,8 @@
     <nav *ngIf="cantidadRegistros <= 50" aria-label="Page navigation example" class="cont-pag">
         <ul class="pagination">
             <li class="page-item" ><button class="btn btn-primary atras" [class.disabled] ="pageNumber == 0"(click)="atras()">Atras</button></li>
-            <li class="page-item" *ngFor="let pagina of cantidadPaginas.slice(getLimitesSlice()[0], getLimitesSlice()[1]); let i = index">    
-                <button class="page-link" [ngClass]="(getLimitesSlice()[0] +1 + i == currentPagina) ? 'active': ''" (click)="irPagina(getLimitesSlice()[0] +1 + i)">{{getLimitesSlice()[0] +1 + i}}</button>
+            <li class="page-item" *ngFor="let pagina of cantidadPaginas.slice(getLimites(pageNumber)[0], getLimitesSlice()[1]); let i = index">    
+                <button class="page-link" [ngClass]="(getLimites(pageNumber)[0] +1 + i == currentPagina) ? 'active': ''" (click)="irPagina(getLimites(pageNumber)[0] +1 + i)">{{getLimites(pageNumber)[0] +1 + i}}</button>
             </li>   
             <li class="page-item" ><button class="btn btn-primary siguiente" [class.disabled] ="(pageNumber+1)*10 > cantidadRegistros" (click)="siguiente()">Siguiente</button></li>
         </ul>

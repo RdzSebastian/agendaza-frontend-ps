@@ -51,8 +51,8 @@ export class AbmEventoComponent implements OnInit {
           this.pageNumber = 0
     }
     this.primeraBusqueda = false
-
   }
+
   updateCurrentRegistro(registro: number){
     this.currentRegistro = registro
   }
@@ -66,11 +66,11 @@ export class AbmEventoComponent implements OnInit {
     this.buscar = palabraBuscar
 
   }
+
   updatePrimeraBusqueda(busqueda: Boolean){
     this.primeraBusqueda = busqueda
-
   }
-
+  
   updateCantidadPaginas(cantidadPaginas: number[]){
     this.cantidadPaginas = cantidadPaginas
   }

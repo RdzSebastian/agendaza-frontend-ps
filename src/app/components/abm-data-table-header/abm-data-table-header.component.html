@@ -1,0 +1,20 @@
+<div class="table-title m-2">
+    <div class="row">
+        <div class="col-md-4">
+            <h2>Administrar <b> {{titulo}}</b></h2>
+        </div>
+
+        <div class="col-md-4">
+            <!-- Barra de busqueda -->
+            <div class="contenedorBusqueda">
+                <input [(ngModel)]="buscar" class="form-control barra_busqueda" placeholder="Buscar...">
+                <button class="lupita" (click)="actualizaBuscar()"><i class="fas fa-search icono"></i></button>
+            </div>
+        </div>
+
+        <div class="col-md-4 text-end">
+            <a class="btn btn-primary" data-toggle="modal"><span>Volver</span></a>
+            <a class="btn btn-success mx-3" data-toggle="modal"><i class="fas fa-plus-circle mx-1"></i> <span>Agregar</span></a>
+        </div>
+    </div> 
+</div>

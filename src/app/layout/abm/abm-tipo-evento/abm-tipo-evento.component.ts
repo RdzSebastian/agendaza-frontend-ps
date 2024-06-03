@@ -17,6 +17,8 @@ export class AbmTipoEventoComponent implements OnInit {
   nombreItemModal = ""
   tituloModal = ""
   botonModal = ""
+  pageNumber : number = 0
+  primeraBusqueda : Boolean = true
 
   constructor(private tipoEventoService : TipoEventoService, private router : Router, private location : Location) { }
 
@@ -33,6 +35,15 @@ export class AbmTipoEventoComponent implements OnInit {
     this.tituloModal = "Eliminar Tipo Evento"
     this.nombreItemModal = "tipo evento"
     this.botonModal = "Eliminar"
+  }
+
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.inicializarListaItems()
+  }
+
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
   }
 
   updateCurrentRegistro(registro: number){

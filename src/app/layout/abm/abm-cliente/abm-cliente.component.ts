@@ -13,10 +13,17 @@ export class AbmClienteComponent implements OnInit {
   cantidadRegistros : number=0
   cantidadPaginas : number[] = []
   currentRegistro : number = 0
+  pageNumber : number = 0
+  cantidadEventos : number = 0
+  primeraBusqueda : Boolean = true
 
   constructor(private usuarioService : UsuarioService) { }
 
   async ngOnInit(): Promise<void> {
+    this.inicializarListaItems()
+  }
+
+  async inicializarListaItems(){
     this.listaItems = await this.usuarioService.getAllClienteByEmpresaId()
 
     this.cantidadRegistros = this.listaItems.length
@@ -27,8 +34,17 @@ export class AbmClienteComponent implements OnInit {
     this.listaHeader.push("Usuario")
   }
 
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.inicializarListaItems()
+  }
+
   updateCurrentRegistro(registro: number){
     this.currentRegistro = registro
+  }
+
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
   }
 
   updatePalabraBuscar(palabraBuscar: string){

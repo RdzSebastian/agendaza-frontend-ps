@@ -49,6 +49,34 @@ export class ExtraService {
     return this.cantidadExtras
   }
 
+  async getAllExtraCATByEmpresaId(pageNumber : number) {
+    const listaItem$ = this.httpClient.get<ExtraJSON[]>(REST_SERVER_URL + '/getAllExtraCAT/' + this.agendaService.getEmpresaId() + '/' + pageNumber)
+    const listaItem = await lastValueFrom(listaItem$)
+    return listaItem.map((extra) => Extra.fromJson(extra))
+  }
+  async getAllExtraCATByFilterName(pageNumber : number, buscar : string) {
+    const listaItem$ = this.httpClient.get<ExtraJSON[]>(REST_SERVER_URL + '/getAllExtraCATFilter/' + this.agendaService.getEmpresaId() + '/' + pageNumber + '/' + buscar)
+    const listaItem = await lastValueFrom(listaItem$)
+    return listaItem.map((extra) => Extra.fromJson(extra))
+  }
+  async cantExtrasCAT(){
+    const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantExtrasCAT/' + this.agendaService.getEmpresaId())
+    this.cantidadExtras = await lastValueFrom(cant$)
+    return this.cantidadExtras
+  }
+  async cantExtrasCATFiltrados(buscar : string){
+    const cant$ = this.httpClient.get<number>(REST_SERVER_URL + '/cantExtrasCATFiltrados/' + this.agendaService.getEmpresaId() + '/' + buscar)
+    this.cantidadExtras = await lastValueFrom(cant$)
+    return this.cantidadExtras
+  }
+
+
+
+
+
+
+
+
   async getAllExtraCateringByEmpresaId() {
     const listaItem$ = this.httpClient.get<ExtraJSON[]>(REST_SERVER_URL + '/getAllExtraCateringByEmpresaId/' + this.agendaService.getEmpresaId())
     const listaItem = await lastValueFrom(listaItem$)

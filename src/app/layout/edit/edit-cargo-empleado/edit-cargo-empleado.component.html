@@ -1,0 +1,30 @@
+<div class="container">
+  <br>
+  <h2>Editar rol de usuario</h2>
+  <form>
+      <input type="hidden" name="id" id="id" value="1">
+      <div class="form-group col-sm-12 col-lg-3">
+          <label for="rol">Rol</label>
+          <select class="form-select" [(ngModel)]="usuario.rol" name="rol">
+              <option *ngFor="let rol of listaRol" [value]="rol">{{rol}}</option>
+          </select>
+      </div>
+
+      <div class="form-check mt-3">
+          <input *ngIf="usuarioAdmin()" class="form-check-input" type="checkbox"
+          [(ngModel)]="usuario.habilitado" name="habilitado">
+          <label *ngIf="usuarioAdmin()" for="checkbox">Habilitado</label>
+      </div>
+
+      <div class="container mt-3">
+          <div class="gap-2 d-flex justify-content-end">
+              <div>
+                  <button class="btn btn-primary" (click)="volver()">Volver</button>
+              </div>
+              <div>
+                  <button type="submit" class="btn btn-success" (click)="save()">Guardar</button>
+              </div>
+          </div>
+      </div>
+  </form>
+</div>

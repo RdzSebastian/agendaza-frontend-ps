@@ -17,7 +17,6 @@ export class SaveUsuarioComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.listaRol = await this.usuarioService.getAllRol()
-    this.listaSexo = await this.usuarioService.getAllSexo()
   }
 
   async save(){

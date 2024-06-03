@@ -22,4 +22,8 @@ export class EditUsuarioPasswordComponent implements OnInit {
     this.router.navigateByUrl('/abmUsuario')
   }
 
+  volver(){
+    this.router.navigateByUrl('/editUsuarioPerfil')
+  }
+
 }

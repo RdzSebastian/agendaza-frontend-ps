@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { LoginService } from 'src/app/services/login.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-abm-data-table-usuario',
@@ -24,24 +26,22 @@ export class AbmDataTableUsuarioComponent implements OnInit {
   @Input()
   pageNumber : number = 0
 
-  @Output() 
+  @Output()
   outputEditar = new EventEmitter<number>();
 
-  @Output() 
-  outputEditarPassword = new EventEmitter<number>();
-
-  constructor(private loginService : LoginService) { }
+  constructor(private loginService : LoginService, private router : Router) { }
 
   async ngOnInit(): Promise<void> {
     this.usuarioId = await this.loginService.getUsuarioId()
   }
 
-  editar(id : number){
-    this.outputEditar.emit(id);
-  }
+  // editar(id : number){
+  //   this.outputEditar.emit(id);
+  // }
 
-  editarPassword(id : number){
-    this.outputEditarPassword.emit(id);
+  editar(id: number){
+    this.outputEditar.emit(id)
+    this.router.navigateByUrl("/editCargoEmpleado")
   }
 
   isUsuarioEditable(item : any){

@@ -2,12 +2,8 @@
 
     <!-- Cantidad de registros -->
     <p class="cont-pag">Cantidad de registros: {{cantidadRegistros}}</p>
-    <div class="contenedorBusqueda">
-        <input [(ngModel)]="buscar" class="form-control barra_busqueda" placeholder="Buscar...">
-        <button class="lupita" (click)="actualizaBuscar()"><i class="fas fa-search icono"></i></button>
-    </div>
 
-    <!-- Barra de busqueda -->
+    <!-- Paginacion menos de 50 -->
     <nav *ngIf="cantidadRegistros <= 50" aria-label="Page navigation example" class="cont-pag">
         <ul class="pagination">
             <li class="page-item" ><button class="btn btn-primary atras" [class.disabled] ="pageNumber == 0"(click)="atras()">Atras</button></li>
@@ -18,7 +14,7 @@
         </ul>
     </nav>
 
-    <!-- Paginacion -->
+    <!-- Paginacion mas de 50 -->
     <nav *ngIf="cantidadRegistros > 50" aria-label="Page navigation example" class="cont-pag">
         <ul class="pagination">
             <li class="page-item">

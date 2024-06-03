@@ -19,6 +19,8 @@ export class AbmServicioComponent implements OnInit {
   nombreItemModal = ""
   tituloModal = ""
   botonModal = ""
+  pageNumber : number = 0
+  primeraBusqueda : Boolean = true
 
   constructor(private servicioService : ServicioService, private router : Router, private location : Location) { }
 
@@ -35,6 +37,15 @@ export class AbmServicioComponent implements OnInit {
     this.tituloModal = "Eliminar Servicio"
     this.nombreItemModal = "servicio"
     this.botonModal = "Eliminar"
+  }
+
+  updatePageNumber(page : number){
+    this.pageNumber = page
+    this.inicializarListaItems()
+  }
+
+  updatePrimeraBusqueda(busqueda: Boolean){
+    this.primeraBusqueda = busqueda
   }
 
   updateCurrentRegistro(registro: number){

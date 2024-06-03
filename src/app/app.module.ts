@@ -34,7 +34,7 @@ import { AbmEmpresaComponent } from './layout/abm/abm-empresa/abm-empresa.compon
 import { AbmExtraEventoComponent } from './layout/abm/abm-extra-evento/abm-extra-evento.component';
 import { AbmDataTablePagoComponent } from './components/abm/abm-data-table-pago/abm-data-table-pago.component';
 import { AbmDataTableComponent } from './components/abm/abm-data-table/abm-data-table.component';
-import { AbmDataTableHeaderComponent } from './components/abm/abm-data-table-header/abm-data-table-header.component';
+import { AbmDataTablePaginacionComponent } from './components/abm/abm-data-table-paginacion/abm-data-table-paginacion.component';
 import { AbmDataTableEventoComponent } from './components/abm/abm-data-table-evento/abm-data-table-evento.component';
 import { AbmDataTableUsuarioComponent } from './components/abm/abm-data-table-usuario/abm-data-table-usuario.component';
 import { SaveUsuarioComponent } from './layout/save/save-usuario/save-usuario.component';
@@ -66,6 +66,7 @@ import { ModalListaComponent } from './components/modal/modal-lista/modal-lista.
 import { ModalEditarComponent } from './components/modal/modal-editar/modal-editar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.component';
+import { AbmDataTableHeaderComponent } from './components/abm-data-table-header/abm-data-table-header.component';
 
 @NgModule({
   declarations: [
@@ -89,7 +90,7 @@ import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.compon
     OrderAbmByNombre,
     AbmEventoComponent,
     AbmDataTableComponent,
-    AbmDataTableHeaderComponent,
+    AbmDataTablePaginacionComponent,
     AbmDataTableEventoComponent,
     AbmDataTableUsuarioComponent,
     AbmDataTablePagoComponent,
@@ -126,7 +127,8 @@ import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.compon
     ModalListaComponent,
     ModalEditarComponent,
     SidebarComponent,
-    VerClienteComponent
+    VerClienteComponent,
+    AbmDataTableHeaderComponent
   ],
   imports: [
     BrowserModule,

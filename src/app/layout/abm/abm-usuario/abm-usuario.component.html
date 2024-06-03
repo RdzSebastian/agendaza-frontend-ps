@@ -1,16 +1,11 @@
 <div class="abm">
 
     <app-abm-data-table-header
-        (outputCurrentRegistro)="updateCurrentRegistro($event)"
+        [busqueda] = "primeraBusqueda"
+        titulo = 'Empleados'
         (outputBuscar)="updatePalabraBuscar($event)"
         (outputPageNumber)="updatePageNumber($event)"
-        [listaItems]="listaItems"
-        (outputBuscar)="updatePalabraBuscar($event)"
-        (outputBusqueda)="updatePrimeraBusqueda($event)"
-        [busqueda] = "primeraBusqueda"
-        [pageNumber]="pageNumber"
-        [cantidadRegistros]="cantidadRegistros"
-        [cantidadPaginas]="cantidadPaginas">
+        (outputBusqueda)="updatePrimeraBusqueda($event)">
     </app-abm-data-table-header>
 
     <app-abm-data-table-usuario
@@ -21,5 +16,13 @@
         [pageNumber]="pageNumber"
         [buscar]="buscar">
     </app-abm-data-table-usuario>
+
+    <app-abm-data-table-paginacion
+        (outputCurrentRegistro)="updateCurrentRegistro($event)"
+        [listaItems]="listaItems"
+        [pageNumber]="pageNumber"
+        [cantidadRegistros]="cantidadRegistros"
+        [cantidadPaginas]="cantidadPaginas">
+    </app-abm-data-table-paginacion>
 
 </div>

@@ -128,7 +128,7 @@ import { EditUsuarioPerfilComponent } from './layout/edit/edit-usuario-perfil/ed
     ModalEditarComponent,
     SidebarComponent,
     VerClienteComponent,
-    AbmDataTableHeaderComponent
+    AbmDataTableHeaderComponent,
     EditEmpleadoCargoComponent,
     EditUsuarioPerfilComponent
   ],

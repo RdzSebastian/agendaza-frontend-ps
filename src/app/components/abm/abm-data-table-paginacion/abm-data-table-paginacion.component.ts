@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-abm-data-table-header',
-  templateUrl: './abm-data-table-header.component.html',
-  styleUrls: ['./abm-data-table-header.component.css']
+  selector: 'app-abm-data-table-paginacion',
+  templateUrl: './abm-data-table-paginacion.component.html',
+  styleUrls: ['./abm-data-table-paginacion.component.css']
 })
-export class AbmDataTableHeaderComponent implements OnInit {
+export class AbmDataTablePaginacionComponent implements OnInit {
 
-  buscar : string = ''
+
   currentRegistro : number = 0
   currentPagina : number = 1
   classes : String = ""
@@ -27,26 +27,15 @@ export class AbmDataTableHeaderComponent implements OnInit {
   @Input()
   cantidadEventos : number = 0
 
-  @Input()
-  busqueda! : Boolean 
-
   @Output() 
   outputCurrentRegistro = new EventEmitter<number>();
 
   @Output() 
   outputPageNumber= new EventEmitter<number>();
 
-  @Output() 
-  outputBuscar = new EventEmitter<string>();
-
-  @Output() 
-  outputBusqueda = new EventEmitter<Boolean>();
-
   constructor(){}
   
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   siguiente(){
       if(this.pageNumber < this.cantidadRegistros/10 -1){
@@ -63,7 +52,6 @@ export class AbmDataTableHeaderComponent implements OnInit {
         this.currentPagina -= 1
       }
       this.outputRegistro()
-    
   }
 
   irPagina(pagina : number){
@@ -76,31 +64,20 @@ export class AbmDataTableHeaderComponent implements OnInit {
     this.currentPagina = 1
     this.currentRegistro = 0
     
+    /*
     this.cantidadPaginas = new Array<number>(
       Math.trunc(
         this.listaItems.filter(it => it.contiene(this.buscar)).length / 10) + 1)
     
     this.outputRegistro()
-    this.outputPalabraBuscar()
+    //this.outputPalabraBuscar()*/
   }
   
-  actualizaBuscar(){
-    this.currentPagina = 1
-    this.busqueda = true
-    this.outputBusqueda.emit(this.busqueda);
-    this.outputPalabraBuscar()
-    this.outputRegistro()
-  }
+
 
   outputRegistro() {
     this.outputCurrentRegistro.emit(this.currentRegistro);
     this.outputPageNumber.emit(this.pageNumber);    
-  }
-
-
-  outputPalabraBuscar() {
-    this.outputBuscar.emit(this.buscar);
-    
   }
 
   getLimites(paginaActual: number): [number, number] {
@@ -108,6 +85,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
     const inicio = Math.max(0,fin-5)
     return [inicio, fin];
   }
+  
   getInicio(): number {
 
     var fin = Math.max(5,this.currentPagina)

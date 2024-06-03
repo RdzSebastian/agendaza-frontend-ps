@@ -46,17 +46,17 @@ export class AbmPagoComponent implements OnInit {
     this.primeraBusqueda = false
 
   }
+
   updatePageNumber(page : number){
     this.pageNumber = page
     this.inicializarListaItems()
   }
+
   updatePrimeraBusqueda(busqueda: Boolean){
     this.primeraBusqueda = busqueda
 
   }
-  
 
-  
   updateCurrentRegistro(registro: number){
     this.currentRegistro = registro
   }

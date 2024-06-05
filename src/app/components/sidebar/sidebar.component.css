@@ -67,6 +67,7 @@
 }
 
 .sidebar.active+.linea {
+
   display: none;
 }
 

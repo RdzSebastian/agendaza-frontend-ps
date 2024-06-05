@@ -26,6 +26,14 @@ button {
   all: unset;
   cursor: pointer;
 }
+.botonera{
+  display:flex;
+  align-items: center;
+  justify-content:center;
+  margin: 0;
+  padding: 0;
+  width: 30%;
+}
 
 button:focus {
   outline: orange 5px auto;
@@ -43,7 +51,7 @@ button:focus {
 
 .abm{
   margin-top: 1rem;
-  height: 87vh;
+  height: 80%;
 }
 
 .center-items-abm{
@@ -82,4 +90,7 @@ button:focus {
 .contenedorVolver {
   display: flex;
   justify-content: right;
+}
+.tabla-panel{
+  height: 60%;
 }

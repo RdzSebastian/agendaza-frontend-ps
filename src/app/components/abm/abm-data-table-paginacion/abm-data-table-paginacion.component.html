@@ -1,4 +1,4 @@
-<div class="header_abm">
+<div class="header_abm" class="panel-paginacion">
 
     <!-- Cantidad de registros -->
     <p class="cont-pag">Cantidad de registros: {{cantidadRegistros}}</p>
@@ -15,7 +15,7 @@
     </nav>
 
     <!-- Paginacion mas de 50 -->
-    <nav *ngIf="cantidadRegistros > 50" aria-label="Page navigation example" class="cont-pag">
+    <nav *ngIf="cantidadRegistros > 50" aria-label="Page navigation example" class="cont-reg">
         <ul class="pagination">
             <li class="page-item">
                 <button class="btn btn-primary atras" 

@@ -30,7 +30,9 @@
             </li>
 
             <li class="page-item">
-                <button class="page-link scuare" *ngIf = "currentPagina > 4">...</button>
+                <button class="page-link scuare" 
+                *ngIf = "currentPagina > 4"
+                (click)="irPagina(getPaginaMitadInferior())">...</button>
             </li>
 
             <li class="page-item" *ngFor="let pagina of cantidadPaginas.slice(getInicio(), getFinal()); let i = index">    
@@ -41,7 +43,9 @@
             </li>
             
             <li class="page-item" >
-                <button class="page-link scuare" *ngIf = "cantidadPaginas.length - 3 >= this.currentPagina">...</button>
+                <button class="page-link scuare" 
+                *ngIf = "cantidadPaginas.length - 3 >= this.currentPagina"
+                (click)="irPagina(getPaginaMitadSuperior())" >...</button>
             </li>
 
             <li class="page-item" >

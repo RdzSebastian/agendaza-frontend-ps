@@ -7,7 +7,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class AbmDataTablePaginacionComponent implements OnInit {
 
-
   currentRegistro : number = 0
   currentPagina : number = 1
   classes : String = ""
@@ -60,6 +59,14 @@ export class AbmDataTablePaginacionComponent implements OnInit {
     this.outputRegistro()
   }
 
+  getPaginaMitadSuperior(): number {
+    return Math.round((this.cantidadPaginas.length - this.currentPagina) * 1/2) + this.currentPagina
+  }
+
+  getPaginaMitadInferior(): number{
+    return Math.round(1/2 * this.currentPagina)
+  }
+  
   actualizarCantidadPaginas(){
     this.currentPagina = 1
     this.currentRegistro = 0

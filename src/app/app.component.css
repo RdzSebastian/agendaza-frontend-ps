@@ -14,12 +14,15 @@
     "a b b"
     "a c c"
     "a c c"; 
-  min-height: 100vh; 
+  height: 100%;
+  width: 100%; 
 }
 
 .left { grid-area: a; }
 .top-right { grid-area: b; }
-.right { grid-area: c; }
+.right { 
+  height : 70%;
+  grid-area: c; }
 
 
 @media (max-width: 767px) {
@@ -32,3 +35,4 @@
   }
   
 } 
+

@@ -7,6 +7,8 @@
     align-items: center;
     justify-content: space-between;
     margin-top: 1em;
+    position: fixed;
+    padding-right: 3em;
 }
 
 .cont-pag{
@@ -29,4 +31,10 @@
 .scuare{
     width: 0.9em;
     text-align: center;
+}
+
+@media only screen and (max-width: 806px) {
+    .panel-paginacion {
+        position: static;
+    }
 }

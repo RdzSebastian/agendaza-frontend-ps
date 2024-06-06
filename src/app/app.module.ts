@@ -65,7 +65,7 @@ import { ModalListaComponent } from './components/modal/modal-lista/modal-lista.
 import { ModalEditarComponent } from './components/modal/modal-editar/modal-editar.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.component';
-import { AbmDataTableHeaderComponent } from './components/abm-data-table-header/abm-data-table-header.component';
+import { AbmDataTableHeaderComponent } from './components/abm/abm-data-table-header/abm-data-table-header.component';
 import { EditEmpleadoCargoComponent } from './layout/edit/edit-cargo-empleado/edit-cargo-empleado.component';
 import { EditUsuarioPerfilComponent } from './layout/edit/edit-usuario-perfil/edit-usuario-perfil.component';
 

@@ -6,8 +6,8 @@
                 <th>Nombre</th>
                 <th>Codigo</th>
                 <th>Fecha</th>
-                <th>Inicio</th>
-                <th>Fin</th>
+                <th class="hide-on-phone">Inicio</th>
+                <th class="hide-on-phone">Fin</th>
                 <th class="d-flex justify-content-center">Acciones</th>
             </tr>
         </thead>
@@ -16,8 +16,8 @@
                 <td>{{item.nombre}}</td>
                 <td>{{item.codigo}}</td>
                 <td>{{item.inicio | date: "dd/MM/yy"}}</td>
-                <td>{{item.inicio | date: "HH:mm"}}</td>
-                <td>{{item.fin | date: "HH:mm"}}</td>
+                <td class="hide-on-phone">{{item.inicio | date: "HH:mm"}}</td>
+                <td class="hide-on-phone">{{item.fin | date: "HH:mm"}}</td>
 
                 <td class="d-flex justify-content-center">
                     <button (click)="pagos(item.id)" class="mx-2"><i class="fas fa-file-invoice-dollar text-success fa-lg"></i></button>

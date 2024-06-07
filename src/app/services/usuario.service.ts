@@ -4,7 +4,6 @@ import { lastValueFrom } from 'rxjs';
 import { REST_SERVER_URL } from 'src/util/configuration';
 import { Usuario, UsuarioEditPassword, UsuarioEmpresa, UsuarioJSON, UsuarioSave } from '../model/Usuario';
 import { AgendaService } from './agenda.service';
-import { EmpresaService } from './empresa.service';
 
 @Injectable({
   providedIn: 'root'
@@ -64,7 +63,6 @@ export class UsuarioService {
     const listaItem$ = this.httpClient.get<UsuarioJSON[]>(REST_SERVER_URL + '/getAllUsersByFilterName/' + this.agendaService.getEmpresaId() + '/' + pageNumber + '/' + buscar)
     const listaItem = await lastValueFrom(listaItem$)
     return listaItem.map((usuario) => Usuario.fromJson(usuario))
-
   }
   
   async getCantUsuariosFiltrados(buscar : string){

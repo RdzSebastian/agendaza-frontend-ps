@@ -31,7 +31,6 @@ export class EditUsuarioPerfilComponent implements OnInit {
     this.router.navigateByUrl("/" + this.usuarioService.perfilVolver)
   }
 
-
   volver(){
     this.router.navigateByUrl("/" + this.usuarioService.perfilVolver)
   }

@@ -20,7 +20,6 @@ export class LoginComponent {
   constructor(private loginService: LoginService, private router : Router) {}
 
   onSubmit(form: any) {
-    //console.log(form.value);
     this.ingresar()
   }
 

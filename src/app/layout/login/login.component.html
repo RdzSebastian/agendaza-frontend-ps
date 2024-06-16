@@ -16,11 +16,18 @@
                         <div class="form-group p-2">
                             <input class="form-control" name="usuario" type="text" placeholder="Usuario"
                                 [(ngModel)]='usuarioLogin.username' [attr.data-testid]="'loginUsuario'">
-                            </div>
-                        <div class="form-group p-2">
-                            <input class="form-control" name="contrasena" type="password" placeholder="Contraseña"
-                                [(ngModel)]='usuarioLogin.password' [attr.data-testid]="'loginContraseña'" required>
                         </div>
+                        <div class="form-group p-2 position-relative">
+                            <input class="form-control" name="contrasena" type="{{showPassword ? 'text' : 'password'}}"
+                                placeholder="Contraseña" [(ngModel)]='usuarioLogin.password'
+                                [attr.data-testid]="'loginContraseña'" required>
+                            <button type="button"
+                                class="btn btn-link position-absolute end-0 top-50 translate-middle-y me-2"
+                                (click)="togglePasswordVisibility()" style="text-decoration: none;">
+                                <i class="fas" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"></i>
+                            </button>
+                        </div>
+
                         <div class="form-group p-2">
                             <div class="d-grid gap-2">
                                 <button class="btn btn-primary" [attr.data-testid]="'ingresar'">Ingresar</button>

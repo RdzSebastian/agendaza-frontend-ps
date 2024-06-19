@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { GenericItem } from 'src/app/model/GenericItem';
 
 @Component({
@@ -14,6 +14,9 @@ export class StepBoxComponent implements OnInit {
   @Input()
   currentStep!: number; 
 
+  @Output() 
+  outputStep = new EventEmitter<number>();
+
   constructor() { }
 
   ngOnInit(): void {
@@ -21,5 +24,9 @@ export class StepBoxComponent implements OnInit {
 
   isStep(id :number){
     return this.currentStep == id
+  }
+  
+  goToStep(id: number){
+    this.outputStep.emit(id);
   }
 }

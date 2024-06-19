@@ -8,3 +8,7 @@
     background-color: whitesmoke;
     margin-bottom: 5px;
 }
+
+.step-box:hover {
+    cursor:pointer;
+}

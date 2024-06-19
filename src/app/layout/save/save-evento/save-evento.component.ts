@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
+import { ModalInformativoComponent } from 'src/app/components/modal/modal-informativo/modal-informativo.component';
 import { Capacidad } from 'src/app/model/Capacidad';
 import { DateUtil, Mes } from 'src/app/model/DateUtil';
 import { Evento } from 'src/app/model/Evento';
@@ -93,12 +95,47 @@ export class SaveEventoComponent implements OnInit {
   usuarioCondicional : boolean = false
   eventoSaveError : ErrorMensaje = new ErrorMensaje(false, 'Error al crear el Evento, revise los campos cargados')
 
+  // Modal
+  @ViewChild(ModalInformativoComponent) 
+  modal!: ModalInformativoComponent;
+
+  // Spinner
+  spinnerVisible = false
+
+  // Validacion
+  formGroup!: FormGroup
+  submited : Boolean = false
+
   // -------------------------- Inicializacion --------------------------------
 
   constructor(public tipoEventoService : TipoEventoService, public servicioSerice : ServicioService, 
     public empresaService : EmpresaService, public extraService : ExtraService, public usuarioService : UsuarioService,
     public eventoService : EventoService, public loginService : LoginService, public agendaService : AgendaService,
-    public router : Router) { }
+    public router : Router, private formBuilder: FormBuilder) { 
+
+      this.formGroup = this.formBuilder.group({
+        datosEvento: this.formBuilder.group({
+          duracion: new FormControl('', [Validators.required]),
+          tipoEvento: new FormControl('', [Validators.required])
+        }),
+        cliente: this.formBuilder.group({
+          nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
+          apellido: new FormControl('', [Validators.required, Validators.minLength(3)]),
+          cuil: new FormControl('', [Validators.required, Validators.min(999999999)]),
+          email: new FormControl('', [Validators.required, Validators.email]),
+          ciudad: new FormControl('', [Validators.required, Validators.minLength(3)]),
+          provincia: new FormControl('', [Validators.required, Validators.minLength(3)]),
+          codigoPostal: new FormControl('', [Validators.required, Validators.min(999)]),
+          celular: new FormControl('', [Validators.required, Validators.min(999999999)]),
+          sexo: new FormControl('', [Validators.required]),
+          fechaNacimiento: new FormControl('', [Validators.required]),
+          empresa: new FormControl('')
+        })
+      })
+  }
+
+  get duracion(){ return this.formGroup.get('datosEvento')?.get('duracion') }
+  get tipoEvento(){ return this.formGroup.get('datosEvento')?.get('tipoEvento') }
 
   async ngOnInit(): Promise<void> {
     // Tipo de evento
@@ -363,15 +400,95 @@ export class SaveEventoComponent implements OnInit {
 
   // --------------------------------------------------------------------------
 
-  // --------------------------- Stepper functions ----------------------------
 
+
+
+
+
+
+
+
+
+
+
+  //-------------- Stepper ----------------------
+  
   isStep(step : number) : boolean{
     return this.step == step
   }
 
-  get myIsStep() {
-    return this.isStep.bind(this);
+  async siguiente(){
+
+    if(this.step >= 1 && this.step < this.listaStepBox.length){
+      this.step += 1
+    }else{
+      this.enviarFormulario()
+    }
+
+    this.botonAtrasDisabledChange()
+
+    this.botonSiguienteChangeName()
+
   }
+  
+  atras(){
+
+    if(this.step > 1 && this.step <= this.listaStepBox.length + 1){
+      this.step -= 1
+    }
+
+    this.botonSiguienteChangeName()
+
+    this.botonAtrasDisabledChange()
+
+  }
+
+  stepBoxSelected(step : number){
+    this.step = step
+    
+    this.botonAtrasDisabledChange()
+
+    this.botonSiguienteChangeName()
+  }
+  
+  async enviarFormulario() {
+
+    this.submited = true
+
+    if(this.formGroup.valid){
+
+      this.spinnerVisible = true
+
+      try{
+        // Setea la fecha
+        this.setFechaInicioAndFin()
+
+        //let res = await this.cotizacionService.save(new CotizacionDTO(this.formGroup.value))
+        //this.cliente = new CotizacionDTO(this.formGroup.value).cliente
+        //this.modal.mostrarModal()
+      }catch(error){
+        console.log(error);
+        this.spinnerVisible = false
+
+      }
+    }
+  }
+
+  botonSiguienteChangeName(){
+    if(this.step == this.listaStepBox.length){
+      this.botonSiguienteFinalizado = "Cotizar"
+    }else{
+      this.botonSiguienteFinalizado = "Siguiente"
+    }
+  }
+  
+  botonAtrasDisabledChange(){
+    this.botonAtrasDisabled = this.step == 1
+  }
+}
+
+
+/*
 
   async siguiente(){
 
@@ -418,4 +535,4 @@ export class SaveEventoComponent implements OnInit {
 
   // ---------------------------------------------------------------------------
 
-}
+}*/

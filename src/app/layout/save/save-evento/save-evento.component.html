@@ -2,411 +2,468 @@
     <div>
         <div class="row justify-content-evenly hide-on-phone">
             <div *ngFor="let stepBox of listaStepBox" class="col-md-2">
-                <app-step-box [stepBox]="stepBox" [currentStep]="step"></app-step-box>
+                <app-step-box 
+                    [stepBox]="stepBox" 
+                    [currentStep]="step"
+                    (outputStep)="stepBoxSelected($event)"></app-step-box>
             </div>
         </div>
 
         <!--===============================================================================================-->
-        <div [ngStyle]="{'display': (isStep(1)) ? 'block' : 'none' }">
-            <section class="nuevo-evento-step">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="col-md-10">
-                            <h2>Selecciones tipo de evento</h2>
-                            <p>El tipo de evento a seleccionar cambiara la cantidad de horas de duracion y presupuesto base.</p>
-                        </div>
 
-                        <div class="col-md-10">
-                            <label for="duracion" class="form-label">Duracion</label>
-                            <select class="form-select" name="duracion" [(ngModel)]="duracionSeleccionada" (change)="filterTipoEventoByDuracion()">
-                                <option *ngFor="let duracion of listaDuracion | orderAbmById" [value]="duracion">{{duracion}}</option>
-                            </select>
-                        </div>
+        <form [formGroup]="formGroup">
 
-                        <div class="col-md-10">
-                            <label for="tipoEvento" class="form-label">Tipo Evento</label>
-                            <select class="form-select" [(ngModel)]="evento.tipoEventoId" name="tipoEvento" (change)="inicializarByTipoEventoId()">
-                                <option [value]="0" hidden>Seleccione Tipo Evento</option>
-                                <option *ngFor="let tipoEvento of listaTipoEvento | orderAbmByNombre" [value]="tipoEvento.id">{{tipoEvento.nombre}}</option>
-                            </select>
-                        </div>
-                        
-                        <div class="col-md-10 mt-3">
-                            <h2>Ingrese cantidad de personas</h2>
-                            <div class="row mt-3">
-                                <div class="form-group col-6">
-                                    <label for="capacidadAdultos" class="form-label">Cantidad Adultos</label>
-                                    <input type="number" class="form-control" [(ngModel)]='evento.capacidad.capacidadAdultos' min="0" oninput="this.value = Math.abs(this.value)" name="capacidadAdultos" (change)="changeCapacidadAdultos()">
-                                </div>
-                                <div class="form-group col-6">
-                                    <label for="capacidadNinos" class="form-label">Cantidad Niños</label> 
-                                    <input type="number" class="form-control" [(ngModel)]='evento.capacidad.capacidadNinos' min="0" oninput="this.value = Math.abs(this.value)" name="capacidadNinos" (change)="changeCapacidadNinos()">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="servicio" class="form-label">Incluye los siguiente servicios</label> 
-                            <div id="listaServicio" *ngFor="let servicio of listaServicio | orderAbmByNombre">{{servicio.nombre}}</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        
-        <!--===============================================================================================-->
+            <!--===============================================================================================-->
 
-        <!--===============================================================================================-->
-        <div [ngStyle]="{'display': (isStep(2)) ? 'block' : 'none' }">
-            <section class="nuevo-evento-step">
-                <div class="row">
-                    <div class="col-md-5">
-                        <h2>Agregar nuevo evento</h2>
-                        <p>Cree el nuevo evento a realizar en {{empresa.nombre}}</p>
-            
-                        <div class="fieldset-content">
-
-                            <div class="form-group col-6">
-                                <label for="precio_plato_adulto" class="form-label">Nombre del evento</label> 
-                                <input type="text" class="form-control" [(ngModel)]='evento.nombre' name="nombre">
-                            </div>
-
-                            <div class="form-group">
-                                <label for="date" class="form-label w-100">Fecha de evento</label>
-                                <div class="row">
-                                    <div class="col-2">
-                                        <select class="form-select" name="dia" [(ngModel)]="fechaEvento.dia" (change)="changeDay()">
-                                            <option *ngFor="let dia of listaDia | orderAbmById" [value]="dia">{{dia}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-4">
-                                        <select class="form-select" name="mes" [(ngModel)]="fechaEvento.mes" (click)="getAllDaysOfMonth(fechaEvento.year, fechaEvento.mes)" (change)="changeDate()">
-                                            <option *ngFor="let mes of listaMes | orderAbmByIdDesc" [value]="mes.id">{{mes.nombre}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-4">
-                                        <select class="form-select" name="year" [(ngModel)]="fechaEvento.year" (click)="getAllDaysOfMonth(fechaEvento.year, fechaEvento.mes)" (change)="changeDate()">
-                                            <option *ngFor="let year of listaYear | orderAbmById" [value]="year">{{year}}</option>
-                                        </select>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div>
-                                <label class="form-label w-100" for="time_start_hour">Hora inicio</label>
-                                <div class="d-inline-flex flex-row">
-                                    <div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="time_start_hour" [(ngModel)]="inicioTime.hour" (change)="changeTime()">
-                                                <option *ngFor="let hora of listaHora | orderAbmById" [value]="hora">{{hora}}</option>
-                                            </select>
-                                        </div>       
-                                    </div>
-                                    <div>
-                                        <div class="p-1">:</div>
-                                    </div>
-                                    <div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="time_start_minute" [(ngModel)]="inicioTime.minute" (change)="changeTime()">
-                                                <option *ngFor="let minuto of listaMinuto| orderAbmById" [value]="minuto">{{minuto}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                                
-                            <div id="time_end_div">
-                                <label class="form-label w-100" for="time_end_hour">Hora final</label>
-                                <div class="d-inline-flex flex-row">
-                                    <div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="time_end_hour" [(ngModel)]="finalTime.hour">
-                                                <option *ngFor="let hora of listaHora | orderAbmById" [value]="hora">{{hora}}</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="p-1"> : </div>
-                                    </div>
-                                    <div>
-                                        <div class="form-group">
-                                            <select class="form-control" name="time_end_minute" [(ngModel)]="finalTime.minute" >
-                                                <option *ngFor="let minuto of listaMinuto| orderAbmById" [value]="minuto">{{minuto}}</option>
-                                            </select>
-                                        </div> 
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="form-group mt-2" id="hastaElOtroDia">
-                                <input class="form-check-input" type="checkbox" name="hastaElOtroDiaCheckbox" [(ngModel)]="hastaElOtroDiaCheckbox">
-                                <label class="form-check-label" for="hastaElOtroDiaCheckbox"> Dura hasta el otro dia </label>
-                            </div>
-                        </div>				                
-                    </div> 
-                    <div class="col-md-7">
-                        <div *ngIf="!horarioDisponible">
-                            <div class="alert alert-danger" role="alert">
-                                <strong>Fecha no disponible,</strong> <p>Tenga en cuenta que entre evento y evento calcula 1 hora de margen.</p>
-                            </div>
-                        </div>
-                        <div *ngIf="horarioDisponible" class="col-md-8">
-                            <div class="alert alert-success" role="alert"><strong>Fecha disponible</strong></div>
-                        </div>
-                        <div *ngFor="let evento of listaEvento"><p> - {{evento}}</p></div>
-                    </div>
-                </div>
-            </section>
-        </div>
-        <!--===============================================================================================-->
-
-        <!--===============================================================================================-->
-        <div [ngStyle]="{'display': (isStep(3)) ? 'block' : 'none' }">
-            <section class="nuevo-evento-step">
-                <h2>Presupuesto</h2>
-                <p>Puede agregar extras que cambiaran el precio final</p>
-                <div class="row">
-                    <div class="col-md-6">
+            <div [ngStyle]="{'display': (isStep(1)) ? 'block' : 'none' }">
+                <section class="nuevo-evento-step">
+                    <div class="container" formGroupName="datosEvento">
                         <div class="row">
-                            <div class="col-lg-4 col-md-12 form-group">
-                                <h4>Extras fijos</h4> 
-                                <div id="listaExtra" *ngFor="let extra of listaExtra | orderAbmByNombre; let i=index">
-                                    <app-extra-checkbox 
-                                        (outputExtraPresupuesto)="sumExtraPresupuesto($event)"
-                                        [listaExtra]="evento.listaExtra"
-                                        [i]="i"
-                                        [extra]="extra"
-                                    ></app-extra-checkbox>
+                            <div class="col-md-6">
+                                <div class="col-md-10">
+                                    <h2>Selecciones tipo de evento</h2>
+                                    <p>El tipo de evento a seleccionar cambiara la cantidad de horas de duracion y presupuesto base.</p>
+                                </div>
+
+                                <div class="col-md-10">
+                                    <div class="label-with-error">
+                                        <label for="duracion" class="form-label">Duracion</label>
+                                        <div *ngIf="(duracion?.invalid && duracion?.touched) || submited">
+                                            <span *ngIf="duracion?.errors" class="invalid-validator">Seleccione la duracion</span>
+                                        </div>
+                                    </div>
+
+                                    <select class="form-select" formControlName="duracion" 
+                                        (change)="filterTipoEventoByDuracion()"
+                                        [ngClass]="{'is-invalid': duracion?.errors && submited }">
+                                        <option [value]="0" hidden>Seleccione la duracion</option>
+                                        <option *ngFor="let duracion of listaDuracion | orderAbmById" [value]="duracion">{{duracion}}</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-10">
+                                    <div class="label-with-error">
+                                        <label for="tipoEvento" class="form-label">Tipo Evento</label>
+                                        <div *ngIf="(tipoEvento?.invalid && tipoEvento?.touched) || submited">
+                                            <span *ngIf="duracion?.errors" class="invalid-validator">Seleccione el Tipo de Evento</span>
+                                        </div>
+                                    </div>
+                                    <select class="form-select" 
+                                    (change)="inicializarByTipoEventoId()"
+                                    [ngClass]="{'is-invalid': tipoEvento?.errors && submited }">>
+                                        <option [value]="0" hidden>Seleccione Tipo Evento</option>
+                                        <option *ngFor="let tipoEvento of listaTipoEvento | orderAbmByNombre" [value]="tipoEvento.id">{{tipoEvento.nombre}}</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- [(ngModel)]='evento.capacidad.capacidadAdultos'
+                                  [(ngModel)]='evento.capacidad.capacidadNinos'-->
+                                <div class="col-md-10 mt-3">
+                                    <h2>Ingrese cantidad de personas</h2>
+                                    <div class="row mt-3">
+                                        <div class="form-group col-6">
+                                            <label for="capacidadAdultos" class="form-label">Cantidad Adultos</label>
+                                            <input type="number" class="form-control" min="0" oninput="this.value = Math.abs(this.value)" (change)="changeCapacidadAdultos()">
+                                        </div>
+                                        <div class="form-group col-6">
+                                            <label for="capacidadNinos" class="form-label">Cantidad Niños</label> 
+                                            <input type="number" class="form-control" min="0" oninput="this.value = Math.abs(this.value)" (change)="changeCapacidadNinos()">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-8 col-md-12 form-group">
-                                <h4>Extras variables</h4> 
-                                <div id="listaExtraVariable" *ngFor="let extraVariable of listaExtraVariable | orderAbmByNombre; let i=index">
-                                    <app-extra-variable-checkbox
-                                        (outputExtraPresupuesto)="sumExtraPresupuesto($event)"
-                                        [listaExtra]="evento.listaExtraVariable"
-                                        [i]="i"
-                                        [extra]="extraVariable">
-                                    </app-extra-variable-checkbox>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="servicio" class="form-label">Incluye los siguiente servicios</label> 
+                                    <div id="listaServicio" *ngFor="let servicio of listaServicio | orderAbmByNombre">{{servicio.nombre}}</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6" >
-                        <div class="row mt-2">
+                </section>
+            </div>
+            
+            <!--===============================================================================================-->
 
-                            <div class="form-group col-6">
-                                <label class="form-label" for="extraOtro">Extra otro</label> 
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">$</div>
+            <!--===============================================================================================-->
+            <div [ngStyle]="{'display': (isStep(2)) ? 'block' : 'none' }">
+                <section class="nuevo-evento-step">
+                    <div class="row">
+                        <div class="col-md-5">
+                            <h2>Agregar nuevo evento</h2>
+                            <p>Cree el nuevo evento a realizar en {{empresa.nombre}}</p>
+                
+                            <div class="fieldset-content">
+
+                                <!-- [(ngModel)]='evento.nombre'-->
+                                <div class="form-group col-6">
+                                    <label for="precio_plato_adulto" class="form-label">Nombre del evento</label> 
+                                    <input type="text" class="form-control">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="date" class="form-label w-100">Fecha de evento</label>
+                                    <div class="row">
+                                        <div class="col-2">
+                                            <!-- [(ngModel)]="fechaEvento.dia" -->
+                                            <select class="form-select" (change)="changeDay()">
+                                                <option *ngFor="let dia of listaDia | orderAbmById" [value]="dia">{{dia}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <!-- [(ngModel)]="fechaEvento.mes" -->
+                                            <select class="form-select" (click)="getAllDaysOfMonth(fechaEvento.year, fechaEvento.mes)" (change)="changeDate()">
+                                                <option *ngFor="let mes of listaMes | orderAbmByIdDesc" [value]="mes.id">{{mes.nombre}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-4">
+                                            <!-- [(ngModel)]="fechaEvento.year" -->
+                                            <select class="form-select" (click)="getAllDaysOfMonth(fechaEvento.year, fechaEvento.mes)" (change)="changeDate()">
+                                                <option *ngFor="let year of listaYear | orderAbmById" [value]="year">{{year}}</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                    <input type="number" class="form-control" name="extraOtro" [(ngModel)]="evento.extraOtro" min="0" oninput="this.value = Math.abs(this.value)" (change)="sumPresupuesto()">
+
+                                </div>
+
+                                <div>
+                                    <label class="form-label w-100" for="time_start_hour">Hora inicio</label>
+                                    <div class="d-inline-flex flex-row">
+                                        <div>
+                                            <div class="form-group">
+                                                <!-- [(ngModel)]="inicioTime.hour" -->
+                                                <select class="form-control" (change)="changeTime()">
+                                                    <option *ngFor="let hora of listaHora | orderAbmById" [value]="hora">{{hora}}</option>
+                                                </select>
+                                            </div>       
+                                        </div>
+                                        <div>
+                                            <div class="p-1">:</div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group">
+                                                <!-- [(ngModel)]="inicioTime.minute" -->
+
+                                                <select class="form-control" (change)="changeTime()">
+                                                    <option *ngFor="let minuto of listaMinuto| orderAbmById" [value]="minuto">{{minuto}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                    
+                                <div id="time_end_div">
+                                    <label class="form-label w-100" for="time_end_hour">Hora final</label>
+                                    <div class="d-inline-flex flex-row">
+                                        <div>
+                                            <div class="form-group">
+                                                <!-- [(ngModel)]="finalTime.hour" -->
+                                                <select class="form-control">
+                                                    <option *ngFor="let hora of listaHora | orderAbmById" [value]="hora">{{hora}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="p-1"> : </div>
+                                        </div>
+                                        <div>
+                                            <div class="form-group">
+                                                <!-- [(ngModel)]="finalTime.minute" -->
+                                                <select class="form-control">
+                                                    <option *ngFor="let minuto of listaMinuto| orderAbmById" [value]="minuto">{{minuto}}</option>
+                                                </select>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group mt-2" id="hastaElOtroDia">
+                                    <!--  [(ngModel)]="hastaElOtroDiaCheckbox" -->
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label" for="hastaElOtroDiaCheckbox"> Dura hasta el otro dia </label>
+                                </div>
+                            </div>				                
+                        </div> 
+                        <div class="col-md-7">
+                            <div *ngIf="!horarioDisponible">
+                                <div class="alert alert-danger" role="alert">
+                                    <strong>Fecha no disponible,</strong> <p>Tenga en cuenta que entre evento y evento calcula 1 hora de margen.</p>
                                 </div>
                             </div>
-
-
-                            <div class="form-group col-6">
-                                <label class="form-label" for="descuento">Descuento</label>
-                                <div class="input-group mb-2">
-                                    <input type="number" class="form-control" name="descuento" [(ngModel)]="evento.descuento" min="0" oninput="this.value = Math.abs(this.value)" (change)="sumPresupuesto()">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">%</div>
-                                    </div>
-                                </div>
+                            <div *ngIf="horarioDisponible" class="col-md-8">
+                                <div class="alert alert-success" role="alert"><strong>Fecha disponible</strong></div>
                             </div>
-                        </div>
-                        <div class="row mt-2">
-
-                            <div class="form-group col-md-6">
-                                <label class="form-label" for="presupuesto">Presupuesto</label> 
-                                <div class="input-group mb-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">$</div>
-                                    </div>
-                                    <input type="number" class="form-control" id="presupuesto"[(ngModel)]="presupuesto" disabled/>
-                                </div>
-                            </div>
+                            <div *ngFor="let evento of listaEvento"><p> - {{evento}}</p></div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
-        <!--===============================================================================================-->
-    
-        <!--===============================================================================================-->
-        <div [ngStyle]="{'display': (isStep(4)) ? 'block' : 'none' }">
-            <section class="nuevo-evento-step">
-                <div class="row">
-                    <div class="col-6">
-                        <h2>Seleccione opciones de catering</h2>
-                        <p>Puede agregar un servicio de catering al evento</p>
-                        <div class="form-group mt-2">
-                            <input class="form-check-input" type="checkbox" [(ngModel)]="agregarCatering" name="agregarCateringCheckbox">
-                            <label class="form-check-label" for="agregarCateringCheckbox">Agregar servicio de catering</label>
-                        </div>
-                    </div>
+                </section>
+            </div>
+            <!--===============================================================================================-->
 
-                    <div *ngIf="agregarCatering" class="col-6">
-                        <div class="form-group mt-2">
-                            <input class="form-check-input" type="checkbox" [(ngModel)]="cateringOtro" name="cateringOtroCheckbox" (change)="cleanTipoCateringForCateringOtro()">
-                            <label class="form-check-label" for="cateringOtroCheckbox"> Catering Otro </label>
-                            <small class="form-text text-muted">(Permite ingresar un precio personalizado de plato)</small>
-                        </div>
-                        <div *ngIf="cateringOtro" id="catering_otro_precio" class="form-group row">
-                            <div class="col-3">
-                                <label for="cateringOtroPrecio" class="form-label">Precio del plato</label> 
-                                <div class="input-group mb-2 col-4">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">$</div>
-                                    </div>
-                                    <input type="number" class="form-control" [(ngModel)]="evento.cateringOtro" min="0" oninput="this.value = Math.abs(this.value)" (change)="sumCateringPresupuesto()" name="cateringOtroPrecio"/>
-                                </div>
-                            </div>
-                            <div class="col-8">
-                                <label for="descripcionCatering" class="form-label">Descripcion</label> 
-                                <input type="text" class="form-control" [(ngModel)]='evento.cateringOtroDescripcion' name="descripcionCatering">
-                            </div>
-                        </div>
-                    </div>
-                </div>					
-                <div *ngIf="agregarCatering">
+            <!--===============================================================================================-->
+            <div [ngStyle]="{'display': (isStep(3)) ? 'block' : 'none' }">
+                <section class="nuevo-evento-step">
+                    <h2>Presupuesto</h2>
+                    <p>Puede agregar extras que cambiaran el precio final</p>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="row">
-                                <div class="col-lg-4 col-md-12">
-                                    <h4>Tipos de catering</h4>
-                                    <div id="listaExtraTipoCatering" *ngFor="let tipoCatering of listaExtraTipoCatering | orderAbmByNombre; let i = index">
-                                        <app-extra-checkbox 
-                                            (outputExtraOtro)="cleanExtraOtroCheckbox()"
-                                            (outputExtraPresupuesto)="sumExtraTipoCatering($event)"
-                                            [listaExtra]="evento.listaExtraTipoCatering"
+                                <div class="col-lg-4 col-md-12 form-group">
+                                    <h4>Extras fijos</h4> 
+                                    <div id="listaExtra" *ngFor="let extra of listaExtra | orderAbmByNombre; let i=index">
+                                        <!--app-extra-checkbox 
+                                            (outputExtraPresupuesto)="sumExtraPresupuesto($event)"
+                                            [listaExtra]="evento.listaExtra"
                                             [i]="i"
-                                            [extra]="tipoCatering"
-                                        ></app-extra-checkbox>
+                                            [extra]="extra"
+                                        ></app-extra-checkbox-->
                                     </div>
                                 </div>
-            
-                                <div class="col-lg-8 col-md-12">
-                                    <h4>Extras de catering</h4>
-                                    <div id="listaExtraCatering" *ngFor="let cateringVariable of listaExtraCateringVariable | orderAbmByNombre; let i = index">      
+                                <div class="col-lg-8 col-md-12 form-group">
+                                    <h4>Extras variables</h4> 
+                                    <!--div id="listaExtraVariable" *ngFor="let extraVariable of listaExtraVariable | orderAbmByNombre; let i=index">
                                         <app-extra-variable-checkbox
-                                            (outputExtraPresupuesto)="sumExtraCatering($event)"
-                                            [listaExtra]="evento.listaExtraCateringVariable"
+                                            (outputExtraPresupuesto)="sumExtraPresupuesto($event)"
+                                            [listaExtra]="evento.listaExtraVariable"
                                             [i]="i"
-                                            [extra]="cateringVariable">
+                                            [extra]="extraVariable">
                                         </app-extra-variable-checkbox>
-                                    </div>
+                                    </div -->
                                 </div>
-                            </div>       
-                        </div>
-                        <div class="col-md-6">
-                            <div class="col-12">
-                                <h4>La cantidad de adultos del evento es: {{evento.capacidad.capacidadAdultos}}</h4>
                             </div>
-                            <div class="col-12">
-                                <div class="form-group col-md-6">
-                                    <label for="presupuesto" class="form-label" for="presupuestoCatering">Precio de catering</label> 
+                        </div>
+                        <div class="col-md-6" >
+                            <div class="row mt-2">
+
+                                <div class="form-group col-6">
+                                    <label class="form-label" for="extraOtro">Extra otro</label> 
                                     <div class="input-group mb-2">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">$</div>
                                         </div>
-                                        <input type="number" class="form-control" [(ngModel)]="presupuestoCatering" name="presupuestoCatering" disabled/>
+                                        <!--  [(ngModel)]="evento.extraOtro"  -->
+                                        <input type="number" class="form-control" min="0" oninput="this.value = Math.abs(this.value)" (change)="sumPresupuesto()">
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group col-6">
+                                    <label class="form-label" for="descuento">Descuento</label>
+                                    <div class="input-group mb-2">
+                                        <!--  [(ngModel)]="evento.descuento"  -->
+                                        <input type="number" class="form-control" min="0" oninput="this.value = Math.abs(this.value)" (change)="sumPresupuesto()">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">%</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+
+                                <div class="form-group col-md-6">
+                                    <label class="form-label" for="presupuesto">Presupuesto</label> 
+                                    <div class="input-group mb-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">$</div>
+                                        </div>
+                                        <!--  [(ngModel)]="presupuesto"  -->
+                                        <input type="number" class="form-control" id="presupuesto" disabled/>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
-        <!--===============================================================================================-->
+                </section>
+            </div>
+            <!--===============================================================================================-->
+        
+            <!--===============================================================================================-->
+            <div [ngStyle]="{'display': (isStep(4)) ? 'block' : 'none' }">
+                <section class="nuevo-evento-step">
+                    <div class="row">
+                        <div class="col-6">
+                            <h2>Seleccione opciones de catering</h2>
+                            <p>Puede agregar un servicio de catering al evento</p>
+                            <div class="form-group mt-2">
+                                <!--  [(ngModel)]="agregarCatering"  -->
+                                <input class="form-check-input" type="checkbox">
+                                <label class="form-check-label" for="agregarCateringCheckbox">Agregar servicio de catering</label>
+                            </div>
+                        </div>
 
-        <!--===============================================================================================-->
-        <div [ngStyle]="{'display': (isStep(5)) ? 'block' : 'none' }">
-            <section class="nuevo-evento-step">
-                <div class="row">
-                    <div class="col-8">
+                        <div *ngIf="agregarCatering" class="col-6">
+                            <div class="form-group mt-2">
+                                <!--  [(ngModel)]="cateringOtroCheckbox"  -->
+                                <input class="form-check-input" type="checkbox" (change)="cleanTipoCateringForCateringOtro()">
+                                <label class="form-check-label" for="cateringOtroCheckbox"> Catering Otro </label>
+                                <small class="form-text text-muted">(Permite ingresar un precio personalizado de plato)</small>
+                            </div>
+                            <div *ngIf="cateringOtro" id="catering_otro_precio" class="form-group row">
+                                <div class="col-3">
+                                    <label for="cateringOtroPrecio" class="form-label">Precio del plato</label> 
+                                    <div class="input-group mb-2 col-4">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">$</div>
+                                        </div>
+                                        <!--  [(ngModel)]="evento.cateringOtro"  -->
+                                        <input type="number" class="form-control" min="0" oninput="this.value = Math.abs(this.value)" (change)="sumCateringPresupuesto()"/>
+                                    </div>
+                                </div>
+                                <div class="col-8">
+                                    <!--  [(ngModel)]='evento.cateringOtroDescripcion"  -->
+                                    <label for="descripcionCatering" class="form-label">Descripcion</label> 
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>					
+                    <div *ngIf="agregarCatering">
                         <div class="row">
-                            <div class="col-4">
-                                <h2>Finalizar reserva</h2>
-                                <p>Complete con los datos del cliente</p>
-                            </div>
-                            <div *ngIf='error.condicional' class="col-4">
-                                <div class="alert alert-danger">{{error.mensaje}}</div>
-                            </div>
-                            <div *ngIf='usuarioCondicional' id="clienteEncontrado" class="col-4">
-                                <div class="alert alert-success" role="alert">Cliente encontrado </div>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="form-group col-md-6">
-                                <label for="celular" class="form-label">Celular 
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="buscarClientePorCelular()">
-                                        <i class="fas fa-search fa-xs"></i>
-                                    </button>
-                                </label>
-                                <input type="number" class="form-control"name="celular" [(ngModel)]="evento.cliente.celular">
-                            </div>
-
-                            <div class="form-group col-md-6">
-                                <label for="email" class="form-label">E-mail 
-                                    <button type="button" class="btn btn-primary btn-sm" (click)="buscarClientePorEmail()">
-                                        <i class="fas fa-search fa-xs"></i>
-                                    </button>
-                                </label>
-                                <input type="email" class="form-control email" name="email"  [(ngModel)]="evento.cliente.email">
-                                <small type="text" class="form-text text-muted">(Si no carga email no se enviará el comprobante)</small>
-                            </div>
-                        </div>
-
-                        <div class="row mt-2">
                             <div class="col-md-6">
-                                <label for="nombreCliente" class="form-label">Nombre</label>
-                                <input type="text" class="form-control" name="nombreCliente" [(ngModel)]="evento.cliente.nombre">
+                                <div class="row">
+                                    <div class="col-lg-4 col-md-12">
+                                        <h4>Tipos de catering</h4>
+                                        <div id="listaExtraTipoCatering" *ngFor="let tipoCatering of listaExtraTipoCatering | orderAbmByNombre; let i = index">
+                                            <!--app-extra-checkbox 
+                                                (outputExtraOtro)="cleanExtraOtroCheckbox()"
+                                                (outputExtraPresupuesto)="sumExtraTipoCatering($event)"
+                                                [listaExtra]="evento.listaExtraTipoCatering"
+                                                [i]="i"
+                                                [extra]="tipoCatering"
+                                            ></app-extra-checkbox-->
+                                        </div>
+                                    </div>
+                
+                                    <div class="col-lg-8 col-md-12">
+                                        <h4>Extras de catering</h4>
+                                        <div id="listaExtraCatering" *ngFor="let cateringVariable of listaExtraCateringVariable | orderAbmByNombre; let i = index">      
+                                            <!--app-extra-variable-checkbox
+                                                (outputExtraPresupuesto)="sumExtraCatering($event)"
+                                                [listaExtra]="evento.listaExtraCateringVariable"
+                                                [i]="i"
+                                                [extra]="cateringVariable">
+                                            </app-extra-variable-checkbox-->
+                                        </div>
+                                    </div>
+                                </div>       
                             </div>
                             <div class="col-md-6">
-                                <label for="apellido" class="form-label">Apellido</label>
-                                <input type="text" class="form-control" name="apellidoCliente" [(ngModel)]="evento.cliente.apellido">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 mt-2">
-                            <h3>Estado de reserva</h3> 
-                        </div>
-
-                        <div class="row mt-2">
-                            <div class="col-md-6">
-                                <label for="estado" class="form-label">Estado</label>
-                                <select class="form-select" [(ngModel)]="evento.estado" name="estado">
-                                    <option [value]="0" hidden>Seleccione el estado del evento</option>
-                                    <option *ngFor="let estado of listaEstadoEvento | orderAbmById" [value]="estado">{{estado}}</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6">
-                                <label for="anotaciones" class="form-label">Anotaciones</label> 
-                                <input type="text" class="form-control" [(ngModel)]='evento.anotaciones' name="anotaciones">
+                                <div class="col-12">
+                                    <h4>La cantidad de adultos del evento es: {{evento.capacidad.capacidadAdultos}}</h4>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group col-md-6">
+                                        <label for="presupuesto" class="form-label" for="presupuestoCatering">Precio de catering</label> 
+                                        <div class="input-group mb-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">$</div>
+                                            </div>
+                                            <!--  [(ngModel)]="presupuestoCatering"  -->
+                                            <input type="number" class="form-control" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <div *ngIf='eventoSaveError.condicional' class="row col-10">
-                            <div class="alert alert-danger">{{eventoSaveError.mensaje}}</div>
+                </section>
+            </div>
+            <!--===============================================================================================-->
+
+            <!--===============================================================================================-->
+            <div [ngStyle]="{'display': (isStep(5)) ? 'block' : 'none' }">
+                <section class="nuevo-evento-step">
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="row">
+                                <div class="col-4">
+                                    <h2>Finalizar reserva</h2>
+                                    <p>Complete con los datos del cliente</p>
+                                </div>
+                                <div *ngIf='error.condicional' class="col-4">
+                                    <div class="alert alert-danger">{{error.mensaje}}</div>
+                                </div>
+                                <div *ngIf='usuarioCondicional' id="clienteEncontrado" class="col-4">
+                                    <div class="alert alert-success" role="alert">Cliente encontrado </div>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="form-group col-md-6">
+                                    <label for="celular" class="form-label">Celular 
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="buscarClientePorCelular()">
+                                            <i class="fas fa-search fa-xs"></i>
+                                        </button>
+                                    </label>
+                                    <!--  [(ngModel)]="evento.cliente.celular"  -->
+                                    <input type="number" class="form-control">
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label for="email" class="form-label">E-mail 
+                                        <button type="button" class="btn btn-primary btn-sm" (click)="buscarClientePorEmail()">
+                                            <i class="fas fa-search fa-xs"></i>
+                                        </button>
+                                    </label>
+                                    <!--  [(ngModel)]="evento.cliente.email"  -->
+                                    <input type="email" class="form-control email">
+                                    <small type="text" class="form-text text-muted">(Si no carga email no se enviará el comprobante)</small>
+                                </div>
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <!--  [(ngModel)]="evento.cliente.nombre"  -->
+                                    <label for="nombreCliente" class="form-label">Nombre</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                                <div class="col-md-6">
+                                    <!--   [(ngModel)]="evento.cliente.apellido"  -->
+                                    <label for="apellido" class="form-label">Apellido</label>
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="col-md-6 mt-2">
+                                <h3>Estado de reserva</h3> 
+                            </div>
+
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label for="estado" class="form-label">Estado</label>
+                                    <!--   [(ngModel)]="evento.estado"  -->
+                                    <select class="form-select">
+                                        <option [value]="0" hidden>Seleccione el estado del evento</option>
+                                        <option *ngFor="let estado of listaEstadoEvento | orderAbmById" [value]="estado">{{estado}}</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <!--   [(ngModel)]='evento.anotaciones' -->
+                                    <label for="anotaciones" class="form-label">Anotaciones</label> 
+                                    <input type="text" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div *ngIf='eventoSaveError.condicional' class="row col-10">
+                                <div class="alert alert-danger">{{eventoSaveError.mensaje}}</div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </section>
-        </div>
-        <!--===============================================================================================-->
-
+                </section>
+            </div>
+            <!--===============================================================================================-->
+        </form>
     </div>
+
+    <app-spinner [spinnerVisible]="spinnerVisible"></app-spinner>
+
 
     <div class="botones-nuevo-evento">
         <button (click)="atras()" [disabled]="botonAtrasDisabled" type="button" [ngClass]="botonAtrasDisabled ? 'btn btn-secondary' : 'btn btn-primary'" class="mx-2">Atras</button>
         <button (click)="siguiente()" type="button" class="btn btn-primary">{{botonSiguienteFinalizado}}</button>
     </div>
 </div>
+
+<app-modal-informativo></app-modal-informativo>
 

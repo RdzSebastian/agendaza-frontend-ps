@@ -24,7 +24,7 @@
                             <button type="button"
                                 class="btn btn-ligh position-absolute end-0 top-50 translate-middle-y me-2"
                                 (click)="togglePasswordVisibility()" style="text-decoration: none;">
-                                <i class="fas" [ngClass]="{'fa-eye': showPassword, 'fa-eye-slash': !showPassword}"></i>
+                                <i class="fas" [ngClass]="{'fa-eye': !showPassword, 'fa-eye-slash': showPassword}"></i>
                             </button>
                         </div>
 

@@ -38,6 +38,7 @@ export class AbmDataTableHeaderComponent implements OnInit {
 
   outputPalabraBuscar() {
     this.outputBuscar.emit(this.buscar);
+    
   }
 
   actualizaBuscar(){
@@ -53,4 +54,17 @@ export class AbmDataTableHeaderComponent implements OnInit {
     this.outputPageNumber.emit(this.pageNumber);    
   }
 
+  private routeMap: { [key: string]: string } = {
+    'Eventos': '/saveEvento',
+    'Extras': '/saveExtraEvento',
+    'Pagos': '/savePago',
+    'Empleados': '/saveUsuario',
+    'Tipo Eventos': '/saveTipoEvento',
+    'Servicios': '/saveServicio',
+    'Catering': '/saveExtraCatering'
+  };
+
+  getRoute(): string {
+    return this.routeMap[this.titulo] || '';
+  }
 }

@@ -9,10 +9,10 @@
     </div>
 
     <div class="botonera">
-        <a class="btn btn-primary mx-2" data-toggle="modal"><span>Volver</span></a>
+        <a class="btn btn-primary mx-2" data-toggle="modal"><span [routerLink]="['/panelAdmin']">Volver</span></a>
         <a class="btn btn-success agregar-icon" data-toggle="modal">
-            <i class="fas fa-plus-circle mx-1" ></i> 
-            <span>Agregar</span>
+            <i class="fas fa-plus-circle mx-1"></i> 
+            <span [routerLink]="getRoute()">Agregar</span>
         </a>
     </div>
 </div>

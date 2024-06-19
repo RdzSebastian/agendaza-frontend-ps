@@ -35,7 +35,7 @@ export class AgendaComponent implements OnInit {
     headerToolbar: {
       left: 'prev,next',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,listWeek'
+      right: 'dayGridMonth,listWeek'
     },
     initialView: 'dayGridMonth',
     locale: 'es',

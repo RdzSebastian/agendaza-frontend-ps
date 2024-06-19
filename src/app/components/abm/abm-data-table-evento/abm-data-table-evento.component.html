@@ -20,12 +20,12 @@
                 <td class="hide-on-phone">{{item.fin | date: "HH:mm"}}</td>
 
                 <td class="d-flex justify-content-center">
-                    <button (click)="pagos(item.id)" class="mx-2"><i class="fas fa-file-invoice-dollar text-success fa-lg"></i></button>
-                    <button (click)="extras(item.id)" class="mx-2"><i class="fas fa-asterisk text-warning fa-lg"></i></button>
-                    <button (click)="catering(item.id)" class="mx-2"><i class="fas fa-utensils text-warning fa-lg"></i></button>
-                    <button (click)="hora(item.id)" class="mx-2"><i class="fas fa-clock text-primary fa-lg"></i></button>
-                    <button (click)="ver(item.id)" class="mx-2"><i class="fas fa-eye text-primary fa-lg"></i></button>
-                    <button (click)="modalParaEliminar(item.id, item.nombre)" class="mx-2"><i class="fas fa-trash text-danger fa-lg"></i></button>
+                    <button (click)="pagos(item.id)" class="mx-2"><i class="fas fa-file-invoice-dollar text-success fa-lg" data-bs-toggle="tooltip" title="Pagos"></i></button>
+                    <button (click)="extras(item.id)" class="mx-2"><i class="fas fa-asterisk text-warning fa-lg" data-bs-toggle="tooltip" title="Editar Extras"></i></button>
+                    <button (click)="catering(item.id)" class="mx-2"><i class="fas fa-utensils text-warning fa-lg" data-bs-toggle="tooltip" title="Editar Catering"></i></button>
+                    <button (click)="hora(item.id)" class="mx-2"><i class="fas fa-clock text-primary fa-lg" data-bs-toggle="tooltip" title="Editar Horario"></i></button>
+                    <button (click)="ver(item.id)" class="mx-2"><i class="fas fa-eye text-primary fa-lg" data-bs-toggle="tooltip" title="Ver Evento"></i></button>
+                    <button (click)="modalParaEliminar(item.id, item.nombre)" class="mx-2"><i class="fas fa-trash text-danger fa-lg" data-bs-toggle="tooltip" title="Eliminar"></i></button>
                 </td>
             </tr>
         </tbody>

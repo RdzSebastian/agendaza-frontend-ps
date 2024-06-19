@@ -11,6 +11,8 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 export class EditUsuarioPasswordComponent implements OnInit {
 
   usuarioEditPassword = new UsuarioEditPassword(0, "")
+  showNewPassword = false
+  showRepeatPassword= false
 
   constructor(private usuarioService : UsuarioService, private router : Router, private loginService : LoginService) { }
 
@@ -27,4 +29,10 @@ export class EditUsuarioPasswordComponent implements OnInit {
     this.router.navigateByUrl('/editUsuarioPerfil')
   }
 
+  toggleNewPasswordVisibility() {
+    this.showNewPassword = !this.showNewPassword
+  }
+  toggleRepeatPasswordVisibility() {
+    this.showRepeatPassword = !this.showRepeatPassword
+  }
 }

@@ -75,7 +75,6 @@ export class SaveEventoComponent implements OnInit {
   extraPresupuesto : number = 0
   extraCamarera : ExtraVariable = new ExtraVariable(0,"",0,0)
   extraNino : ExtraVariable = new ExtraVariable(0,"",0,0)
-  presupuesto : number = 0
 
   // Catering
   listaExtraTipoCatering : Array<Extra> = []
@@ -84,7 +83,6 @@ export class SaveEventoComponent implements OnInit {
   cateringOtro : boolean = false
   extraTipoCateringPresupuesto : number = 0
   extraCateringPresupuesto : number = 0
-  presupuestoCatering : number = 0
 
   // Datos del contacto
   listaEstadoEvento : Array<string> = []
@@ -105,6 +103,8 @@ export class SaveEventoComponent implements OnInit {
   // Validacion
   formGroup!: FormGroup
   submited : Boolean = false
+  datosEvento : string = "datosEvento"
+  cliente : string = "cliente"
 
   // -------------------------- Inicializacion --------------------------------
 
@@ -115,39 +115,62 @@ export class SaveEventoComponent implements OnInit {
 
       this.formGroup = this.formBuilder.group({
         datosEvento: this.formBuilder.group({
-          duracion: new FormControl('', [Validators.required]),
-          tipoEvento: new FormControl('', [Validators.required])
+          duracion: new FormControl('CORTO', [Validators.required]),
+          tipoEvento: new FormControl(0, [Validators.required]),
+          capacidadAdultos: new FormControl(0, [Validators.required, Validators.min(1)]),
+          capacidadNinos: new FormControl(0, [Validators.required]),
+          nombreEvento: new FormControl('', [Validators.required, Validators.minLength(3)]),
+          extraOtro: new FormControl(0, [Validators.required, Validators.minLength(0)]),
+          descuento: new FormControl(0, [Validators.required, Validators.minLength(0)]),
+          presupuesto: new FormControl({value: 0, disabled: true}),
+          agregarCateringCheckbox: new FormControl({value: false, disabled: false}),
+          cateringOtroCheckbox: new FormControl({value: false, disabled: false}),
+          presupuestoCatering: new FormControl({value: 0, disabled: true}),
         }),
         cliente: this.formBuilder.group({
           nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
           apellido: new FormControl('', [Validators.required, Validators.minLength(3)]),
-          cuil: new FormControl('', [Validators.required, Validators.min(999999999)]),
           email: new FormControl('', [Validators.required, Validators.email]),
-          ciudad: new FormControl('', [Validators.required, Validators.minLength(3)]),
-          provincia: new FormControl('', [Validators.required, Validators.minLength(3)]),
-          codigoPostal: new FormControl('', [Validators.required, Validators.min(999)]),
           celular: new FormControl('', [Validators.required, Validators.min(999999999)]),
-          sexo: new FormControl('', [Validators.required]),
-          fechaNacimiento: new FormControl('', [Validators.required]),
-          empresa: new FormControl('')
+          estado: new FormControl('RESERVADO', [Validators.required]),
+          anotaciones: new FormControl(''),
         })
       })
   }
 
-  get duracion(){ return this.formGroup.get('datosEvento')?.get('duracion') }
-  get tipoEvento(){ return this.formGroup.get('datosEvento')?.get('tipoEvento') }
+  // get de todos las variables que se usan para el validator
+  get duracion(){ return this.formGroup.get(this.datosEvento)?.get('duracion') }
+  get tipoEvento(){ return this.formGroup.get(this.datosEvento)?.get('tipoEvento') }
+  get capacidadAdultos(){ return this.formGroup.get(this.datosEvento)?.get('capacidadAdultos') }
+  get capacidadNinos(){ return this.formGroup.get(this.datosEvento)?.get('capacidadNinos') }
+  get nombreEvento(){ return this.formGroup.get(this.datosEvento)?.get('nombreEvento') }
+  get extraOtro(){ return this.formGroup.get(this.datosEvento)?.get('extraOtro') }
+  get descuento() { return this.formGroup.get(this.datosEvento)?.get('descuento') }
+  get presupuesto() { return this.formGroup.get(this.datosEvento)?.get('presupuesto') }
+  get agregarCateringCheckbox() { return this.formGroup.get(this.datosEvento)?.get('agregarCateringCheckbox') }
+  get cateringOtroCheckbox() { return this.formGroup.get(this.datosEvento)?.get('cateringOtroCheckbox') }
+  get presupuestoCatering() { return this.formGroup.get(this.datosEvento)?.get('presupuestoCatering') }
+
+  get nombre(){ return this.formGroup.get(this.cliente)?.get("nombre") }
+  get apellido(){ return this.formGroup.get(this.cliente)?.get("apellido") }
+  get email(){ return this.formGroup.get(this.cliente)?.get("email") }
+  get celular(){ return this.formGroup.get(this.cliente)?.get("celular") }
+  get estado(){ return this.formGroup.get(this.cliente)?.get("estado") }
+  get anotaciones(){ return this.formGroup.get(this.cliente)?.get("anotaciones") }
 
   async ngOnInit(): Promise<void> {
     // Tipo de evento
-    this.listaDuracion = await this.tipoEventoService.getAllDuracion()
+    this.listaDuracion = await this.tipoEventoService.getAllDuracion()    
     this.empresa = await this.empresaService.getEmpresa()
-    this.filterTipoEventoByDuracion()
-
+    
     // Datos del evento
     this.listaDia = DateUtil.getAllDaysOfMonth(this.currentYear, 0)
 
     // Datos del contacto
     this.listaEstadoEvento = await this.eventoService.getAllEstadoForSaveEvento()
+    
+    // Trae lista tipo evento by duracion
+    this.filterTipoEventoByDuracion()
   }
 
   // ---------------------------------------------------------------------------
@@ -155,9 +178,16 @@ export class SaveEventoComponent implements OnInit {
   // ------------------------ Datos del Evento ---------------------------------
 
   async filterTipoEventoByDuracion(){
+
+    this.duracionSeleccionada = this.duracion?.getRawValue()
+
     // Tipo de evento
     this.listaTipoEvento = await this.tipoEventoService.getAllTipoEventoByEmpresaIdAndDuracion(this.duracionSeleccionada)
     
+    // Setea el primer valor ordenado por la letra que comienza
+    this.tipoEvento?.setValue(_.minBy(this.listaTipoEvento, 'nombre')?.id)
+    
+    // Servicios
     this.listaServicio =[]
 
     // Cotizacion
@@ -169,9 +199,12 @@ export class SaveEventoComponent implements OnInit {
     this.listaExtraCateringVariable = []
 
     this.cleanEvento()
+    this.inicializarByTipoEventoId()
   }
 
   async inicializarByTipoEventoId(){
+
+    this.evento.tipoEventoId = this.tipoEvento?.getRawValue()
 
     // Datos del evento
     this.cleanEvento()
@@ -192,6 +225,7 @@ export class SaveEventoComponent implements OnInit {
 
     this.changeCapacidadAdultos()
     this.changeCapacidadNinos()
+
   }
 
   getAllDaysOfMonth(year : number, mes: number){
@@ -316,10 +350,10 @@ export class SaveEventoComponent implements OnInit {
   }
 
   sumPresupuesto(){
-    this.presupuesto = this.precioTipoEvento + this.extraPresupuesto + this.evento.extraOtro
+    this.presupuesto?.setValue(this.precioTipoEvento + this.extraPresupuesto + this.evento.extraOtro)
 
     if(this.evento.descuento != 0){
-      this.presupuesto -= this.presupuesto * (this.evento.descuento / 100)
+      this.presupuesto?.setValue(this.presupuesto.getRawValue() - (this.presupuesto.getRawValue() * (this.evento.descuento / 100)))
     }
   }
 
@@ -354,9 +388,9 @@ export class SaveEventoComponent implements OnInit {
 
   sumCateringPresupuesto(){
     if(this.cateringOtro){
-      this.presupuestoCatering = this.extraCateringPresupuesto + this.evento.cateringOtro * this.evento.capacidad.capacidadAdultos
+      this.presupuestoCatering?.setValue(this.extraCateringPresupuesto + this.evento.cateringOtro * this.evento.capacidad.capacidadAdultos)
     }else{
-      this.presupuestoCatering = this.extraCateringPresupuesto + this.extraTipoCateringPresupuesto
+      this.presupuestoCatering?.setValue(this.extraCateringPresupuesto + this.extraTipoCateringPresupuesto)
     }
   }
 

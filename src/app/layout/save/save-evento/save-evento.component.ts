@@ -10,6 +10,7 @@ import { Extra } from 'src/app/model/Extra';
 import { ExtraVariable } from 'src/app/model/ExtraVariable';
 import { FechaForm } from 'src/app/model/FechaForm';
 import { GenericItem } from 'src/app/model/GenericItem';
+import { StepBox } from 'src/app/model/StepBox';
 import { Time } from 'src/app/model/Time';
 import { TipoEvento } from 'src/app/model/TipoEvento';
 import { Cliente } from 'src/app/model/Usuario';
@@ -29,17 +30,6 @@ import { ErrorMensaje, mostrarErrorConMensaje } from 'src/util/errorHandler';
   styleUrls: ['./save-evento.component.css']
 })
 export class SaveEventoComponent implements OnInit {
-  
-  step : number = 1
-  listaStepBox : Array<GenericItem> = [
-    new GenericItem(1, "Tipo de evento"),
-    new GenericItem(2, "Datos del evento"),
-    new GenericItem(3, "Cotizacion"),
-    new GenericItem(4, "Catering"),
-    new GenericItem(5, "Datos de contacto")
-  ]
-  botonSiguienteFinalizado : string = "Siguiente"
-  botonAtrasDisabled = true
 
   evento : Evento = Evento.getEventoVoid()
 
@@ -103,8 +93,12 @@ export class SaveEventoComponent implements OnInit {
   // Validacion
   formGroup!: FormGroup
   submited : Boolean = false
-  datosEvento : string = "datosEvento"
-  cliente : string = "cliente"
+
+  tipoEventoStep : string = "tipoEventoStep"
+  datosEventoStep : string = "datosEventoStep"
+  cotizacionStep : string = "cotizacionStep"
+  cateringStep : string = "cateringStep" 
+  clienteStep : string = "clienteStep"
 
   // -------------------------- Inicializacion --------------------------------
 
@@ -114,23 +108,29 @@ export class SaveEventoComponent implements OnInit {
     public router : Router, private formBuilder: FormBuilder) { 
 
       this.formGroup = this.formBuilder.group({
-        datosEvento: this.formBuilder.group({
+        tipoEventoStep: this.formBuilder.group({
           duracion: new FormControl('CORTO', [Validators.required]),
           tipoEvento: new FormControl(0, [Validators.required]),
           capacidadAdultos: new FormControl(0, [Validators.required, Validators.min(1)]),
-          capacidadNinos: new FormControl(0, [Validators.required]),
+          capacidadNinos: new FormControl(0, [Validators.required])
+        }),
+        datosEventoStep: this.formBuilder.group({
           nombreEvento: new FormControl('', [Validators.required, Validators.minLength(3)]),
+        }),
+        cotizacionStep: this.formBuilder.group({  
           extraOtro: new FormControl(0, [Validators.required, Validators.minLength(0)]),
           descuento: new FormControl(0, [Validators.required, Validators.minLength(0)]),
           presupuesto: new FormControl({value: 0, disabled: true}),
+        }),
+        cateringStep: this.formBuilder.group({  
           agregarCateringCheckbox: new FormControl({value: false, disabled: false}),
           cateringOtroCheckbox: new FormControl({value: false, disabled: false}),
           presupuestoCatering: new FormControl({value: 0, disabled: true}),
         }),
-        cliente: this.formBuilder.group({
+        clienteStep: this.formBuilder.group({
           nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
           apellido: new FormControl('', [Validators.required, Validators.minLength(3)]),
-          email: new FormControl('', [Validators.required, Validators.email]),
+          email: new FormControl('', [Validators.email]),
           celular: new FormControl('', [Validators.required, Validators.min(999999999)]),
           estado: new FormControl('RESERVADO', [Validators.required]),
           anotaciones: new FormControl(''),
@@ -139,24 +139,27 @@ export class SaveEventoComponent implements OnInit {
   }
 
   // get de todos las variables que se usan para el validator
-  get duracion(){ return this.formGroup.get(this.datosEvento)?.get('duracion') }
-  get tipoEvento(){ return this.formGroup.get(this.datosEvento)?.get('tipoEvento') }
-  get capacidadAdultos(){ return this.formGroup.get(this.datosEvento)?.get('capacidadAdultos') }
-  get capacidadNinos(){ return this.formGroup.get(this.datosEvento)?.get('capacidadNinos') }
-  get nombreEvento(){ return this.formGroup.get(this.datosEvento)?.get('nombreEvento') }
-  get extraOtro(){ return this.formGroup.get(this.datosEvento)?.get('extraOtro') }
-  get descuento() { return this.formGroup.get(this.datosEvento)?.get('descuento') }
-  get presupuesto() { return this.formGroup.get(this.datosEvento)?.get('presupuesto') }
-  get agregarCateringCheckbox() { return this.formGroup.get(this.datosEvento)?.get('agregarCateringCheckbox') }
-  get cateringOtroCheckbox() { return this.formGroup.get(this.datosEvento)?.get('cateringOtroCheckbox') }
-  get presupuestoCatering() { return this.formGroup.get(this.datosEvento)?.get('presupuestoCatering') }
+  get duracion(){ return this.formGroup.get(this.tipoEventoStep)?.get('duracion') }
+  get tipoEvento(){ return this.formGroup.get(this.tipoEventoStep)?.get('tipoEvento') }
+  get capacidadAdultos(){ return this.formGroup.get(this.tipoEventoStep)?.get('capacidadAdultos') }
+  get capacidadNinos(){ return this.formGroup.get(this.tipoEventoStep)?.get('capacidadNinos') }
 
-  get nombre(){ return this.formGroup.get(this.cliente)?.get("nombre") }
-  get apellido(){ return this.formGroup.get(this.cliente)?.get("apellido") }
-  get email(){ return this.formGroup.get(this.cliente)?.get("email") }
-  get celular(){ return this.formGroup.get(this.cliente)?.get("celular") }
-  get estado(){ return this.formGroup.get(this.cliente)?.get("estado") }
-  get anotaciones(){ return this.formGroup.get(this.cliente)?.get("anotaciones") }
+  get nombreEvento(){ return this.formGroup.get(this.datosEventoStep)?.get('nombreEvento') }
+
+  get extraOtro(){ return this.formGroup.get(this.cotizacionStep)?.get('extraOtro') }
+  get descuento() { return this.formGroup.get(this.cotizacionStep)?.get('descuento') }
+  get presupuesto() { return this.formGroup.get(this.cotizacionStep)?.get('presupuesto') }
+
+  get agregarCateringCheckbox() { return this.formGroup.get(this.cateringStep)?.get('agregarCateringCheckbox') }
+  get cateringOtroCheckbox() { return this.formGroup.get(this.cateringStep)?.get('cateringOtroCheckbox') }
+  get presupuestoCatering() { return this.formGroup.get(this.cateringStep)?.get('presupuestoCatering') }
+
+  get nombre(){ return this.formGroup.get(this.clienteStep)?.get("nombre") }
+  get apellido(){ return this.formGroup.get(this.clienteStep)?.get("apellido") }
+  get email(){ return this.formGroup.get(this.clienteStep)?.get("email") }
+  get celular(){ return this.formGroup.get(this.clienteStep)?.get("celular") }
+  get estado(){ return this.formGroup.get(this.clienteStep)?.get("estado") }
+  get anotaciones(){ return this.formGroup.get(this.clienteStep)?.get("anotaciones") }
 
   async ngOnInit(): Promise<void> {
     // Tipo de evento
@@ -275,6 +278,8 @@ export class SaveEventoComponent implements OnInit {
   async changeCapacidadAdultos(){
     this.sumCateringPresupuesto()
 
+
+    /* TODO LOGICA DE EXTRA CAMARERA
     // Extra Camarera
     const capacidad = this.evento.capacidad.capacidadAdultos - this.capacidadTipoEvento.capacidadAdultos
     
@@ -301,6 +306,7 @@ export class SaveEventoComponent implements OnInit {
       }
     }
 
+    */ 
   }
 
   async changeCapacidadNinos(){
@@ -446,6 +452,18 @@ export class SaveEventoComponent implements OnInit {
 
 
   //-------------- Stepper ----------------------
+
+  step : number = 1
+  listaStepBox : Array<StepBox> = [
+    new StepBox(1, "Tipo de evento", true),
+    new StepBox(2, "Datos del evento", true),
+    new StepBox(3, "Cotizacion", true),
+    new StepBox(4, "Catering", true),
+    new StepBox(5, "Datos de contacto", true)
+  ]
+
+  botonSiguienteFinalizado : string = "Siguiente"
+  botonAtrasDisabled = true
   
   isStep(step : number) : boolean{
     return this.step == step
@@ -489,23 +507,33 @@ export class SaveEventoComponent implements OnInit {
 
     this.submited = true
 
+    this.actualizarValidStepBox()
+
     if(this.formGroup.valid){
+      this.modal.mostrarModal()
 
       this.spinnerVisible = true
 
       try{
         // Setea la fecha
         this.setFechaInicioAndFin()
-
-        //let res = await this.cotizacionService.save(new CotizacionDTO(this.formGroup.value))
-        //this.cliente = new CotizacionDTO(this.formGroup.value).cliente
-        //this.modal.mostrarModal()
+        //await this.eventoService.save(this.evento)
+        
+        
       }catch(error){
+        this.eventoSaveError.condicional = true
         console.log(error);
         this.spinnerVisible = false
-
       }
     }
+  }
+
+  actualizarValidStepBox(){
+    this.listaStepBox[0].valid = this.formGroup.get(this.tipoEventoStep)?.valid
+    this.listaStepBox[1].valid = this.formGroup.get(this.datosEventoStep)?.valid
+    this.listaStepBox[2].valid = this.formGroup.get(this.cotizacionStep)?.valid
+    this.listaStepBox[3].valid = this.formGroup.get(this.cateringStep)?.valid
+    this.listaStepBox[4].valid = this.formGroup.get(this.clienteStep)?.valid
   }
 
   botonSiguienteChangeName(){
@@ -520,53 +548,3 @@ export class SaveEventoComponent implements OnInit {
     this.botonAtrasDisabled = this.step == 1
   }
 }
-
-
-/*
-
-  async siguiente(){
-
-    this.botonAtrasDisabled= false
-
-    if(this.step == 4 || this.step == 5){
-      this.botonSiguienteFinalizado = "Finalizar"
-    }else{
-      this.botonSiguienteFinalizado = "Siguiente"
-    }
-
-    if(this.step == 5){
-      this.eventoSaveError.condicional = false
-
-      // Setea la fecha
-      this.setFechaInicioAndFin()
-
-      try{
-        await this.eventoService.save(this.evento)
-        this.router.navigateByUrl('/agenda')
-      }catch(error){
-        this.eventoSaveError.condicional = true
-      }
-    }
-
-    if(this.step >= 1 && this.step < 5){
-      this.step = this.step + 1
-    }
-
-  }
-  
-  atras(){
-    this.botonSiguienteFinalizado = "Siguiente"
-    this.eventoSaveError.condicional = false
-
-    if(this.step > 1 && this.step <= 5){
-      this.step = this.step - 1
-    }
-
-    if(this.step == 1){
-      this.botonAtrasDisabled = true
-    }
-  }
-
-  // ---------------------------------------------------------------------------
-
-}*/

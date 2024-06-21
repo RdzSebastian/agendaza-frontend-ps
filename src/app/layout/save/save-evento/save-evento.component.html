@@ -12,9 +12,9 @@
         <!--===============================================================================================-->
 
         <form [formGroup]="formGroup">
-            <div formGroupName="datosEvento">
+            
                 <!--===============================================================================================-->
-
+            <div formGroupName="tipoEventoStep">
                 <div [ngStyle]="{'display': (isStep(1)) ? 'block' : 'none' }">
                     <section class="nuevo-evento-step">
                         <div class="container">
@@ -51,7 +51,8 @@
                                         <div class="row mt-3">
                                             <div class="form-group col-6">
                                                 <label for="capacidadAdultos" class="form-label">Cantidad Adultos</label>
-                                                <input type="number" class="form-control" min="0" oninput="this.value = Math.abs(this.value)" 
+                                                <input type="number" class="form-control" min="0" oninput="this.value = Math.abs(this.value)"
+                                                    (change)="actualizarValidStepBox()"
                                                     [ngClass]="{'is-invalid': capacidadAdultos?.errors && submited}"
                                                     formControlName="capacidadAdultos"
                                                     (change)="changeCapacidadAdultos()">
@@ -75,10 +76,11 @@
                         </div>
                     </section>
                 </div>
-                
+            </div>    
                 <!--===============================================================================================-->
 
                 <!--===============================================================================================-->
+            <div formGroupName="datosEventoStep">
                 <div [ngStyle]="{'display': (isStep(2)) ? 'block' : 'none' }">
                     <section class="nuevo-evento-step">
                         <div class="row">
@@ -91,6 +93,7 @@
                                     <div class="form-group col-6">
                                         <label class="form-label">Nombre del evento</label> 
                                         <input type="text" class="form-control"
+                                            (change)="actualizarValidStepBox()"
                                             [ngClass]="{'is-invalid': nombreEvento?.errors && submited}"
                                             formControlName="nombreEvento">
                                     </div>
@@ -191,9 +194,11 @@
                         </div>
                     </section>
                 </div>
+            </div>
                 <!--===============================================================================================-->
 
                 <!--===============================================================================================-->
+            <div formGroupName="cotizacionStep">
                 <div [ngStyle]="{'display': (isStep(3)) ? 'block' : 'none' }">
                     <section class="nuevo-evento-step">
                         <h2>Presupuesto</h2>
@@ -271,9 +276,11 @@
                         </div>
                     </section>
                 </div>
-                <!--===============================================================================================-->
-            
-                <!--===============================================================================================-->
+            </div>
+            <!--===============================================================================================-->
+
+            <!--===============================================================================================-->
+            <div formGroupName="cateringStep">
                 <div [ngStyle]="{'display': (isStep(4)) ? 'block' : 'none' }">
                     <section class="nuevo-evento-step">
                         <div class="row">
@@ -368,7 +375,7 @@
             
             
                 <!--===============================================================================================-->
-            <div formGroupName="cliente">
+            <div formGroupName="clienteStep">
                 <div [ngStyle]="{'display': (isStep(5)) ? 'block' : 'none' }">
                     <section class="nuevo-evento-step">
                         <div class="row">
@@ -388,13 +395,20 @@
 
                                 <div class="row mt-2">
                                     <div class="form-group col-md-6">
-                                        <label for="celular" class="form-label">Celular 
-                                            <button type="button" class="btn btn-primary btn-sm" (click)="buscarClientePorCelular()">
-                                                <i class="fas fa-search fa-xs"></i>
-                                            </button>
-                                        </label>
-                                        <!--  [(ngModel)]="evento.cliente.celular"  -->
-                                        <input type="number" class="form-control">
+                                        <div class="label-with-error">
+                                            <label for="celular" class="form-label">Celular 
+                                                <button type="button" class="btn btn-primary btn-sm" (click)="buscarClientePorCelular()">
+                                                    <i class="fas fa-search fa-xs"></i>
+                                                </button>
+                                            </label>
+                                            <div *ngIf="celular?.invalid && celular?.touched || submited">
+                                                <span *ngIf="celular?.errors" class="invalid-validator">Ingrese celular</span>
+                                            </div>
+                                        </div>
+                                        <input type="number" class="form-control" 
+                                            (change)="actualizarValidStepBox()"
+                                            formControlName="celular"
+                                            [ngClass]="{'is-invalid': celular?.errors && submited }">
                                     </div>
 
                                     <div class="form-group col-md-6">
@@ -403,8 +417,7 @@
                                                 <i class="fas fa-search fa-xs"></i>
                                             </button>
                                         </label>
-                                        <!--  [(ngModel)]="evento.cliente.email"  -->
-                                        <input type="email" class="form-control email">
+                                        <input type="email" class="form-control email" formControlName="email">
                                         <small type="text" class="form-text text-muted">(Si no carga email no se enviará el comprobante)</small>
                                     </div>
                                 </div>
@@ -417,7 +430,9 @@
                                                 <span *ngIf="nombre?.errors" class="invalid-validator">Ingrese nombre</span>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control" formControlName="nombre"
+                                        <input type="text" class="form-control"
+                                        (change)="actualizarValidStepBox()"
+                                        formControlName="nombre"
                                         [ngClass]="{'is-invalid': nombre?.errors && submited }">
                                     </div>
                                     <div class="col-md-6">
@@ -427,8 +442,10 @@
                                                 <span *ngIf="apellido?.errors" class="invalid-validator">Ingrese apellido</span>
                                             </div>
                                         </div>
-                                        <input type="text" class="form-control" formControlName="apellido" 
-                                        [ngClass]="{'is-invalid': apellido?.errors && submited }" >
+                                        <input type="text" class="form-control"
+                                            (change)="actualizarValidStepBox()"
+                                            formControlName="apellido" 
+                                            [ngClass]="{'is-invalid': apellido?.errors && submited }">
                                     </div>
                                 </div>
 

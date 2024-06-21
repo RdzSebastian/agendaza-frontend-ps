@@ -12,3 +12,7 @@
 .step-box:hover {
     cursor:pointer;
 }
+
+.is-invalid-step {
+    background-color: #dc3545;
+}

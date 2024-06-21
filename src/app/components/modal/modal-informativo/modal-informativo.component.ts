@@ -24,7 +24,7 @@ export class ModalInformativoComponent implements OnInit {
   }
 
   volverHome() {
-    this.router.navigateByUrl('/')
+    this.router.navigateByUrl('/agenda')
   }
 
 }

@@ -2,14 +2,15 @@
 <button #modal type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" hidden></button>
 
 <div class="modal fade" id="exampleModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog" data-keyboard="true" data-backdrop="static">
         <div class="modal-content">
         <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel"><i class="fas fa-check-circle"></i></h1>
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Evento creado</h1>
             <button (click)="volverHome()" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="modal-body">
+        <div class="modal-body text-center">
             Se ha creado el evento satisfactoriamente
+            <i class="fas fa-check-circle text-success mx-1"></i>
         </div>
 
         </div>

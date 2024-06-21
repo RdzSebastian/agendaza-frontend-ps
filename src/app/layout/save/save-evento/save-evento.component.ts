@@ -529,11 +529,13 @@ export class SaveEventoComponent implements OnInit {
   }
 
   actualizarValidStepBox(){
-    this.listaStepBox[0].valid = this.formGroup.get(this.tipoEventoStep)?.valid
-    this.listaStepBox[1].valid = this.formGroup.get(this.datosEventoStep)?.valid
-    this.listaStepBox[2].valid = this.formGroup.get(this.cotizacionStep)?.valid
-    this.listaStepBox[3].valid = this.formGroup.get(this.cateringStep)?.valid
-    this.listaStepBox[4].valid = this.formGroup.get(this.clienteStep)?.valid
+    if(this.submited){
+      this.listaStepBox[0].valid = this.formGroup.get(this.tipoEventoStep)?.valid
+      this.listaStepBox[1].valid = this.formGroup.get(this.datosEventoStep)?.valid
+      this.listaStepBox[2].valid = this.formGroup.get(this.cotizacionStep)?.valid
+      this.listaStepBox[3].valid = this.formGroup.get(this.cateringStep)?.valid
+      this.listaStepBox[4].valid = this.formGroup.get(this.clienteStep)?.valid
+    }
   }
 
   botonSiguienteChangeName(){

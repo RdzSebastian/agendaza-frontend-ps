@@ -12,4 +12,7 @@ export class Capacidad{
         return new Capacidad(capacidadJSON.id, capacidadJSON.capacidadAdultos, capacidadJSON.capacidadNinos)
     }
 
+    static fromFormControl(capacidadAdultos: number, capacidadNinos: number): Capacidad {
+        return new Capacidad(0, capacidadAdultos, capacidadNinos)
+      }
 }

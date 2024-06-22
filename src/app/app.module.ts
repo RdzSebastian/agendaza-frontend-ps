@@ -68,6 +68,8 @@ import { VerClienteComponent } from './layout/ver/ver-cliente/ver-cliente.compon
 import { AbmDataTableHeaderComponent } from './components/abm/abm-data-table-header/abm-data-table-header.component';
 import { EditEmpleadoCargoComponent } from './layout/edit/edit-cargo-empleado/edit-cargo-empleado.component';
 import { EditUsuarioPerfilComponent } from './layout/edit/edit-usuario-perfil/edit-usuario-perfil.component';
+import { ModalInformativoComponent } from './components/modal/modal-informativo/modal-informativo.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -130,7 +132,9 @@ import { EditUsuarioPerfilComponent } from './layout/edit/edit-usuario-perfil/ed
     VerClienteComponent,
     AbmDataTableHeaderComponent,
     EditEmpleadoCargoComponent,
-    EditUsuarioPerfilComponent
+    EditUsuarioPerfilComponent,
+    ModalInformativoComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

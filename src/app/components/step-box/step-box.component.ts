@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { GenericItem } from 'src/app/model/GenericItem';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { StepBox } from 'src/app/model/StepBox';
 
 @Component({
   selector: 'app-step-box',
@@ -9,10 +9,13 @@ import { GenericItem } from 'src/app/model/GenericItem';
 export class StepBoxComponent implements OnInit {
 
   @Input()
-  stepBox! : GenericItem
+  stepBox! : StepBox
   
   @Input()
-  currentStep!: number; 
+  currentStep!: number;
+
+  @Output() 
+  outputStep = new EventEmitter<number>();
 
   constructor() { }
 
@@ -21,5 +24,14 @@ export class StepBoxComponent implements OnInit {
 
   isStep(id :number){
     return this.currentStep == id
+  }
+  
+  isValid(): boolean {
+    return (this.stepBox === undefined) ?  true : this.stepBox.valid!
+  }
+
+  goToStep(id: number){
+    console.log("step to:" + id)
+    this.outputStep.emit(id);
   }
 }

@@ -8,3 +8,11 @@
     background-color: whitesmoke;
     margin-bottom: 5px;
 }
+
+.step-box:hover {
+    cursor:pointer;
+}
+
+.is-invalid-step {
+    background-color: #dc3545;
+}
